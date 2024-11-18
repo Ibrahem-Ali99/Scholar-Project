@@ -37,5 +37,25 @@ This repository contains a Scrum board organized for agile project management, f
 - **Sprint Planning**: Assign tasks to `Next Sprint` or `My Current Sprint` to organize workload for upcoming sprints.
 - **Story Management**: Update each story's status by moving them across columns (Todo, In Progress, Done, Canceled).
 - **Epic Planning**: Use the Epics tab to map out high-level tasks and align them with project milestones.
+## Database Setup
 
+### Schema Creation
+- The `schema.sql` file contains the structure of the database.
+- To create the database, run the following command:
+  ```bash
+  mysql -u <username> -p < database/schema.sql
+  
+### Seeding Initial Data
+- The seed_data.sql file contains initial data for the database.
+- To populate the database, run:
+  ```bash
+  mysql -u <username> -p < database/seed_data.sql
+
+### Verify Setup
+- Log in to MySQL and check the tables and data:
+```bash
+mysql -u <username> -p
+USE <database_name>;
+SHOW TABLES;
+SELECT * FROM <table_name>;
 This setup provides a streamlined view of the project’s progress, enabling easy tracking of tasks, sprint planning, and epic management for both individual and team-oriented workflows.
