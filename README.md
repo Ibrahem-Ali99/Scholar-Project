@@ -58,4 +58,3 @@ mysql -u <username> -p
 USE <database_name>;
 SHOW TABLES;
 SELECT * FROM <table_name>;
-This setup provides a streamlined view of the project’s progress, enabling easy tracking of tasks, sprint planning, and epic management for both individual and team-oriented workflows.
