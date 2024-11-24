@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/Header.css';
+import './Header.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 function Header() {
