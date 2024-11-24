@@ -1,0 +1,54 @@
+.feature-offerings {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin: 80px 0; /* Increase vertical spacing */
+    gap: 50px; /* Add spacing between the cards */
+    flex-wrap: wrap; /* Enable wrapping for smaller screens */
+}
+
+.feature-card {
+    text-align: center;
+    background-color: #f9f9f9; /* Light box color */
+    border-radius: 20px;
+    padding: 30px 20px; /* Increase padding for better spacing */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Add a stronger shadow */
+    width: 320px; /* Increase card width */
+    transition: all 0.3s ease;
+    margin-top: 60px; /* Increase vertical margin */
+}
+
+.feature-card .icon {
+    width: 130px;
+    height: 130px; /* Increase icon container size */
+    margin: 0 auto;
+    background-color: #7c4dff; /* Purple icon background */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.feature-card .icon i {
+    font-size: 60px; /* Increase icon size */
+    color: white;
+}
+
+.feature-card .icon:hover {
+    transform: translateY(-12px); /* Enhance hover effect for icons */
+}
+
+.feature-card h3 {
+    font-size: 24px; /* Increase title size */
+    margin: 20px 0;
+    color: #333;
+    font-weight: bold;
+}
+
+.feature-card p {
+    font-size: 16px;
+    color: #555;
+    margin: 15px 0 25px;
+    line-height: 1.5; /* Enhance readability */
+}
