@@ -36,10 +36,10 @@
 
 .search-input input {
     border: none;
-    border-radius: 25px;
-    padding: 10px 40px 10px 15px; /* Add padding on the right for the search icon */
-    font-size: 1rem;
-    width: 250px; /* Adjust width */
+    border-radius: 30px; /* Slightly increased the roundness */
+    padding: 12px 50px 12px 20px; /* Increased padding for better ratio */
+    font-size: 1.1rem; /* Slightly larger font size */
+    width: 350px; /* Increased the width */
     background-color: white; /* Search bar background */
     color: #333; /* Dark text */
     outline: none;
@@ -49,31 +49,31 @@
 }
 
 .search-input input:focus {
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-    width: 300px; /* Expand on focus */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 400px; /* Expand width on focus */
 }
 
 .search-input .fa-search {
     position: absolute;
-    right: 15px; /* Position the icon appropriately */
-    color: #7c4dff; /* Match purple */
-    font-size: 1.2rem;
+    right: 20px; /* Adjusted for better alignment */
+    color: #7c4dff; /* Match the purple theme */
+    font-size: 1.5rem; /* Increased icon size slightly */
     cursor: pointer;
-    pointer-events: none; /* Make the icon non-interactive */
+    pointer-events: none; /* Keep the icon non-interactive */
 }
 
 /* Navigation menu styling */
 .nav {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 40px;
     margin: 0;
 }
 
 .nav li a {
     color: white;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 1.3rem;
     padding: 5px 10px;
     border-radius: 20px;
     transition: background-color 0.3s ease, transform 0.2s ease;

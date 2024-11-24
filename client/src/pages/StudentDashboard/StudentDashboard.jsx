@@ -1,16 +1,17 @@
 import React from "react";
 import Header from "../../components/Header/Header";
+import MainBanner from "../../components/MainBanner/MainBanner";
+import FeatureOffering from "../../components/FeatureOffering/FeatureOffering";
+
 
 function StudentDashboard() {
-    return (
-        <div className="page-background">
-            <Header />
-            <div className="welcome-message">Welcome to the Student Dashboard</div>
-            <section className="section">
-                {/* Other components or sections */}
-            </section>
-        </div>
-    );
+  return (
+    <div className="student-dashboard">
+      <Header />
+      <MainBanner />
+      <FeatureOffering />
+    </div>
+  );
 }
 
 export default StudentDashboard;

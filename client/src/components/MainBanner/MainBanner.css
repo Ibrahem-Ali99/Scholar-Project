@@ -1,0 +1,42 @@
+.main-banner {
+    background-color: #6a5acd; /* Purple background */
+    border-bottom-right-radius: 200px; /* Adjust radius for scrollable effect */
+    height: 500px; /* Increase height for scrolling */
+    background-image: url("../assets/images/banner-bg.jpg"); /* Include background image */
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px; /* Add padding for responsiveness */
+}
+
+.main-banner .header-text {
+    color: #fff;
+    text-align: center;
+}
+
+.main-banner h2 {
+    font-size: 48px; /* Larger title font */
+    font-weight: bold;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.main-banner p {
+    font-size: 18px;
+    color: #d3d3d3; /* Subtle secondary color */
+    width: 70%;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.main-banner .subtitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 30px;
+}
