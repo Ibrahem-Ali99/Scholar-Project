@@ -8,7 +8,6 @@
     z-index: 1000;
     width: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
 }
 
 /* Main navigation styling */
@@ -36,30 +35,30 @@
 
 .search-input input {
     border: none;
-    border-radius: 30px; /* Slightly increased the roundness */
-    padding: 12px 50px 12px 20px; /* Increased padding for better ratio */
-    font-size: 1.1rem; /* Slightly larger font size */
-    width: 350px; /* Increased the width */
-    background-color: white; /* Search bar background */
-    color: #333; /* Dark text */
+    border-radius: 30px;
+    padding: 12px 50px 12px 20px;
+    font-size: 1.1rem;
+    width: 350px;
+    background-color: white;
+    color: #333;
     outline: none;
     transition: box-shadow 0.3s ease, width 0.3s ease;
     overflow: hidden;
-    text-overflow: ellipsis; /* Ensure overflowed text is truncated */
+    text-overflow: ellipsis;
 }
 
 .search-input input:focus {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 400px; /* Expand width on focus */
+    width: 400px;
 }
 
 .search-input .fa-search {
     position: absolute;
-    right: 20px; /* Adjusted for better alignment */
-    color: #7c4dff; /* Match the purple theme */
-    font-size: 1.5rem; /* Increased icon size slightly */
+    right: 20px;
+    color: #7c4dff;
+    font-size: 1.5rem;
     cursor: pointer;
-    pointer-events: none; /* Keep the icon non-interactive */
+    pointer-events: none;
 }
 
 /* Navigation menu styling */
@@ -82,6 +81,19 @@
 .nav li a:hover {
     background-color: rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
+}
+
+/* Profile icon styling */
+.nav li a.profile-icon {
+    font-size: 2.2rem; /* Slightly larger for emphasis */
+    padding: 0; /* Remove padding for the icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav li a.profile-icon:hover {
+    color: #f1f0fe;
 }
 
 /* Menu trigger for smaller screens */
