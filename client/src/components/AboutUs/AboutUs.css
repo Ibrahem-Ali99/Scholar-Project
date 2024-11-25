@@ -1,0 +1,95 @@
+.about-us {
+  position: relative;
+  padding: 0px;
+  margin-top: 130px;
+}
+
+.about-us:before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  width: 84%;
+  height: 100%;
+  background-color: #f1f0fe;
+  content: '';
+  border-top-left-radius: 500px;
+  border-bottom-left-radius: 500px;
+}
+
+.accordion {
+  margin-top: -40px;
+  margin-bottom: -40px;
+  background-color: #7a6ad8;
+  border-radius: 60px; /* Bigger roundness */
+  padding: 120px 80px; /* Adjust size for larger layout */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Keep shadow for visibility */
+}
+
+.accordion-item {
+  background-color: #fff;
+  border-radius: 60px !important; /* Match larger roundness */
+  margin-bottom: 40px;
+  border: none;
+}
+
+.accordion-item .accordion-button {
+  outline: none;
+  box-shadow: none;
+  border-radius: 60px !important; /* Match item roundness */
+  padding: 20px 30px; /* Increase padding for larger appearance */
+  font-size: 18px; /* Slightly larger font size */
+  font-weight: bold; /* Make the text clearer and bold */
+  color: #333; /* Keep text color clear */
+  transition: none; /* Remove unnecessary transitions if any */
+}
+
+.accordion-button:not(.collapsed) {
+  color: #7a6ad8;
+  background-color: #fff !important; /* Ensure no color appears when expanded */
+  box-shadow: none; /* Remove blue effect */
+}
+
+.accordion-button::after {
+  display: none; /* Completely remove the blue arrow */
+}
+
+.accordion-button:focus {
+  box-shadow: none; /* Remove the focus shadow */
+  background-color: inherit; /* Remove the blue background color */
+}
+
+.accordion-body {
+  padding: 20px 30px; /* Adjust padding for readability */
+  font-size: 16px; /* Keep text size clear */
+  line-height: 1.6;
+  color: #4a4a4a;
+}
+
+.about-us .section-heading {
+  margin-left: 60px;
+  margin-bottom: 0px;
+}
+
+.about-us .section-heading h6 {
+  font-size: 14px;
+  color: #7a6ad8;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.about-us .section-heading h2 {
+  font-size: 28px; /* Increased heading size */
+  font-weight: 700; /* Bold for better emphasis */
+  color: #333; /* Match text style */
+}
+
+.about-us .section-heading p {
+  font-size: 16px;
+  color: #555; /* Softer text for clarity */
+}
+
+.about-us .section-heading .main-button {
+  display: none; /* Remove the discover more button */
+}
