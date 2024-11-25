@@ -1,42 +1,89 @@
+/* poppins-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../assets/fonts/poppins-v21-latin-regular.woff2') format('woff2');
+}
+/* poppins-600 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../../assets/fonts/poppins-v21-latin-600.woff2') format('woff2');
+}
+/* poppins-700 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../assets/fonts/poppins-v21-latin-700.woff2') format('woff2');
+}
+
 .main-banner {
-    background-color: #6a5acd; /* Purple background */
-    border-bottom-right-radius: 200px; /* Adjust radius for scrollable effect */
-    height: 500px; /* Increase height for scrolling */
-    background-image: url("../assets/images/banner-bg.jpg"); /* Include background image */
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 20px; /* Add padding for responsiveness */
+  background-color: #6a5acd; /* Purple background */
+  border-bottom-right-radius: 200px; /* Adjust radius for scrollable effect */
+  height: 500px; /* Increase height for scrolling */
+  background-image: linear-gradient(
+      to left,
+      rgba(106, 90, 205, 0.5),
+      /* Top color of gradient (with transparency) */ rgba(0, 0, 0, 0.5)
+        /* Bottom color of gradient (with transparency) */
+    ),
+    url('../../assets/images/banner-bg.jpg'); /* Include background image https://unsplash.com/s/photos/student-study-jam*/
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px; /* Add padding for responsiveness */
+  font-family: 'Poppins', sans-serif;
 }
 
 .main-banner .header-text {
-    color: #fff;
-    text-align: center;
+  color: #fff;
+  text-align: center;
 }
 
-.main-banner h2 {
-    font-size: 48px; /* Larger title font */
-    font-weight: bold;
-    line-height: 1.4;
-    margin-bottom: 20px;
-    color: white;
+.main-banner h1 {
+  font-size: 48px; /* Larger title font */
+  font-weight: bold;
+  line-height: 1.4;
+  margin-bottom: 40px;
+  color: white;
 }
 
 .main-banner p {
-    font-size: 18px;
-    color: #d3d3d3; /* Subtle secondary color */
-    width: 70%;
-    margin: 0 auto;
-    line-height: 1.6;
+  font-size: 18px;
+  color: #d3d3d3; /* Subtle secondary color */
+  width: 70%;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
-.main-banner .subtitle {
-    font-size: 20px;
-    font-weight: 600;
-    color: #fff;
-    margin-top: 30px;
+.main-banner .banner-subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+  .main-banner h1 {
+    font-size: 32px;
+  }
+  .main-banner p {
+    font-size: 16px;
+  }
+  .main-banner .banner-subtitle {
+    font-size: 18px;
+  }
+  .main-banner {
+    border-bottom-right-radius: 150px;
+  }
 }
