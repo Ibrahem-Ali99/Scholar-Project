@@ -1,14 +1,15 @@
-import React from "react";
-import "./MainBanner.css";
+import React from 'react';
+import './MainBanner.css';
 
-function MainBanner() {
+function MainBanner({ headerHeight }) {
   return (
-    <div className="main-banner">
+    <div className="main-banner" style={{ marginTop: `${headerHeight}px` }}>
       <div className="header-text">
         <h2>Empowering Students for a Brighter Future</h2>
         <p>
-          Our platform offers personalized live sessions, interactive learning tools, 
-          and a vibrant community to help students achieve their academic goals.
+          Our platform offers personalized live sessions, interactive learning
+          tools, and a vibrant community to help students achieve their academic
+          goals.
         </p>
         <p className="subtitle">Learn. Connect. Succeed.</p>
       </div>
