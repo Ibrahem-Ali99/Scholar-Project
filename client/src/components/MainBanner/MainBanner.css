@@ -26,7 +26,7 @@
 .main-banner {
   background-color: #6a5acd; /* Purple background */
   border-bottom-right-radius: 200px; /* Adjust radius for scrollable effect */
-  height: 500px; /* Increase height for scrolling */
+  height: 700px; /* Increase height for scrolling */
   background-image: linear-gradient(
       to left,
       rgba(106, 90, 205, 0.5),
@@ -60,7 +60,7 @@
 
 .main-banner p {
   font-size: 18px;
-  color: #d3d3d3; /* Subtle secondary color */
+  color: #e4e4e4; /* Subtle secondary color */
   width: 70%;
   margin: 0 auto;
   line-height: 1.6;
@@ -85,5 +85,6 @@
   }
   .main-banner {
     border-bottom-right-radius: 150px;
+    height: 500px;
   }
 }
