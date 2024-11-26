@@ -22,13 +22,13 @@ const features = [
 function FeatureOffering() {
     return (
         <section className="feature-offerings">
-            {features.map((feature, index) => (
-                <div className="feature-card" key={index}>
+            {features.map((feature) => (
+                <div className="feature-card" key={feature.id}>
                     <div className="icon">
                         <i className={`fa ${feature.icon}`} />
                     </div>
-                    <h3>{feature.title}</h3>
-                    <p>{feature.description}</p>
+                    <h3 className="feature-title">{feature.title}</h3>
+                    <p className="feature-description">{feature.description}</p>
                 </div>
             ))}
         </section>

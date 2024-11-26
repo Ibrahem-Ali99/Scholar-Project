@@ -18,7 +18,11 @@ function Header() {
                     <li><a href="#courses">Courses</a></li>
                     <li><a href="#team">Team</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Register Now!</a></li>
+                    <li>
+                        <a href="#profile" className="profile-icon">
+                            <i className="fa fa-user-circle"></i>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -26,4 +30,3 @@ function Header() {
 }
 
 export default Header;
-
