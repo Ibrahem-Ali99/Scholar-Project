@@ -1,0 +1,25 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Ignore IDE files
+.vscode/
+.idea/
+
+# Ignore migrations
+migrations/
+
+# System files
+.DS_Store
+Thumbs.db
+
+server/.env
