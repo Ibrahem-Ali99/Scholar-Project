@@ -1,150 +1,182 @@
-/* Global styling */
+/* Global styling for consistent layout and full-page centering */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: white;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-  }
-  
-  .auth-card {
-    display: flex;
-    width: 900px;
-    height: 500px;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    background: white;
-  }
-  
-  .left,
-  .right {
-    flex: 1;
-    padding: 40px;
-  }
-  
-  .left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; /* Center elements horizontally */
-  }
-  
-  .right {
-    background: linear-gradient(90deg, #7c4dff, #2575fc);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Scholar title */
-  .title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #7c4dff;
-    margin-bottom: 30px;
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  /* Google button */
-  .social-login {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .google {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background: #ea4335;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .google:hover {
-    background: #d9372d;
-  }
-  
-  /* Separator text */
-  .or {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 14px;
-    color: #888;
-    text-align: center;
-  }
-  
-  /* Form inputs */
-  form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  form input {
-    width: 80%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  form .btn {
-    width: 80%;
-    padding: 10px;
-    background: #7c4dff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  form .btn:hover {
-    background: #2575fc;
-  }
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', Arial, sans-serif; /* Use a clean, modern font */
+  background: #ffffff; /* Pure white background for simplicity */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .radio-group {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-  }
-  
-  .radio-group label {
-    font-size: 1rem;
-    color: #333;
-  }
-  
-  .radio-group input {
-    margin-right: 5px;
-  }
-  
-  .error {
-    color: red;
-    font-size: 0.9rem;
-    margin-bottom: 10px;
-  }
-  
-  .success {
-    color: green;
-    font-size: 0.9rem;
-    margin-bottom: 10px;
-  }
-  
+/* Container for the authentication card */
+.signup-page .auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  padding: 20px; /* Ensure proper spacing on smaller screens */
+}
+
+/* Authentication card styling */
+.signup-page .auth-card {
+  display: flex;
+  width: 100%;
+  max-width: 900px; /* Maintain responsiveness on smaller devices */
+  height: auto;
+  min-height: 650px; /* Increased minimum height to accommodate extra form elements */
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Softer shadow for modern look */
+  background: #ffffff;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+}
+
+/* Left section: form and inputs */
+.left,
+.right {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.left {
+  text-align: center;
+  overflow-y: auto; /* Add scrolling for smaller screens if necessary */
+}
+
+/* Right section: gradient and text */
+.right {
+  background: linear-gradient(90deg, #ff8a65, #f06292); /* Adjusted gradient for a fresh look */
+  color: #ffffff;
+  text-align: center;
+}
+
+/* Title for the form */
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #f06292; /* Match the gradient for cohesiveness */
+  margin-bottom: 30px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Social signup button (Google) */
+.social-signup {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.google {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  background: #ea4335;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.google:hover {
+  background: #d9372d;
+  transform: scale(1.05); /* Add a subtle hover effect */
+}
+
+/* Separator text */
+.or {
+  margin: 20px 0;
+  font-size: 14px;
+  color: #888888;
+  text-align: center;
+}
+
+/* Form input fields with improved styling */
+form input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc; /* Softer light-gray border */
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #333; /* Use a softer dark gray for text */
+  background-color: #f9f9f9; /* Light background for better contrast */
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+/* Placeholder styling */
+form input::placeholder {
+  color: #aaa; /* Light gray placeholder text */
+  font-size: 0.95rem;
+}
+
+/* Input focus styles */
+form input:focus {
+  border-color: #f06292; /* Accent color for focus */
+  box-shadow: 0 0 5px rgba(240, 98, 146, 0.4); /* Soft pink glow */
+  background-color: #ffffff; /* Subtle brightness on focus */
+  outline: none;
+}
+
+/* Submit button styles */
+form .btn {
+  width: 100%;
+  padding: 12px;
+  background: #f06292; /* Match gradient for consistency */
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+form .btn:hover {
+  background: #ff8a65; /* Use gradient’s lighter color */
+  transform: scale(1.05); /* Subtle zoom effect */
+}
+
+
+
+.dropdown-group {
+  margin: 15px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Dropdown label styling */
+.dropdown-label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* Dropdown select styling */
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 5px;
+  background-color: #f9f9f9; /* Subtle light background */
+  color: #333; /* Dark text for readability */
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+/* Focus effect for the dropdown */
+select:focus {
+  border-color: #f06292; 
+  box-shadow: 0 0 5px rgba(240, 98, 146, 0.4);
+  outline: none;
+}

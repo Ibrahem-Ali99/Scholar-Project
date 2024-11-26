@@ -1,11 +1,16 @@
 import './ForgotPassword.css';
 import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { forgotPassword } from '../../api/api';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handlePasswordReset = async (e) => {
     e.preventDefault();
@@ -13,25 +18,19 @@ function ForgotPassword() {
     setError('');
     setIsSubmitting(true);
 
+    if (!validateEmail(email)) {
+      setError('Please enter a valid email address.');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:5000/auth/forgot-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessage(data.message || 'Password reset link sent!');
-        setEmail(''); // Clear the input
-      } else {
-        setError(data.message || 'An error occurred. Please try again.');
-      }
-    } catch {
-      setError('Network error. Please try again later.');
+      const data = await forgotPassword(email);
+      setMessage(data.message || 'Password reset link sent!');
+      setEmail(''); // Clear the input
+      setTimeout(() => navigate('/login'), 2000); // Redirect to login after success
+    } catch (err) {
+      setError(err.message || 'An error occurred. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -58,7 +57,7 @@ function ForgotPassword() {
           </button>
         </form>
         <p className="back-to-login">
-          <a href="/login">Back to Login</a>
+          <Link to="/login">Back to Login</Link>
         </p>
       </div>
     </div>
