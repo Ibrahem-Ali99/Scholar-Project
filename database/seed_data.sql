@@ -90,3 +90,6 @@ INSERT INTO Student_notification (student_id, notification_id, is_pushed)
 VALUES
 (1, 1, TRUE),
 (2, 2, FALSE);
+
+
+

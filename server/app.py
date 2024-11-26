@@ -1,30 +1,22 @@
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask
 from flask_cors import CORS
-import os
+from utils.db import db
+from routes.courses import course_bp
+from config import Config
 
-# Initialize Flask app
-app = Flask(
-    __name__,
-    static_folder="../client/dist",  # Path to React build folder
-    static_url_path=""
-)
-CORS(app)
+app = Flask(__name__)
 
-# API Endpoint
-@app.route('/api', methods=['GET'])
-def api():
-    return jsonify({"message": "Welcome to the Flask API!"})
+# Configuration
+app.config.from_object(Config)
 
-# Serve React Frontend
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def serve_react(path):
-    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
-        # Serve the requested file (e.g., JS, CSS)
-        return send_from_directory(app.static_folder, path)
-    else:
-        # Serve the React app's index.html for all other routes
-        return send_from_directory(app.static_folder, "index.html")
+# Initialize extensions
+db.init_app(app)
+CORS(app)  # Enable Cross-Origin Resource Sharing for frontend-backend communication
 
-if __name__ == '__main__':
+# Register Blueprints
+app.register_blueprint(course_bp)
+
+if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()  # Ensure tables are created
     app.run(debug=True)
