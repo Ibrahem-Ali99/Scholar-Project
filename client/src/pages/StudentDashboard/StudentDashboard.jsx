@@ -4,7 +4,7 @@ import MainBanner from "../../components/MainBanner/MainBanner";
 import FeatureOffering from "../../components/FeatureOffering/FeatureOffering";
 import AboutUs from "../../components/AboutUs/AboutUs"; 
 import Courses from "../../components/Courses/Courses";
-
+import Teachers from "../../components/Teachers/Teachers";
 
 function StudentDashboard() {
   return (
@@ -14,6 +14,7 @@ function StudentDashboard() {
       <FeatureOffering />
       <AboutUs  />
       <Courses />
+      <Teachers />
     </div>
   );
 }
