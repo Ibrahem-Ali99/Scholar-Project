@@ -4,13 +4,24 @@
     font-family: 'Poppins', sans-serif;
 }
 
-
-
 .courses .section-heading h2 {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 30px;
     color: #333;
+}
+.courses .row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Ensure the courses wrap if the screen is smaller */
+    gap: 30px; /* Add a gap of 30px between courses */
+}
+
+.courses .col-lg-4, 
+.courses .col-md-6 {
+    flex: 1 1 calc(33.33% - 30px); /* Ensure three items per row with gap adjustment */
+    max-width: calc(33.33% - 30px); /* Ensure consistent width */
+    box-sizing: border-box; /* Include padding and border in the width */
 }
 
 .event_filter {
@@ -46,7 +57,7 @@
 .events_item {
     background-color: #f1f0fe;
     border-radius: 25px;
-    margin-bottom: 40px; /* Adjusted spacing between courses */
+    margin-bottom: 40px; 
     position: relative;
     justify-content: center;
     align-items: center;
@@ -90,7 +101,10 @@
     display: inline-block;
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
-
+.events_item .thumb span.price:hover {
+    transform: scale(1.2); /* Enlarges the badge smoothly when hovered */
+    background-color: rgba(102, 85, 190, 1); /* Slightly darker shade on hover */
+}
 .events_item .thumb span.price h6 {
     margin-top: 26px; /* Adjusted for centering within the badge */
     margin-left: 18px; /* Adjusted for centering within the badge */
@@ -100,10 +114,7 @@
     font-weight: bold;
 }
 
-.events_item .thumb span.price:hover {
-    transform: scale(1.2); /* Enlarges the badge smoothly when hovered */
-    background-color: rgba(102, 85, 190, 1); /* Slightly darker shade on hover */
-}
+
 
 
 

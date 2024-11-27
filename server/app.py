@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from utils.db import db
 from routes.courses import course_bp
+from routes.teachers import teacher_bp  
 from config import Config
 
 app = Flask(__name__)
@@ -15,6 +16,7 @@ CORS(app)  # Enable Cross-Origin Resource Sharing for frontend-backend communica
 
 # Register Blueprints
 app.register_blueprint(course_bp)
+app.register_blueprint(teacher_bp)  # Register the teacher blueprint
 
 if __name__ == "__main__":
     with app.app_context():

@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import StudentDashboard from "./pages/StudentDashboard/StudentDashboard";
 import '@fortawesome/fontawesome-free/css/all.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

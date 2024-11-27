@@ -19,6 +19,11 @@ class Teacher(BaseUser):
     __tablename__ = 'teacher'
     teacher_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
+    profile_picture = db.Column(db.String(255))  
+    designation = db.Column(db.String(100))     
+    facebook_url = db.Column(db.String(255))   
+    twitter_url = db.Column(db.String(255))    
+    linkedin_url = db.Column(db.String(255))    
 
     # Relationships
     courses = db.relationship('Course', backref='teacher', lazy=True)

@@ -3,7 +3,7 @@ import "./AboutUs.css";
 
 function AboutUs() {
   return (
-    <div className="about-us">
+    <div className="about-us" id="about">
       <div className="container">
         <div className="row">
           <div className="col-lg-6 offset-lg-1">

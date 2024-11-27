@@ -1,0 +1,99 @@
+/* Scope styles to the #team section */
+#team {
+    margin-top: 100px;
+    padding-top: 140px;
+  }
+  
+  #team .team-title {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 50px; /* Space below the title */
+    color: #333; /* Text color */
+    padding: 80px;
+  }
+  
+  #team .row {
+    display: flex;
+    justify-content: center;
+    gap: 10%; /* Add gap between the cards */
+    flex-wrap: wrap; /* Wrap cards on smaller screens */
+  }
+  
+  #team .team-member {
+    position: relative;
+    text-align: center;
+    width: 320px;
+    background-color: #f1f0fe;
+    border-radius: 25px;
+    padding: 40px 20px 20px 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  #team .team-member img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    position: absolute;
+    top: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 5px;
+    object-fit: cover;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add smooth animation */
+  }
+  
+  /* Add hover effect specifically for the image */
+  #team .team-member img:hover {
+    transform: translateX(-50%) scale(1.1); /* Slightly enlarge the image */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Increase shadow intensity */
+  }
+  
+  #team .team-member .main-content {
+    margin-top: 80px;
+  }
+  
+  #team .team-member .main-content span.category {
+    color: #7a6ad8;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  #team .team-member .main-content h4 {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  #team .team-member .social-icons {
+    margin-top: 20px;
+    display: flex;
+    align-items: center; /* Center icons vertically */
+    gap: 20px; /* Space between the icons */
+}
+
+#team .team-member .social-icons li {
+    list-style: none;
+}
+
+#team .team-member .social-icons li a {
+    background-color: #fff;
+    color: #7a6ad8;
+    display: flex; /* Changed to flex for consistent centering */
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    width: 60px; /* Icon circle width */
+    height: 60px; /* Icon circle height */
+    border-radius: 50%; /* Make the icons circular */
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+#team .team-member .social-icons li a:hover {
+    background-color: #7a6ad8; /* Change background color on hover */
+    color: #fff; /* Change icon color on hover */
+}
