@@ -6,6 +6,8 @@ import AboutUs from "../../components/AboutUs/AboutUs";
 import Courses from "../../components/Courses/Courses";
 import Teachers from "../../components/Teachers/Teachers";
 import Feedback from "../../components/Feedback/Feedback";
+import Footer from "../../components/Footer/Footer";
+
 function StudentDashboard() {
   return (
     <div className="student-dashboard">
@@ -16,6 +18,7 @@ function StudentDashboard() {
       <Courses />
       <Teachers />
       <Feedback />
+      <Footer />
     </div>
   );
 }

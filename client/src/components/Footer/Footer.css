@@ -1,0 +1,40 @@
+footer {
+    margin-top: 150px;
+    position: relative;
+    background-color: #7a6ad8; /* Scholar purple background */
+    vertical-align: middle;
+    min-height: 150px;
+    border-radius: 150px 150px 0 0; /* Rounded corners at the top */
+  }
+  
+  footer p {
+    text-align: center;
+    line-height: 150px; /* Centers text vertically */
+    color: #fff; /* White text */
+    font-weight: 400;
+  }
+  
+  footer p a {
+    color: #fff; /* White color for the link */
+    transition: all 0.3s; /* Smooth transition for hover effect */
+    position: relative;
+    z-index: 3; /* Ensure it stays above other elements */
+  }
+  
+  footer p a:hover {
+    opacity: 0.75; /* Slightly dim the link on hover */
+  }
+  
+  footer::before {
+    background: url(../assets/style1.png); /* not working*/
+    position: absolute;
+    left: 30px; /* Position it slightly to the left */
+    transform: rotate(180deg); /* Flip the image */
+    opacity: 1;
+    bottom: 0; /* Align at the bottom */
+    width: 318px; /* Set the width of the background image */
+    height: 119px; /* Set the height of the background image */
+    content: ''; /* Required for the pseudo-element */
+    z-index: 2; /* Ensure it appears behind the text */
+  }
+  
