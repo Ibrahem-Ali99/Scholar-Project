@@ -22,14 +22,14 @@
   margin-top: -40px;
   margin-bottom: -40px;
   background-color: #7a6ad8;
-  border-radius: 60px; /* Bigger roundness */
-  padding: 120px 80px; /* Adjust size for larger layout */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Keep shadow for visibility */
+  border-radius: 60px; 
+  padding: 120px 80px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .accordion-item {
   background-color: #fff;
-  border-radius: 60px !important; /* Match larger roundness */
+  border-radius: 60px ; 
   margin-bottom: 40px;
   border: none;
 }
@@ -37,32 +37,32 @@
 .accordion-item .accordion-button {
   outline: none;
   box-shadow: none;
-  border-radius: 60px !important; /* Match item roundness */
-  padding: 20px 30px; /* Increase padding for larger appearance */
-  font-size: 18px; /* Slightly larger font size */
-  font-weight: bold; /* Make the text clearer and bold */
-  color: #333; /* Keep text color clear */
-  transition: none; /* Remove unnecessary transitions if any */
+  border-radius: 60px ;
+  padding: 20px 30px; 
+  font-size: 18px; 
+  font-weight: bold; 
+  color: #333; 
+  transition: none; 
 }
 
 .accordion-button:not(.collapsed) {
   color: #7a6ad8;
-  background-color: #fff !important; /* Ensure no color appears when expanded */
-  box-shadow: none; /* Remove blue effect */
+  background-color: #fff ; 
+  box-shadow: none; 
 }
 
 .accordion-button::after {
-  display: none; /* Completely remove the blue arrow */
+  display: none; 
 }
 
 .accordion-button:focus {
-  box-shadow: none; /* Remove the focus shadow */
-  background-color: inherit; /* Remove the blue background color */
+  box-shadow: none; 
+  background-color: inherit; 
 }
 
 .accordion-body {
-  padding: 20px 30px; /* Adjust padding for readability */
-  font-size: 16px; /* Keep text size clear */
+  padding: 20px 30px; 
+  font-size: 16px; 
   line-height: 1.6;
   color: #4a4a4a;
 }
@@ -80,16 +80,16 @@
 }
 
 .about-us .section-heading h2 {
-  font-size: 28px; /* Increased heading size */
-  font-weight: 700; /* Bold for better emphasis */
-  color: #333; /* Match text style */
+  font-size: 28px;
+  font-weight: 700; 
+  color: #333; 
 }
 
 .about-us .section-heading p {
   font-size: 16px;
-  color: #555; /* Softer text for clarity */
+  color: #555; 
 }
 
 .about-us .section-heading .main-button {
-  display: none; /* Remove the discover more button */
+  display: none; 
 }
