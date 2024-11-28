@@ -10,6 +10,7 @@
     margin-bottom: 30px;
     color: #333;
 }
+
 .courses .row {
     display: flex;
     justify-content: center;
@@ -62,6 +63,13 @@
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+/* Hover effect for course card */
+.events_item:hover {
+    background-color: #f1f0fe; /* Keep background same on hover */
 }
 
 .events_item .thumb {
@@ -74,6 +82,7 @@
     width: 100%;
     height: auto;
     object-fit: cover;
+    transition: transform 0.3s ease; /* Smooth transition for image scaling */
 }
 
 .events_item .thumb span.category {
@@ -88,44 +97,59 @@
     border-radius: 25px;
     font-weight: 500;
     display: inline-block;
+    transition: color 0.3s ease;
 }
+
+
 
 .events_item .thumb span.price {
     position: absolute;
-    right: -10px; /* Adjusted position for better visibility */
-    top: -10px; /* Adjusted position for better visibility */
+    right: -10px;
+    top: -10px;
     background-color: rgba(122, 106, 216, 0.95);
-    width: 80px; /* Reduced size */
-    height: 80px; /* Reduced size */
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     display: inline-block;
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
-.events_item .thumb span.price:hover {
-    transform: scale(1.2); /* Enlarges the badge smoothly when hovered */
-    background-color: rgba(102, 85, 190, 1); /* Slightly darker shade on hover */
+
+/* Scale the price badge on hover */
+.events_item:hover .thumb span.price {
+    transform: scale(1.2); /* Enlarges the badge smoothly */
+    background-color: rgba(102, 85, 190, 1); /* Darker shade on hover */
 }
+
 .events_item .thumb span.price h6 {
-    margin-top: 26px; /* Adjusted for centering within the badge */
-    margin-left: 18px; /* Adjusted for centering within the badge */
-    font-size: 16px; /* Reduced font size for proportionality */
+    margin-top: 26px;
+    margin-left: 18px;
+    font-size: 16px;
     text-transform: uppercase;
     color: #fff;
     font-weight: bold;
 }
 
-
-
-
-
 .events_item .down-content {
     padding: 20px 30px;
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect for course name and description */
+.events_item:hover .down-content h4,
+.events_item:hover .down-content p {
+    color: #7a6ad8; /* Change the text color to purple on hover */
 }
 
 .events_item .down-content h4 {
-    font-size: 20px; /* Adjusted font size */
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #333;
+    color: #333; /* Default color */
+    transition: all 0.3s ease;
+}
+
+.events_item .down-content p {
+    font-size: 16px;
+    color: #666; /* Default color for description */
     transition: all 0.3s ease;
 }
