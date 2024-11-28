@@ -82,18 +82,18 @@
 #team .team-member .social-icons li a {
     background-color: #fff;
     color: #7a6ad8;
-    display: flex; /* Changed to flex for consistent centering */
+    display: flex; 
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    width: 60px; /* Icon circle width */
-    height: 60px; /* Icon circle height */
-    border-radius: 50%; /* Make the icons circular */
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%; 
     transition: all 0.3s ease;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); 
 }
 
 #team .team-member .social-icons li a:hover {
-    background-color: #7a6ad8; /* Change background color on hover */
-    color: #fff; /* Change icon color on hover */
+    background-color: #7a6ad8; 
+    color: #fff; 
 }

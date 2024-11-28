@@ -1,40 +1,40 @@
 footer {
     margin-top: 150px;
     position: relative;
-    background-color: #7a6ad8; /* Scholar purple background */
+    background-color: #7a6ad8; 
     vertical-align: middle;
     min-height: 150px;
-    border-radius: 150px 150px 0 0; /* Rounded corners at the top */
+    border-radius: 150px 150px 0 0;
   }
   
   footer p {
     text-align: center;
-    line-height: 150px; /* Centers text vertically */
-    color: #fff; /* White text */
+    line-height: 150px; 
+    color: #fff; 
     font-weight: 400;
   }
   
   footer p a {
-    color: #fff; /* White color for the link */
-    transition: all 0.3s; /* Smooth transition for hover effect */
+    color: #fff; 
+    transition: all 0.3s; 
     position: relative;
-    z-index: 3; /* Ensure it stays above other elements */
+    z-index: 3; 
   }
   
   footer p a:hover {
-    opacity: 0.75; /* Slightly dim the link on hover */
+    opacity: 0.75; 
   }
   
   footer::before {
-    background: url(../assets/style1.png); /* not working*/
+    background: url(../assets/style1.png); 
     position: absolute;
-    left: 30px; /* Position it slightly to the left */
-    transform: rotate(180deg); /* Flip the image */
+    left: 30px; 
+    transform: rotate(180deg); 
     opacity: 1;
-    bottom: 0; /* Align at the bottom */
-    width: 318px; /* Set the width of the background image */
-    height: 119px; /* Set the height of the background image */
-    content: ''; /* Required for the pseudo-element */
-    z-index: 2; /* Ensure it appears behind the text */
+    bottom: 0; 
+    width: 318px; 
+    height: 119px; 
+    content: ''; 
+    z-index: 2; 
   }
   

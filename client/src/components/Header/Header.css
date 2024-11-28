@@ -1,6 +1,5 @@
-/* Base header styles */
 .header-area {
-    background-color: #7c4dff; /* Scholar's purple background */
+    background-color: #7c4dff; 
     color: white;
     padding: 20px;
     position: fixed; 
@@ -10,15 +9,13 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Main navigation styling */
 .main-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Allow wrapping for small screens */
+    flex-wrap: wrap;
 }
 
-/* Logo styling */
 .logo {
     color: white;
     font-size: 1.8rem;
@@ -61,7 +58,6 @@
     pointer-events: none;
 }
 
-/* Navigation menu styling */
 .nav {
     list-style: none;
     display: flex;
@@ -83,10 +79,9 @@
     transform: scale(1.05);
 }
 
-/* Profile icon styling */
 .nav li a.profile-icon {
-    font-size: 2.2rem; /* Slightly larger for emphasis */
-    padding: 0; /* Remove padding for the icon */
+    font-size: 2.2rem; 
+    padding: 0; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,12 +91,10 @@
     color: #f1f0fe;
 }
 
-/* Menu trigger for smaller screens */
 .menu-trigger {
     display: none;
 }
 
-/* Responsive styling */
 @media (max-width: 768px) {
     .main-nav {
         flex-direction: column;

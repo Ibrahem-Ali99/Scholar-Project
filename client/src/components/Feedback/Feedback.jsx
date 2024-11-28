@@ -1,37 +1,36 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios"; // Ensure axios is installed
-import "./Feedback.css"; // Import your updated CSS
+import "./Feedback.css"; 
 
 const Feedback = () => {
   const [feedbacks, setFeedbacks] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0); // Keep track of the current feedback being shown
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:5000/ratings") // Fetch all feedbacks from the backend
-      .then((response) => {
-        if (Array.isArray(response.data)) {
-          setFeedbacks(response.data); // Set feedbacks if it's an array
+    fetch("http://127.0.0.1:5000/ratings")
+      .then((response) => response.json()) 
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setFeedbacks(data); 
         } else {
-          console.error("Invalid feedback data:", response.data);
+          console.error("Invalid feedback data:", data);
         }
       })
       .catch((error) => {
         console.error("Error fetching feedbacks:", error);
       });
-  }, []); // Empty dependency array, so this runs only once when the component mounts
+  }, []); 
 
-  // Navigate to the next feedback
+  
   const nextFeedback = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % feedbacks.length); // Wrap around to the first feedback
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % feedbacks.length); 
   };
 
-  // Navigate to the previous feedback
   const prevFeedback = () => {
     setCurrentIndex(
       (prevIndex) => (prevIndex - 1 + feedbacks.length) % feedbacks.length
-    ); // Wrap around to the last feedback
+    ); 
   };
+
 
   return (
     <div className="testimonials">
@@ -43,9 +42,8 @@ const Feedback = () => {
                 <div className="item">
                   <p>{`“${feedbacks[currentIndex].comment}”`}</p>
                   <div className="author">
-                    {/* Display student icon or placeholder if no icon */}
                     <img
-                      src={`https://ui-avatars.com/api/?name=${feedbacks[currentIndex].student_name}`} // Dynamically generate icon
+                      src={`https://ui-avatars.com/api/?name=${feedbacks[currentIndex].student_name}`} 
                       alt={feedbacks[currentIndex].student_name}
                     />
                     <span className="category">
