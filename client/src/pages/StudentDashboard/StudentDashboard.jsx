@@ -5,7 +5,7 @@ import FeatureOffering from "../../components/FeatureOffering/FeatureOffering";
 import AboutUs from "../../components/AboutUs/AboutUs"; 
 import Courses from "../../components/Courses/Courses";
 import Teachers from "../../components/Teachers/Teachers";
-
+import Feedback from "../../components/Feedback/Feedback";
 function StudentDashboard() {
   return (
     <div className="student-dashboard">
@@ -15,6 +15,7 @@ function StudentDashboard() {
       <AboutUs  />
       <Courses />
       <Teachers />
+      <Feedback />
     </div>
   );
 }

@@ -15,7 +15,7 @@ class Course(db.Model):
     enrollments = db.relationship('Enrollment', backref='course', lazy=True)
     contents = db.relationship('CourseContent', backref='course', lazy=True)
     assessments = db.relationship('CourseAssessment', backref='course', lazy=True)
-    ratings = db.relationship('CourseRating', backref='course', lazy=True)
+    ratings = db.relationship('CourseRating', back_populates='course', lazy=True)  # Use back_populates here
 
 class CourseContent(db.Model):
     __tablename__ = 'course_content'
@@ -41,3 +41,6 @@ class CourseRating(db.Model):
     course_id = db.Column(db.Integer, db.ForeignKey(COURSE_FOREIGN_KEY), nullable=False)  
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.Text)
+    
+    student = db.relationship('Student', backref='course_ratings', lazy=True)
+    course = db.relationship('Course', back_populates='ratings', lazy=True)  # Use back_populates here
