@@ -8,7 +8,7 @@ import Teachers from "../../components/Teachers/Teachers";
 import Feedback from "../../components/Feedback/Feedback";
 import Footer from "../../components/Footer/Footer";
 
-function StudentDashboard() {
+function LandingPage() {
   return (
     <div className="student-dashboard">
       <Header />
@@ -23,4 +23,4 @@ function StudentDashboard() {
   );
 }
 
-export default StudentDashboard;
+export default LandingPage;
