@@ -1,24 +1,33 @@
 from flask import Flask
-from flask_cors import CORS
-from utils.db import db
+from utils.db import init_db
+from extensions import init_extensions
 from routes.courses import course_bp
-from routes.teachers import teacher_bp  
-from config import Config
+from routes.teachers import teacher_bp
+import os
 
+# Import configuration classes
+from config import DevelopmentConfig, ProductionConfig
+
+# Create Flask app
 app = Flask(__name__)
 
-# Configuration
-app.config.from_object(Config)
+# Load the appropriate configuration
+if os.getenv("FLASK_ENV") == "production":
+    app.config.from_object(ProductionConfig)
+else:
+    app.config.from_object(DevelopmentConfig)
+
 
 # Initialize extensions
-db.init_app(app)
-CORS(app)  # Enable Cross-Origin Resource Sharing for frontend-backend communication
+init_extensions(app)  # Initialize other extensions (OAuth, JWT, Mail, CORS)
+init_db(app)  # Initialize SQLAlchemy
 
-# Register Blueprints
+from routes.auth import auth
+
+# Register blueprints
 app.register_blueprint(course_bp)
-app.register_blueprint(teacher_bp)  # Register the teacher blueprint
+app.register_blueprint(teacher_bp)
+app.register_blueprint(auth, url_prefix='/auth')
 
-if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()  # Ensure tables are created
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=app.config['DEBUG'])
