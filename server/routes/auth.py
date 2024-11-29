@@ -6,8 +6,7 @@ import bcrypt
 from extensions import google
 from models.user import Student, Teacher, Parent, Admin  # Import models
 import logging
-from urllib.parse import unquote
-import json
+
 
 auth = Blueprint('auth', __name__)
 
@@ -186,7 +185,7 @@ def google_callback():
         email = user_info['email']
         name = user_info['name']
 
-        # Check if user already exists
+        # Check if user exists
         user = (Student.query.filter_by(email=email).first() or
                 Teacher.query.filter_by(email=email).first() or
                 Parent.query.filter_by(email=email).first() or
@@ -196,40 +195,27 @@ def google_callback():
             role = user.__class__.__name__.lower()
             session['user'] = email
             session['role'] = role
-            
-            # Redirect based on role
-            if role == 'parent':
-                return redirect(f'/parent-dashboard')
-            elif role == 'student':
-                return redirect(f'/student-dashboard')
-            elif role == 'teacher':
-                return redirect(f'/teacher-dashboard')
-            elif role == 'admin':
-                return redirect(f'/admin-dashboard')
+            frontend_url = f'http://localhost:5176/{role}-dashboard'
+            return jsonify({"message": "Login successful", "role": role, "redirect": frontend_url}), 200
 
-        # If user does not exist, check for parent registration
-        if 'student_id' in session:
-            student_id = session.pop('student_id', None)
-            if not student_id:
-                return jsonify({"error": "Student ID is required for parent sign-up"}), 400
+        # Handle parent signup if no user found
+        student_id = session.pop('student_id', None)
+        if not student_id:
+            return jsonify({"error": "Student ID is required for parent sign-up"}), 400
 
-            try:
-                student_id = int(student_id)
-            except ValueError:
-                return jsonify({"error": "Invalid student ID format"}), 400
+        student_id = int(student_id)
 
-            # Register new parent
-            hashed_password = bcrypt.hashpw('randompassword'.encode('utf-8'), bcrypt.gensalt())
-            new_user = Parent(email=email, name=name, password=hashed_password, student_id=student_id)
-            db.session.add(new_user)
-            db.session.commit()
+        # Register new parent
+        hashed_password = bcrypt.hashpw('randompassword'.encode('utf-8'), bcrypt.gensalt())
+        new_user = Parent(email=email, name=name, password=hashed_password, student_id=student_id)
+        db.session.add(new_user)
+        db.session.commit()
 
-            session['user'] = email
-            session['role'] = 'parent'
+        session['user'] = email
+        session['role'] = 'parent'
 
-            return redirect(f'/parent-dashboard')
-
-        return jsonify({"error": "Unknown user type"}), 400
+        frontend_url = f'http://localhost:5176/parent-dashboard'
+        return jsonify({"message": "Google login successful", "role": 'parent', "user_id": new_user.student_id, "redirect": frontend_url}), 200
 
     except Exception as e:
         logging.exception("Error during Google OAuth callback")

@@ -49,36 +49,34 @@ function Login() {
     }
   };
 
-
+  // Google login redirect to backend
   const handleGoogleLogin = () => {
-    console.log("function starts")
     window.location.href = 'http://localhost:5000/auth/google-login'; 
-};
+  };
 
-useEffect(() => {
-  console.log("use effect triggered");
-  // Check if we're on the callback URL
-  if (location.pathname === '/auth/google/callback') {
-      // Get the role from the query string, which the backend should send
+  useEffect(() => {
+    // Check if we're on the callback URL
+    if (location.pathname === '/auth/google/callback') {
+      // Get the role from the query string
       const role = new URLSearchParams(window.location.search).get('role');
       
       if (!role) {
-          setError('No role found in URL.');
-          return;
+        setError('No role found in URL.');
+        return;
       }
 
       // Redirect based on the role
       if (role === 'student') {
-          navigate('/student-dashboard');
+        navigate('/student-dashboard');
       } else if (role === 'teacher') {
-          navigate('/teacher-dashboard');
+        navigate('/teacher-dashboard');
       } else if (role === 'parent') {
-          navigate('/parent-dashboard');
+        navigate('/parent-dashboard');
       } else {
-          setError('Unknown role.');
+        setError('Unknown role.');
       }
-  }
-}, [location, navigate]);
+    }
+  }, [location, navigate]);
 
   return (
     <div className={styles.authContainer}>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './SignUp.module.css'; // Importing the CSS module
+import styles from './SignUp.module.css';
 
 function Signup() {
   const [userType, setUserType] = useState(null); // Initially no user type selected
@@ -9,7 +9,6 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Handle SignUp process
   const handleSignup = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -62,49 +61,48 @@ function Signup() {
     }
   };
 
+
+  
   const handleGoogleSignup = async () => {
     if (!userType) {
-      setError('Please select a user type before signing up with Google.');
-      return;
-    }
-  
-    if (userType === 'parent') {
-      const studentId = document.querySelector('input[name="student_id"]').value;
-  
-      if (!studentId) {
-        setError('Student ID is required for parent signup.');
+        setError('Please select a user type before signing up with Google.');
         return;
-      }
-  
-      try {
-        console.log("Student ID:", studentId);
-        // Set student_id in the server-side session
-        const response = await fetch('http://localhost:5000/auth/set-student-id', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ student_id: studentId }),
-        });
-  
-        const data = await response.json();
-        if (!response.ok) {
-          setError(data.error || 'Failed to initiate Google signup.');
-          return;
-        }
-  
-        // Redirect to Google login for parent
-        window.location.href = 'http://localhost:5000/auth/google-login';
-      } catch (error) {
-        setError('An unexpected error occurred. Please try again.');
-        console.error(error);
-      }
-    } else {
-      // For other user types, redirect to Google login without the student_id
-      window.location.href = 'http://localhost:5000/auth/google-login';
     }
-  };
-  
+
+    if (userType === 'parent') {
+        const studentId = document.querySelector('input[name="student_id"]').value;
+
+        if (!studentId) {
+            setError('Student ID is required for parent signup.');
+            return;
+        }
+
+        try {
+            console.log("Student ID:", studentId);
+            const response = await fetch('http://localhost:5000/auth/set-student-id', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ student_id: studentId }),
+            });
+
+            const data = await response.json();
+            if (!response.ok) {
+                setError(data.error || 'Failed to initiate Google signup.');
+                return;
+            }
+            window.location.href = 'http://localhost:5000/auth/google-login';
+        } catch (error) {
+            setError('An unexpected error occurred. Please try again.');
+            console.error(error);
+        }
+    } else {
+        window.location.href = 'http://localhost:5000/auth/google-login';
+    }
+};
+
+
 
   return (
     <div className={styles.signupPage}>
