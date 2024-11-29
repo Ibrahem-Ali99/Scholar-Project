@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, session, url_for
+from flask import Blueprint, request, jsonify, session, url_for, redirect
 from itsdangerous import URLSafeTimedSerializer
 from utils.mail import send_reset_email
 from utils.db import db
@@ -6,6 +6,8 @@ import bcrypt
 from extensions import google
 from models.user import Student, Teacher, Parent, Admin  # Import models
 import logging
+from urllib.parse import unquote
+import json
 
 auth = Blueprint('auth', __name__)
 
@@ -21,7 +23,6 @@ ROLE_MODELS = {
 serializer = URLSafeTimedSerializer("YOUR_SECRET_KEY")
 
 # sign up endpoint
-# sign up endpoint
 @auth.route('/signup', methods=['POST'])
 def signup():
     data = request.json
@@ -32,6 +33,20 @@ def signup():
 
     if role not in ROLE_MODELS:
         return jsonify({"error": "Invalid role"}), 400
+
+    # Check if the email already exists in the role-specific tables
+    if role == 'teacher':
+        existing_teacher = Teacher.query.filter_by(email=email).first()
+        if existing_teacher:
+            return jsonify({"error": "Email is already taken by another teacher"}), 400
+    elif role == 'student':
+        existing_student = Student.query.filter_by(email=email).first()
+        if existing_student:
+            return jsonify({"error": "Email is already taken by another student"}), 400
+    elif role == 'parent':
+        existing_parent = Parent.query.filter_by(email=email).first()
+        if existing_parent:
+            return jsonify({"error": "Email is already taken by another parent"}), 400
 
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
@@ -48,11 +63,18 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
 
-        return jsonify({"message": "Signup successful", "user_id": new_user.student_id}), 201
+        # Return response with appropriate identifier based on role
+        if role == 'parent':
+            return jsonify({"message": "Signup successful", "user_id": new_user.student_id}), 201
+        elif role == 'teacher':
+            return jsonify({"message": "Signup successful", "user_id": new_user.teacher_id}), 201
+        else:
+            return jsonify({"message": "Signup successful", "user_id": new_user.id}), 201
+
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
-    
+
 
 # login endpoint
 @auth.route('/login', methods=['POST'])
@@ -69,25 +91,23 @@ def login():
         user = None
         role = None
         user = Student.query.filter_by(email=email).first()
-        if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+        if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')): 
             role = 'student'
         if not user:
             user = Teacher.query.filter_by(email=email).first()
-            if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+            if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')): 
                 role = 'teacher'
         if not user:
             user = Parent.query.filter_by(email=email).first()
-            if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+            if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')): 
                 role = 'parent'
         if not user:
             user = Admin.query.filter_by(email=email).first()
-            if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+            if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')): 
                 role = 'admin'
 
         if not user or not role:
             return jsonify({"error": "Invalid email or password"}), 401
-
-        print(f"User found: {email}, Role: {role}")
 
         # Store user session
         session['user'] = email
@@ -100,7 +120,7 @@ def login():
         return jsonify({"error": str(e)}), 500
 
 
-# forget password endpoint
+# forgot password endpoint
 @auth.route('/forgot-password', methods=['POST'])
 def forgot_password():
     data = request.json
@@ -133,10 +153,90 @@ def forgot_password():
         else:
             logging.error(f"Failed to send password reset email to: {email}")
             return jsonify({"error": "Failed to send email"}), 500
+
     except Exception as e:
         logging.exception("Error in forgot_password route")
         return jsonify({"error": "Internal server error"}), 500
 
+
+# Google authentication
+# Google OAuth login endpoint
+@auth.route('/google-login', methods=['GET'])
+def google_login():
+    if google is None:
+        return jsonify({"error": "Google OAuth is not initialized"}), 500
+
+    student_id = request.args.get('student_id')
+    if student_id:
+        session['student_id'] = student_id  # Store in session as fallback
+
+    redirect_uri = url_for('auth.google_callback', _external=True)
+    try:
+        return google.authorize_redirect(redirect_uri)
+    except Exception as e:
+        return jsonify({"error": "Google OAuth redirect failed", "message": str(e)}), 500
+
+
+@auth.route('/google/callback', methods=['GET'])
+def google_callback():
+    try:
+        token = google.authorize_access_token()
+        user_info = google.get('userinfo').json()
+
+        email = user_info['email']
+        name = user_info['name']
+
+        # Check if user already exists
+        user = (Student.query.filter_by(email=email).first() or
+                Teacher.query.filter_by(email=email).first() or
+                Parent.query.filter_by(email=email).first() or
+                Admin.query.filter_by(email=email).first())
+
+        if user:
+            role = user.__class__.__name__.lower()
+            session['user'] = email
+            session['role'] = role
+            
+            # Redirect based on role
+            if role == 'parent':
+                return redirect(f'/parent-dashboard')
+            elif role == 'student':
+                return redirect(f'/student-dashboard')
+            elif role == 'teacher':
+                return redirect(f'/teacher-dashboard')
+            elif role == 'admin':
+                return redirect(f'/admin-dashboard')
+
+        # If user does not exist, check for parent registration
+        if 'student_id' in session:
+            student_id = session.pop('student_id', None)
+            if not student_id:
+                return jsonify({"error": "Student ID is required for parent sign-up"}), 400
+
+            try:
+                student_id = int(student_id)
+            except ValueError:
+                return jsonify({"error": "Invalid student ID format"}), 400
+
+            # Register new parent
+            hashed_password = bcrypt.hashpw('randompassword'.encode('utf-8'), bcrypt.gensalt())
+            new_user = Parent(email=email, name=name, password=hashed_password, student_id=student_id)
+            db.session.add(new_user)
+            db.session.commit()
+
+            session['user'] = email
+            session['role'] = 'parent'
+
+            return redirect(f'/parent-dashboard')
+
+        return jsonify({"error": "Unknown user type"}), 400
+
+    except Exception as e:
+        logging.exception("Error during Google OAuth callback")
+        return jsonify({"error": "Internal server error", "message": str(e)}), 500
+    
+    
+    
 # reset password endpoint
 @auth.route('/reset-password/<token>', methods=['POST'])
 def reset_password(token):
@@ -161,52 +261,31 @@ def reset_password(token):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
-
-
-# Google authentication
-# Google OAuth login endpoint
-@auth.route('/google-login', methods=['GET'])
-def google_login():
-    if google is None:
-        return jsonify({"error": "Google OAuth is not initialized"}), 500
-
-    redirect_uri = url_for('auth.google_callback', _external=True)
+    
+    
+@auth.route('/set-student-id', methods=['POST'])
+def set_student_id():
     try:
-        return google.authorize_redirect(redirect_uri)
-    except Exception as e:
-        return jsonify({"error": "Google OAuth redirect failed", "message": str(e)}), 500
+        data = request.get_json()
+        student_id = data.get('student_id')
 
+        if not student_id:
+            return jsonify({"error": "Student ID is required"}), 400
 
-@auth.route('/google/callback', methods=['GET'])
-def google_callback():
-    try:
-        # Retrieve the token and user info from Google
-        token = google.authorize_access_token()
-        user_info = google.get('userinfo').json()
+        # Validate student_id format
+        try:
+            int(student_id)  # Ensure it's a valid integer
+        except ValueError:
+            return jsonify({"error": "Invalid student ID format"}), 400
 
-        email = user_info['email']
-        name = user_info['name']
-
-        # Try to find the user based on the email
-        user = Student.query.filter_by(email=email).first() or \
-               Teacher.query.filter_by(email=email).first() or \
-               Parent.query.filter_by(email=email).first() or \
-               Admin.query.filter_by(email=email).first()
-
-        if user:
-            role = user.__class__.__name__.lower()
-            session['user'] = email
-            session['role'] = role
-
-            # Return a response with the user's role
-            return jsonify({"message": "Login successful", "role": role, "redirect": f'/{role}-dashboard'}), 200
-        else:
-            return jsonify({"error": "User not found in database"}), 404
+        # Store student_id in session
+        session['student_id'] = student_id
+        return jsonify({"message": "Student ID saved successfully"}), 200
 
     except Exception as e:
-        logging.exception("Error during Google OAuth callback")
-        return jsonify({"error": "Internal server error", "message": str(e)}), 500
-
+        logging.exception("Error setting student ID")
+        return jsonify({"error": "Internal server error", "message": str(e)}), 500    
+    
 
 # logoiut
 @auth.route('/logout', methods=['POST'])

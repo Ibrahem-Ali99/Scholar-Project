@@ -16,7 +16,7 @@ function Signup() {
 
     // Check if a user type is selected
     if (!userType) {
-      setError('Please select a user type before proceeding.'); // Display error if no type is selected
+      setError('Please select a user type before proceeding.');
       setLoading(false);
       return;
     }
@@ -29,12 +29,6 @@ function Signup() {
     };
 
     // Validate user input
-    if (!['student', 'parent', 'teacher'].includes(userType)) {
-      setError('Invalid user type selected.');
-      setLoading(false);
-      return;
-    }
-
     if (formData.password.length < 8) {
       setError('Password must be at least 8 characters long.');
       setLoading(false);
@@ -42,7 +36,6 @@ function Signup() {
     }
 
     try {
-      // Send the signup request using fetch
       const response = await fetch('http://localhost:5000/auth/signup', {
         method: 'POST',
         headers: {
@@ -69,14 +62,49 @@ function Signup() {
     }
   };
 
-  // Handle Google SignUp
-  const handleGoogleSignup = () => {
+  const handleGoogleSignup = async () => {
     if (!userType) {
-      setError('Please select a user type before signing up with Google.'); // Error on Google Sign Up click
+      setError('Please select a user type before signing up with Google.');
       return;
     }
-    window.location.href = 'http://localhost:5000/auth/google-login';
+  
+    if (userType === 'parent') {
+      const studentId = document.querySelector('input[name="student_id"]').value;
+  
+      if (!studentId) {
+        setError('Student ID is required for parent signup.');
+        return;
+      }
+  
+      try {
+        console.log("Student ID:", studentId);
+        // Set student_id in the server-side session
+        const response = await fetch('http://localhost:5000/auth/set-student-id', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ student_id: studentId }),
+        });
+  
+        const data = await response.json();
+        if (!response.ok) {
+          setError(data.error || 'Failed to initiate Google signup.');
+          return;
+        }
+  
+        // Redirect to Google login for parent
+        window.location.href = 'http://localhost:5000/auth/google-login';
+      } catch (error) {
+        setError('An unexpected error occurred. Please try again.');
+        console.error(error);
+      }
+    } else {
+      // For other user types, redirect to Google login without the student_id
+      window.location.href = 'http://localhost:5000/auth/google-login';
+    }
   };
+  
 
   return (
     <div className={styles.signupPage}>
@@ -94,7 +122,7 @@ function Signup() {
           </div>
           <p className={styles.or}>or sign up with your email</p>
           <form onSubmit={handleSignup}>
-            {error && <p className={styles.error}>{error}</p>} {/* Display error message */}
+            {error && <p className={styles.error}>{error}</p>}
             {success && <p className={styles.success}>{success}</p>}
             <input
               type="text"
@@ -128,12 +156,23 @@ function Signup() {
                 onChange={(e) => setUserType(e.target.value)}
                 required
               >
-                <option value="">Select User Type</option> {/* Default option */}
+                <option value="">Select User Type</option>
                 <option value="student">Student</option>
                 <option value="parent">Parent</option>
                 <option value="teacher">Teacher</option>
               </select>
             </div>
+
+            {/* Conditionally render the student ID input field */}
+            {userType === 'parent' && (
+              <input
+                type="text"
+                name="student_id"
+                placeholder="Student ID"
+                aria-label="Student ID"
+                required
+              />
+            )}
 
             <button
               className={styles.btn}
