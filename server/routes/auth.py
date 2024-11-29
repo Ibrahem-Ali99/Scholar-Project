@@ -6,6 +6,7 @@ import bcrypt
 from extensions import google
 from models.user import Student, Teacher, Parent, Admin  # Import models
 import logging
+import config
 
 
 auth = Blueprint('auth', __name__)
@@ -19,7 +20,7 @@ ROLE_MODELS = {
 }
 
 # Configure a serializer for secure token generation
-serializer = URLSafeTimedSerializer("YOUR_SECRET_KEY")
+serializer = URLSafeTimedSerializer(config.Config.SECRET_KEY)
 
 # sign up endpoint
 @auth.route('/signup', methods=['POST'])
@@ -195,7 +196,7 @@ def google_callback():
             role = user.__class__.__name__.lower()
             session['user'] = email
             session['role'] = role
-            frontend_url = f'http://localhost:5176/{role}-dashboard'
+            frontend_url = f'http://localhost:5173/{role}-dashboard'
             return jsonify({"message": "Login successful", "role": role, "redirect": frontend_url}), 200
 
         # Handle parent signup if no user found
@@ -214,7 +215,7 @@ def google_callback():
         session['user'] = email
         session['role'] = 'parent'
 
-        frontend_url = f'http://localhost:5176/parent-dashboard'
+        frontend_url = f'http://localhost:5173/parent-dashboard'
         return jsonify({"message": "Google login successful", "role": 'parent', "user_id": new_user.student_id, "redirect": frontend_url}), 200
 
     except Exception as e:
