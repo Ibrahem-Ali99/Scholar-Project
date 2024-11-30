@@ -8,16 +8,16 @@
     font-size: 36px;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 50px; /* Space below the title */
-    color: #333; /* Text color */
+    margin-bottom: 50px; 
+    color: #333; 
     padding: 80px;
   }
   
   #team .row {
     display: flex;
     justify-content: center;
-    gap: 10%; /* Add gap between the cards */
-    flex-wrap: wrap; /* Wrap cards on smaller screens */
+    gap: 10%;
+    flex-wrap: wrap; 
   }
   
   #team .team-member {
@@ -43,13 +43,12 @@
     padding: 5px;
     object-fit: cover;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add smooth animation */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
   }
   
-  /* Add hover effect specifically for the image */
   #team .team-member img:hover {
-    transform: translateX(-50%) scale(1.1); /* Slightly enlarge the image */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Increase shadow intensity */
+    transform: translateX(-50%) scale(1.1); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); 
   }
   
   #team .team-member .main-content {
@@ -71,8 +70,8 @@
   #team .team-member .social-icons {
     margin-top: 20px;
     display: flex;
-    align-items: center; /* Center icons vertically */
-    gap: 20px; /* Space between the icons */
+    align-items: center; 
+    gap: 20px; 
 }
 
 #team .team-member .social-icons li {
