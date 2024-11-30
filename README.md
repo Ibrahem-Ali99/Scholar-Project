@@ -58,7 +58,7 @@ mysql -u <username> -p
 USE <database_name>;
 SHOW TABLES;
 SELECT * FROM <table_name>;
-
+```
 # Frontend Setup and Usage Guide
 
 This guide explains how to set up and run the frontend code of a React-based web application. Follow the instructions below to get started with the project.
