@@ -1,22 +1,12 @@
 from flask import Flask
 from flask_cors import CORS
-from utils.db import db, init_db
-from extensions import init_extensions
+from utils.db import db
+from routes.courses import course_bp
+from routes.teachers import teacher_bp  
+from routes.feedback import feedback_bp  
+from config import Config
 
 app = Flask(__name__)
-init_extensions(app) 
-
-from routes.courses import course_bp
-from routes.teachers import teacher_bp
-from routes.feedback import feedback_bp
-from routes.auth import auth
-import os
-
-# Import configuration classes
-from config import DevelopmentConfig, ProductionConfig, Config
-
-# Create Flask app
-
 
 # Load the appropriate configuration
 if os.getenv("FLASK_ENV") == "production":
@@ -52,13 +42,10 @@ mail = Mail(app)
 
 # Register blueprints
 app.register_blueprint(course_bp)
-app.register_blueprint(teacher_bp)
-app.register_blueprint(feedback_bp)  # Feedback route from the main branch
-app.register_blueprint(auth, url_prefix='/auth')  # Auth route from your branch
+app.register_blueprint(teacher_bp)  # Register the teacher blueprint
+app.register_blueprint(feedback_bp)  # Register the feedback blueprint
 
-# Ensure tables are created if needed
-with app.app_context():
-    db.create_all()
-
-if __name__ == '__main__':
-    app.run(debug=app.config.get('DEBUG', True))
+if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()  # Ensure tables are created
+    app.run(debug=True)

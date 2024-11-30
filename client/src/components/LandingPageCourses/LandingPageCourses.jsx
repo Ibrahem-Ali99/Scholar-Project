@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import "./Courses.css";
+import React, { useEffect, useState } from "react";
+import "./LandingPageCourses.css";
 
 function Courses() {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:5000/courses")
+        fetch("http://127.0.0.1:5000/LandingPageCourses")
             .then((response) => response.json())
             .then((data) => {
                 setCourses(data);

@@ -18,7 +18,7 @@ function Header() {
         <header className="header-area">
             <nav className="main-nav">
                 <h1 className="logo">SCHOLAR</h1>
-                
+
                 <div className="search-input">
                     <input type="text" placeholder="Type Something" />
                     <i className="fa fa-search"></i>
@@ -27,11 +27,6 @@ function Header() {
                     <li>
                         <a href="#home" onClick={() => handleScroll('home')} className="active">
                             Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#services" onClick={() => handleScroll('services')}>
-                            Services
                         </a>
                     </li>
                     <li>
@@ -47,6 +42,11 @@ function Header() {
                     <li>
                         <a href="#about" onClick={() => handleScroll('about')}>
                             About
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#register" onClick={() => handleScroll('register')}>
+                            Register!
                         </a>
                     </li>
                     <li>
