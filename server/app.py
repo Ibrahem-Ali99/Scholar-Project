@@ -46,7 +46,7 @@ mail = Mail(app)
 app.register_blueprint(course_bp)
 app.register_blueprint(teacher_bp)  # Register the teacher blueprint
 app.register_blueprint(feedback_bp)  # Register the feedback blueprint
-app.register_blueprint(auth)
+app.register_blueprint(auth, url_prefix="/auth")
 
 if __name__ == "__main__":
     with app.app_context():
