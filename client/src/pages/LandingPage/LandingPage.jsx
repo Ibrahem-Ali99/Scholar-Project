@@ -4,7 +4,7 @@ import MainBanner from "../../components/MainBanner/MainBanner";
 import FeatureOffering from "../../components/FeatureOffering/FeatureOffering";
 import AboutUs from "../../components/AboutUs/AboutUs"; 
 import LandingPageCourses from "../../components/LandingPageCourses/LandingPageCourses";
-import Teachers from "../../components/Teachers/Teachers";
+import DisplayTeachers from "../../components/DisplayTeachers/DisplayTeachers";
 import Feedback from "../../components/Feedback/Feedback";
 import Footer from "../../components/Footer/Footer";
 
@@ -16,7 +16,7 @@ function LandingPage() {
       <FeatureOffering />
       <AboutUs  />
       <LandingPageCourses />
-      <Teachers />
+      <DisplayTeachers />
       <Feedback />
       <Footer />
     </div>
