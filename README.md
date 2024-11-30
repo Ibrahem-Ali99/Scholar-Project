@@ -58,3 +58,78 @@ mysql -u <username> -p
 USE <database_name>;
 SHOW TABLES;
 SELECT * FROM <table_name>;
+```
+# Frontend Setup and Usage Guide
+
+This guide explains how to set up and run the frontend code of a React-based web application. Follow the instructions below to get started with the project.
+
+## Table of Contents
+
+1. [Project Setup](#project-setup)
+2. [Installation](#installation)
+3. [Running the Application](#running-the-application)
+4. [Folder Structure](#folder-structure)
+5. [How to Use](#how-to-use)
+6. [Scrum Board Setup](#scrum-board-setup)
+7. [Database Setup](#database-setup)
+
+---
+
+## Project Setup
+
+### Prerequisites
+
+Before getting started, ensure that the following tools are installed on your local machine:
+
+- *Node.js*: A JavaScript runtime that is required to run the React application.
+  - [Install Node.js](https://nodejs.org/)
+  
+- *npm (Node Package Manager)*: A package manager that comes with Node.js to install dependencies.
+  - npm comes pre-installed with Node.js.
+
+### Folder Structure
+
+components/: This folder contains the reusable React components such as headers, footers, sidebars, etc.
+pages/: This folder contains page-level components that render different sections of the app.
+App.js: This is the main component that holds the routing logic for the app.
+index.js: The entry point of the application that renders the App.js component into the root DOM node.
+public/ - Public Files
+index.html: This is the HTML template where the React application is injected into the div#root element.
+
+## Installation
+
+Follow these steps to set up the project locally:
+
+1. *Clone the Repository*:
+
+   Open your terminal or command prompt and clone the repository:
+
+   ```bash
+   git clone https://github.com/Ibrahem-Ali99/Scholar-Project.git
+
+2. **Navigate to the Project Directory:
+
+   Change into the project directory: 
+
+   cd Scholar-Project
+
+3. **Install Dependencies:
+Use npm to install the required dependencies:
+npm install
+This will install all the necessary packages defined in package.json.
+
+Running the Application
+Once the dependencies are installed, you can start the development server:
+
+1. **Start the Development Server:
+
+###Run the following command to start the development server:
+npm start
+
+This will start the app and open it in your default browser at http://localhost:3000. Any changes made to the code will automatically reload the page.
+
+2. **Build the Application for Production:
+
+To build the optimized production version of the app, run:
+npm run build
+This will create a build/ directory with all the production-ready files that can be deployed to a server.
