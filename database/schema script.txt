@@ -1,0 +1,289 @@
+-- Table 1: Student
+CREATE TABLE Student (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL
+);
+
+-- Table 2: Teacher
+CREATE TABLE Teacher (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    profile_picture VARCHAR(255) DEFAULT NULL,
+    facebook_url VARCHAR(255) DEFAULT NULL,
+    twitter_url VARCHAR(255) DEFAULT NULL,
+    linkedin_url VARCHAR(255) DEFAULT NULL,
+    hiring_status VARCHAR(20) NOT NULL DEFAULT 'pending'
+        CHECK (hiring_status IN ('pending', 'hired', 'rejected'))
+);
+
+-- Table 3: Course
+CREATE TABLE Course (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    teacher_id INT,
+    FOREIGN KEY (teacher_id) REFERENCES Teacher(id) ON DELETE SET NULL
+);
+
+-- Table 4: Parent
+CREATE TABLE Parent (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    student_id INT,
+    FOREIGN KEY (student_id) REFERENCES Student(id) ON DELETE CASCADE
+);
+
+-- Table 5: Admin
+CREATE TABLE Admin (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+-- Table 6: Enrollment
+CREATE TABLE Enrollment (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    course_id INT NOT NULL,
+    student_id INT NOT NULL,
+    enrollment_date DATE DEFAULT GETDATE(),
+    FOREIGN KEY (course_id) REFERENCES Course(id) ON DELETE CASCADE,
+    FOREIGN KEY (student_id) REFERENCES Student(id) ON DELETE CASCADE,
+    UNIQUE (course_id, student_id)
+);
+
+-- Table 7: Payment
+CREATE TABLE Payment (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    student_id INT NOT NULL,
+    course_id INT NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    payment_date DATE DEFAULT GETDATE(),
+    FOREIGN KEY (student_id) REFERENCES Student(id) ON DELETE CASCADE,
+    FOREIGN KEY (course_id) REFERENCES Course(id) ON DELETE CASCADE
+);
+
+-- Table 8: Course_Content
+CREATE TABLE Course_Content (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    course_id INT NOT NULL,
+    title VARCHAR(255),
+    type VARCHAR(50),
+    post_date DATE DEFAULT GETDATE(),
+    FOREIGN KEY (course_id) REFERENCES Course(id) ON DELETE CASCADE
+);
+
+-- Table 9: Course_Assessment
+CREATE TABLE Course_Assessment (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    course_id INT NOT NULL,
+    title VARCHAR(255),
+    max_score INT NOT NULL,
+    post_date DATE DEFAULT GETDATE(),
+    deadline DATE NOT NULL,
+    FOREIGN KEY (course_id) REFERENCES Course(id) ON DELETE CASCADE
+);
+
+-- Table 10: Student_Progress
+CREATE TABLE Student_Progress (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    student_id INT NOT NULL,
+    assessment_id INT NOT NULL,
+    status VARCHAR(10) NOT NULL DEFAULT 'fail'
+        CHECK (status IN ('pass', 'fail')),
+    completion_date DATE,
+    score INT,
+    FOREIGN KEY (student_id) REFERENCES Student(id) ON DELETE CASCADE,
+    FOREIGN KEY (assessment_id) REFERENCES Course_Assessment(id) ON DELETE CASCADE,
+    UNIQUE (student_id, assessment_id)
+);
+
+-- Table 11: Badge
+CREATE TABLE Badge (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT
+);
+
+-- Table 12: Student_Badge
+CREATE TABLE Student_Badge (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    student_id INT NOT NULL,
+    badge_id INT NOT NULL,
+    date_awarded DATE DEFAULT GETDATE(),
+    FOREIGN KEY (student_id) REFERENCES Student(id) ON DELETE CASCADE,
+    FOREIGN KEY (badge_id) REFERENCES Badge(id) ON DELETE CASCADE,
+    UNIQUE (student_id, badge_id)
+);
+
+-- Table 13: Course_Rating
+CREATE TABLE Course_Rating (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    student_id INT NOT NULL,
+    course_id INT NOT NULL,
+    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    feedback TEXT,
+    FOREIGN KEY (student_id) REFERENCES Student(id) ON DELETE CASCADE,
+    FOREIGN KEY (course_id) REFERENCES Course(id) ON DELETE CASCADE,
+    UNIQUE (student_id, course_id)
+);
+
+-- Table 14: Notification
+CREATE TABLE Notification (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    message TEXT NOT NULL,
+    created_at DATETIME DEFAULT GETDATE()
+);
+
+-- Table 15: Student_Notification
+CREATE TABLE Student_Notification (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    student_id INT NOT NULL,
+    notification_id INT NOT NULL,
+    is_pushed BIT DEFAULT 0,
+    FOREIGN KEY (student_id) REFERENCES Student(id) ON DELETE CASCADE,
+    FOREIGN KEY (notification_id) REFERENCES Notification(id) ON DELETE CASCADE,
+    UNIQUE (student_id, notification_id)
+);
+
+-- Table 16: Sessions
+CREATE TABLE Sessions (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    teacher_id INT NOT NULL,
+    course_id INT NOT NULL,
+    notification_id INT NOT NULL,
+    session_date DATE DEFAULT GETDATE(),
+    FOREIGN KEY (teacher_id) REFERENCES Teacher(id) ON DELETE CASCADE,
+    FOREIGN KEY (course_id) REFERENCES Course(id) ON DELETE CASCADE,
+    FOREIGN KEY (notification_id) REFERENCES Notification(id) ON DELETE CASCADE
+);
+
+-- Table 17: Hiring_Request
+CREATE TABLE Hiring_Request (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    teacher_id INT NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'pending'
+        CHECK (status IN ('pending', 'approved', 'rejected')),
+    request_date DATE DEFAULT GETDATE(),
+    reviewed_by INT,
+    reviewed_date DATE,
+    FOREIGN KEY (teacher_id) REFERENCES Teacher(id) ON DELETE CASCADE,
+    FOREIGN KEY (reviewed_by) REFERENCES Admin(id) ON DELETE SET NULL
+);
+
+
+-- Insert into Student
+INSERT INTO Student (name, password, email) VALUES
+('Galal Mohamed', 'password123', 'galal.mohamed.student@gmail.com'),
+('Ibrahem Ali', 'securepass456', 'ibrahem.ali.student@gmail.com'),
+('Mohamed Hassan', 'strongpass789', 'mohamed.hassan.student@gmail.com'),
+('Youssef Bashar', 'complexpass101', 'youssef.bashar.student@gmail.com'),
+('Rihana Nasr', 'encryptedpass112', 'rihana.nasr.student@gmail.com');
+
+-- Insert into Teacher
+INSERT INTO Teacher (name, email, password, profile_picture, facebook_url, twitter_url, linkedin_url, hiring_status) VALUES
+('Galal Mohamed', 'galal.mohamed.teacher@gmail.com', 'teacherpass1', '/images/galal.jpg', 'facebook.com/galal.mohamed', 'twitter.com/galalmohamed', 'linkedin.com/in/galalmohamed', 'hired'),
+('Ibrahem Ali', 'ibrahem.ali.teacher@gmail.com', 'teacherpass2', '/images/ibrahem.jpg', 'facebook.com/ibrahem.ali', 'twitter.com/ibrahemali', 'linkedin.com/in/ibrahemali', 'hired'),
+('Mohamed Hassan', 'mohamed.hassan.teacher@gmail.com', 'teacherpass3', '/images/mohamed.jpg', 'facebook.com/mohamed.hassan', 'twitter.com/mohamedhassan', 'linkedin.com/in/mohamedhassan', 'hired'),
+('Youssef Bashar', 'youssef.bashar.teacher@gmail.com', 'teacherpass4', '/images/youssef.jpg', 'facebook.com/youssef.bashar', 'twitter.com/youssefbashar', 'linkedin.com/in/youssefbashar', 'hired'),
+('Rihana Nasr', 'rihana.nasr.teacher@gmail.com', 'teacherpass5', '/images/rihana.jpg', 'facebook.com/rihana.nasr', 'twitter.com/rihananasr', 'linkedin.com/in/rihananasr', 'hired');
+
+-- Insert into Course
+INSERT INTO Course (name, description, teacher_id) VALUES
+('Introduction to Python', 'Learn the basics of Python programming, including syntax and data types.', 1),
+('Advanced Java Programming', 'Explore advanced topics in Java, including multithreading and design patterns.', 2),
+('Web Development with JavaScript', 'Learn to build interactive websites using JavaScript, HTML, and CSS.', 3),
+('Data Structures in C++', 'Understand and implement efficient data structures in C++.', 4),
+('Machine Learning Basics', 'Introduction to machine learning concepts and algorithms with Python.', 5);
+
+-- Insert into Parent
+INSERT INTO Parent (email, password, student_id) VALUES
+('parent1.programming@gmail.com', 'parentpass1', 1),
+('parent2.programming@gmail.com', 'parentpass2', 2),
+('parent3.programming@gmail.com', 'parentpass3', 3),
+('parent4.programming@gmail.com', 'parentpass4', 4),
+('parent5.programming@gmail.com', 'parentpass5', 5);
+
+-- Insert into Admin
+INSERT INTO Admin (email, password) VALUES
+('admin1.programming@gmail.com', 'adminpass1'),
+('admin2.programming@gmail.com', 'adminpass2'),
+('admin3.programming@gmail.com', 'adminpass3'),
+('admin4.programming@gmail.com', 'adminpass4'),
+('admin5.programming@gmail.com', 'adminpass5');
+
+-- Insert into Enrollment
+INSERT INTO Enrollment (course_id, student_id, enrollment_date) VALUES
+(1, 1, '2024-09-15'),
+(2, 2, '2024-09-15'),
+(3, 3, '2024-09-15'),
+(4, 4, '2024-09-15'),
+(5, 5, '2024-09-15');
+
+-- Insert into Payment
+INSERT INTO Payment (student_id, course_id, amount, payment_date) VALUES
+(1, 1, 120.00, '2024-09-15'),
+(2, 2, 150.00, '2024-09-15'),
+(3, 3, 200.00, '2024-09-15'),
+(4, 4, 180.00, '2024-09-15'),
+(5, 5, 250.00, '2024-09-15');
+
+-- Insert into Course_Content
+INSERT INTO Course_Content (course_id, title, type, post_date) VALUES
+(1, 'Introduction to Python Variables', 'video', '2024-09-16'),
+(2, 'Java Multithreading Basics', 'document', '2024-09-16'),
+(3, 'Building Responsive Webpages', 'interactive', '2024-09-16'),
+(4, 'Implementing Linked Lists in C++', 'video', '2024-09-16'),
+(5, 'Introduction to Neural Networks', 'document', '2024-09-16');
+
+-- Insert into Course_Assessment
+INSERT INTO Course_Assessment (course_id, title, max_score, post_date, deadline) VALUES
+(1, 'Python Basics Quiz', 20, '2024-09-23', '2024-09-30'),
+(2, 'Java Midterm Exam', 50, '2024-09-23', '2024-10-07'),
+(3, 'Web Development Project', 100, '2024-09-23', '2024-10-14'),
+(4, 'C++ Data Structures Assignment', 30, '2024-09-23', '2024-10-21'),
+(5, 'Machine Learning Case Study', 50, '2024-09-23', '2024-10-28');
+
+-- Insert into Student_Progress
+INSERT INTO Student_Progress (student_id, assessment_id, status, completion_date, score) VALUES
+(1, 1, 'pass', '2024-09-28', 18),
+(2, 2, 'pass', '2024-10-05', 45),
+(3, 3, 'fail', '2024-10-12', 60),
+(4, 4, 'pass', '2024-10-19', 28),
+(5, 5, 'pass', '2024-10-26', 48);
+
+-- Insert into Badge
+INSERT INTO Badge (name, description) VALUES
+('Python Prodigy', 'Awarded for exceptional performance in Python courses'),
+('Java Virtuoso', 'Awarded for advanced skills in Java programming'),
+('Web Wizard', 'Recognizes outstanding contributions in web development projects'),
+('Data Structure Expert', 'For mastering complex data structures in C++'),
+('Machine Learning Enthusiast', 'Acknowledges achievements in machine learning basics');
+
+-- Insert into Student_Badge
+INSERT INTO Student_Badge (student_id, badge_id, date_awarded) VALUES
+(1, 1, '2024-10-01'),
+(2, 2, '2024-10-08'),
+(3, 3, '2024-10-15'),
+(4, 4, '2024-10-22'),
+(5, 5, '2024-10-29');
+
+-- Insert into Course_Rating
+INSERT INTO Course_Rating (student_id, course_id, rating, feedback) VALUES
+(1, 1, 5, 'Great introduction to Python programming!'),
+(2, 2, 4, 'Challenging but very useful Java course.'),
+(3, 3, 3, 'Web development examples could be improved.'),
+(4, 4, 5, 'Loved the C++ data structures course!'),
+(5, 5, 4, 'Good foundational knowledge of machine learning.');
+
+-- Insert into Notification
+INSERT INTO Notification (message) VALUES
+('New Python course content added!'),
+('Java midterm exam is next week!'),
+('Congratulations on completing the web project!'),
+('Live session for C++ course tomorrow.'),
+('Machine learning case study results released.');
