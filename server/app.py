@@ -1,10 +1,12 @@
 from flask import Flask
 from flask_cors import CORS
-from utils.db import db
-from routes.courses import course_bp
+from utils.db import db, init_db
+from routes.LandingPageCourses import course_bp
 from routes.teachers import teacher_bp  
 from routes.feedback import feedback_bp  
-from config import Config
+from config import Config, ProductionConfig, DevelopmentConfig
+import os
+from routes.auth import auth
 
 app = Flask(__name__)
 
@@ -44,6 +46,7 @@ mail = Mail(app)
 app.register_blueprint(course_bp)
 app.register_blueprint(teacher_bp)  # Register the teacher blueprint
 app.register_blueprint(feedback_bp)  # Register the feedback blueprint
+app.register_blueprint(auth)
 
 if __name__ == "__main__":
     with app.app_context():

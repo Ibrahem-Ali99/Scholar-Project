@@ -65,9 +65,9 @@ def signup():
 
         # Return response with appropriate identifier based on role
         if role == 'parent':
-            return jsonify({"message": "Signup successful", "user_id": new_user.student_id}), 201
+            return jsonify({"message": "Signup successful", "user_id": new_user.id}), 201
         elif role == 'teacher':
-            return jsonify({"message": "Signup successful", "user_id": new_user.teacher_id}), 201
+            return jsonify({"message": "Signup successful", "user_id": new_user.id}), 201
         else:
             return jsonify({"message": "Signup successful", "user_id": new_user.id}), 201
 
