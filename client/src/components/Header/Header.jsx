@@ -45,7 +45,7 @@ function Header() {
                         </a>
                     </li>
                     <li>
-                        <a href="#register" onClick={() => handleScroll('register')}>
+                        <a href="/signup">
                             Register!
                         </a>
                     </li>
