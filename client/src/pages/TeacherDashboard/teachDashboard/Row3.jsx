@@ -1,7 +1,7 @@
 import { Box, Paper, Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
-import LineChart from '../../page/lineChart/Line';
-import BarChart from '../../page/barChart/Bar';
+import LineChart from '../lineChart/Line.jsx';
+import BarChart from '../barChart/bar.jsx';
 
 const Row3 = () => {
     const theme = useTheme();

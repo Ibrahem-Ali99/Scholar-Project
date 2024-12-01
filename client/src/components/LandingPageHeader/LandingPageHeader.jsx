@@ -1,8 +1,8 @@
 import React from "react";
-import './Header.css';
+import './LandingPageHeader.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 
-function Header() {
+function LandingPageHeader() {
     const handleScroll = (id) => {
         if (id === 'home') {
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -50,6 +50,11 @@ function Header() {
                         </a>
                     </li>
                     <li>
+                        <a href="/DashApp">
+                            Teacher Dashboard!
+                        </a>
+                    </li>
+                    <li>
                         <a href="#profile" className="profile-icon">
                             <i className="fa fa-user-circle"></i>
                         </a>
@@ -60,4 +65,4 @@ function Header() {
     );
 }
 
-export default Header;
+export default LandingPageHeader;

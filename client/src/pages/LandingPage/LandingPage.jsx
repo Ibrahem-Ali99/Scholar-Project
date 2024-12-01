@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../components/Header/Header";
+import LandingPageHeader from "../../components/LandingPageHeader/LandingPageHeader.jsx";
 import MainBanner from "../../components/MainBanner/MainBanner";
 import FeatureOffering from "../../components/FeatureOffering/FeatureOffering";
 import AboutUs from "../../components/AboutUs/AboutUs"; 
@@ -11,7 +11,7 @@ import Footer from "../../components/Footer/Footer";
 function LandingPage() {
   return (
     <div className="landing-page">
-      <Header />
+      <LandingPageHeader />
       <MainBanner />
       <FeatureOffering />
       <AboutUs  />

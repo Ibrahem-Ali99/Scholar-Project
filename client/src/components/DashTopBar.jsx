@@ -81,7 +81,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const TopBar = ({ open, handleDrawerOpen, setMode }) => {
+const DashTopBar = ({ open, handleDrawerOpen, setMode }) => {
   const theme = useTheme();
   return (
     <AppBar
@@ -165,4 +165,4 @@ const TopBar = ({ open, handleDrawerOpen, setMode }) => {
   );
 };
 
-export default TopBar;
+export default DashTopBar;

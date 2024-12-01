@@ -1,13 +1,13 @@
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Box, Typography } from "@mui/material";
-import { columns, rows } from "./data";
-import Header from "../../components/Header";
+import { columns, rows } from "./data.js";
+import DashHeader from "../../../components/DashHeader.jsx";
 
 const Student = () => {
   return (
     <Box>
-      <Header
+      <DashHeader
         title="Students"
         subTitle="List of Student for Future Reference"
       />

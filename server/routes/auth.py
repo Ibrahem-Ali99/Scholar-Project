@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask import Blueprint, request, jsonify, session, url_for, redirect
 from itsdangerous import URLSafeTimedSerializer
 from utils.mail import send_reset_email
@@ -23,7 +26,7 @@ ROLE_MODELS = {
 serializer = URLSafeTimedSerializer(config.Config.SECRET_KEY)
 
 # sign up endpoint
-@auth.route('/signup', methods=['POST'])
+@auth.route('/signup', methods=['POST', "GET"])
 def signup():
     data = request.json
     name = data.get('name')

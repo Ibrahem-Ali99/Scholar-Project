@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {DataGrid} from "@mui/x-data-grid";
 import {Box, Typography, useTheme} from "@mui/material";
-import Header from "../../components/Header";
+import DashHeader from "../../../components/DashHeader.jsx";
 
 // Import data from the data file
-import {courses, teachers} from "./data";
+import {courses, teachers} from "./data.js";
 
 const Course = () => {
     const theme = useTheme();
@@ -64,7 +64,7 @@ const Course = () => {
 
     return (
         <Box>
-            <Header title={"Courses"} subTitle={"Managing the Courses and Instructors"}/>
+            <DashHeader title={"Courses"} subTitle={"Managing the Courses and Instructors"}/>
 
             <Box sx={{height: 600, mx: "auto"}}>
                 <DataGrid

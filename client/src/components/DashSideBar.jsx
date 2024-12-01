@@ -69,7 +69,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const items = [
   { text: "Dashboard", icon: <HomeOutlinedIcon />, path: "/" },
-  { text: "Manage Course", icon: <PeopleOutlinedIcon />, path: "/course" },
+  { text: "Manage Courses", icon: <PeopleOutlinedIcon />, path: "/courses" },
   { text: "Student Information", icon: <ContactsOutlinedIcon />, path: "/students" },
   { text: "Calendar", icon: <CalendarTodayOutlinedIcon />, path: "/calendar" },
   { text: "Bar Chart", icon: <BarChartOutlinedIcon />, path: "/bar" },
@@ -77,7 +77,7 @@ const items = [
   { text: "Line Chart", icon: <TimelineOutlinedIcon />, path: "/line" },
 ];
 
-const SideBar = ({ open, handleDrawerClose }) => {
+const DashSideBar = ({ open, handleDrawerClose }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -141,4 +141,4 @@ const SideBar = ({ open, handleDrawerClose }) => {
   );
 };
 
-export default SideBar;
+export default DashSideBar;

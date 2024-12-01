@@ -1,60 +1,50 @@
-import * as React from "react";
-import {
-  ThemeProvider,
-  createTheme,
-  styled,
-  useTheme,
-} from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-
-import TopBar from "./components/TopBar";
-import SideBar from "./components/SideBar";
+import React from "react";
+import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
+import { Box, CssBaseline } from "@mui/material";
+import { Routes, Route } from "react-router-dom";
+import DashTopBar from "./components/DashTopBar.jsx";
+import DashSideBar from "./components/DashSideBar.jsx";
 import { getDesignTokens } from "./theme";
-import { Outlet } from "react-router-dom";
+import Dashboard from "./pages/TeacherDashboard/teachDashboard/Dashboard";
+import Course from "./pages/TeacherDashboard/course/Course";
+import Students from "./pages/TeacherDashboard/students/Student";
+import Calendar from "./pages/TeacherDashboard/calendar/Calendar";
+import BarChart from "./pages/TeacherDashboard/barChart/BarChart";
+import PieChart from "./pages/TeacherDashboard/pieChart/PieChart";
+import LineChart from "./pages/TeacherDashboard/lineChart/LineChart";
+import NotFound from "./pages/TeacherDashboard/notFound/NotFound";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
-export default function MiniDrawer() {
+export default function DashApp() {
   const [open, setOpen] = React.useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const [mode, setMode] = React.useState(
-    Boolean(localStorage.getItem("currentMode"))
-      ? localStorage.getItem("currentMode")
-      : "light"
-  );
+  const [mode, setMode] = React.useState(localStorage.getItem("currentMode") || "light");
   const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <TopBar
-          open={open}
-          handleDrawerOpen={handleDrawerOpen}
-          setMode={setMode}
-        />
-
-        <SideBar open={open} handleDrawerClose={handleDrawerClose} />
-
+        <DashTopBar open={open} handleDrawerOpen={() => setOpen(true)} setMode={setMode} />
+        <DashSideBar open={open} handleDrawerClose={() => setOpen(false)} />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <DrawerHeader />
-          <Outlet />
+          <Routes>
+            <Route index element={<Dashboard />} />
+            <Route path="./pages/course" element={<Course />} />
+            <Route path="./pages/students" element={<Students />} />
+            <Route path="calendar" element={<Calendar />} />
+            <Route path="bar" element={<BarChart />} />
+            <Route path="pie" element={<PieChart />} />
+            <Route path="line" element={<LineChart />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </Box>
       </Box>
     </ThemeProvider>
