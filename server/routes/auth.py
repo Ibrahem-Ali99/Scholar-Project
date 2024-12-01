@@ -48,10 +48,9 @@ def signup():
         if existing_parent:
             return jsonify({"error": "Email is already taken by another parent"}), 400
 
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
     try:
-        # Determine the role and create an instance
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
         if role == 'parent':
             student_id = data.get('student_id')
             if not student_id:
@@ -63,17 +62,20 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
 
-        # Return response with appropriate identifier based on role
+        user_id = None
         if role == 'parent':
-            return jsonify({"message": "Signup successful", "user_id": new_user.id}), 201
+            user_id = new_user.parent_id  # Adjust based on the model's primary key
         elif role == 'teacher':
-            return jsonify({"message": "Signup successful", "user_id": new_user.id}), 201
-        else:
-            return jsonify({"message": "Signup successful", "user_id": new_user.id}), 201
+            user_id = new_user.teacher_id
+        elif role == 'student':
+            user_id = new_user.student_id
+
+        return jsonify({"message": "Signup successful", "user_id": user_id}), 201
 
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
+
 
 
 # login endpoint
@@ -87,24 +89,22 @@ def login():
         return jsonify({"error": "Email and password are required"}), 400
 
     try:
-        # Search the database for the user based on the role
         user = None
         role = None
-        user = Student.query.filter_by(email=email).first()
-        if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')): 
-            role = 'student'
-        if not user:
-            user = Teacher.query.filter_by(email=email).first()
-            if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')): 
-                role = 'teacher'
-        if not user:
-            user = Parent.query.filter_by(email=email).first()
-            if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')): 
-                role = 'parent'
-        if not user:
-            user = Admin.query.filter_by(email=email).first()
-            if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')): 
-                role = 'admin'
+        # Define a dictionary with model classes and their corresponding roles
+        user_roles = {
+            'student': Student,
+            'teacher': Teacher,
+            'parent': Parent,
+            'admin': Admin
+        }
+
+        # Loop through the roles and find the user based on the email
+        for r, model in user_roles.items():
+            user = model.query.filter_by(email=email).first()
+            if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+                role = r
+                break
 
         if not user or not role:
             return jsonify({"error": "Invalid email or password"}), 401
