@@ -11,6 +11,7 @@ import StudentDashboard from "./pages/StudentDashboard/StudentDashboard";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
+
 function App() {
   return (
     <Router>
@@ -22,7 +23,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} /> 
         <Route path="/google/callback" element={<GoogleCallback />} /> 
         <Route path="/course/:courseId" element={<CoursePage />} /> 
-        <Route path="*" element={<LandingPage />} /> {/* Default Route */}
+        <Route path="*" element={<LandingPage />} /> 
       </Routes>
     </Router>
   );
