@@ -1,0 +1,48 @@
+INSERT INTO course_rating (rated_by, course_id, rating, comment) 
+VALUES 
+(1, 1, 4, 'Great course, very informative!'),  
+(2, 1, 5, 'Excellent! Highly recommended.')
+
+----------------------------------------------------------------------------------------
+
+ALTER TABLE teacher
+ADD COLUMN profile_picture VARCHAR(255);
+
+ALTER TABLE teacher
+ADD COLUMN designation VARCHAR(100);
+
+ALTER TABLE teacher
+ADD COLUMN facebook_url VARCHAR(255);
+
+ALTER TABLE teacher
+ADD COLUMN twitter_url VARCHAR(255);
+
+ALTER TABLE teacher
+ADD COLUMN linkedin_url VARCHAR(255);
+
+--------------------------------------------------------------------------------------
+UPDATE teacher
+SET profile_picture = 'http://example.com/images/profile1.jpg',
+    designation = 'AI Expert',
+    facebook_url = 'https://www.facebook.com/profile.php?id=100049490359904',
+    twitter_url = 'https://twitter.com/teacher1',
+    linkedin_url = 'https://linkedin.com/in/teacher1'
+WHERE teacher_id = 1;
+
+--------------------------------------------------------------------------------------
+UPDATE teacher
+SET profile_picture = 'src/assets/IbrahemAli.jpg',
+    designation = 'AI Expert',
+    facebook_url = 'https://www.facebook.com/ibrahem.ali.39982631/',
+    twitter_url = 'https://twitter.com',
+    linkedin_url = 'https://www.linkedin.com/in/ibrahem-ali-723059280/'
+WHERE teacher_id = 2;
+---------------------------------------------------------------------------------------
+UPDATE COURSE
+SET image_url = 'src/assets/Programming.webp'
+WHERE teacher_id = 1;
+-------------------------------------------------------------------------------------------
+UPDATE COURSE
+SET image_url = 'src/assets/Webdesign.avif'
+WHERE teacher_id = 2;
+-------------------------------------------------------------------------------------------
