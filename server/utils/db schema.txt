@@ -13,16 +13,18 @@ CREATE TABLE Student (
 );
 
 CREATE TABLE Teacher (
-    Teacher_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255),
-    email VARCHAR(255) UNIQUE,
-    password VARCHAR(255),
+    teacher_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
     profile_picture VARCHAR(255),
     facebook_url VARCHAR(255),
     twitter_url VARCHAR(255),
-    Linkedin_url VARCHAR(255),
-    hiring_status ENUM('pending', 'hired', 'rejected')
+    linkedin_url VARCHAR(255),
+    hiring_status ENUM('pending', 'hired', 'rejected') DEFAULT 'pending' NOT NULL,
+    designation VARCHAR(100)
 );
+
 
 CREATE TABLE Course (
     Course_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,10 +32,13 @@ CREATE TABLE Course (
     course_description TEXT,
     Teacher_id INT,
     num_assessments INT,
+    price DECIMAL(10, 2),
+	image_url VARCHAR(255),
     FOREIGN KEY (Teacher_id) REFERENCES Teacher(Teacher_id)
 );
 
 CREATE TABLE Parent (
+	name VARCHAR(255) NOT NULL,
     Parent_id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
@@ -42,6 +47,7 @@ CREATE TABLE Parent (
 );
 
 CREATE TABLE Admin (
+	name VARCHAR(255) NOT NULL,
     Admin_id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255)
@@ -158,6 +164,7 @@ CREATE TABLE Hiring_Request (
     FOREIGN KEY (reviewed_by) REFERENCES Admin(Admin_id)
 );
 
+
 -- Insert into Student
 INSERT INTO Student (Student_id, name, password, email) VALUES
 (1, 'Galal Mohamed', 'password123', 'galal.mohamed@gmail.com'),
@@ -167,36 +174,36 @@ INSERT INTO Student (Student_id, name, password, email) VALUES
 (5, 'Youssef Bashar', 'password123', 'youssef.bashar@gmail.com');
 
 -- Insert into Teacher
-INSERT INTO Teacher (Teacher_id, name, email, password, profile_picture, facebook_url, twitter_url, Linkedin_url, hiring_status) VALUES
-(1, 'Galal Mohamed', 'galal.mohamed@gmail.com', 'password123', 'path/to/pic1.jpg', 'https://facebook.com/galal', 'https://twitter.com/galal', 'https://linkedin.com/in/galal', 'hired'),
-(2, 'Ibrahem Ali', 'ibrahem.ali@gmail.com', 'password123', 'path/to/pic2.jpg', 'https://facebook.com/ibrahem', 'https://twitter.com/ibrahem', 'https://linkedin.com/in/ibrahem', 'pending'),
-(3, 'Mohamed Hassan', 'mohamed.hassan@gmail.com', 'password123', 'path/to/pic3.jpg', 'https://facebook.com/mohamed', 'https://twitter.com/mohamed', 'https://linkedin.com/in/mohamed', 'rejected'),
-(4, 'Rihana Nasr', 'rihana.nasr@gmail.com', 'password123', 'path/to/pic4.jpg', 'https://facebook.com/rihana', 'https://twitter.com/rihana', 'https://linkedin.com/in/rihana', 'hired'),
-(5, 'Youssef Bashar', 'youssef.bashar@gmail.com', 'password123', 'path/to/pic5.jpg', 'https://facebook.com/youssef', 'https://twitter.com/youssef', 'https://linkedin.com/in/youssef', 'pending');
+INSERT INTO Teacher (name, email, password, profile_picture, facebook_url, twitter_url, Linkedin_url, hiring_status) VALUES
+('Galal Mohamed', 'galal.mohamed@gmail.com', 'password123', 'Gala.jpg', 'https://facebook.com/galal', 'https://twitter.com/galal', 'https://linkedin.com/in/galal', 'hired'),
+('Ibrahem Ali', 'ibrahem.ali@gmail.com', 'password123', 'IbrahemAli.jpg', 'https://facebook.com/ibrahem', 'https://twitter.com/ibrahem', 'https://linkedin.com/in/ibrahem', 'pending'),
+('Mohammed Hassan', 'mohammed@example.com', 'password123', 'Mohamed.jpg', 'https://facebook.com/mohammed', 'https://twitter.com/mohammed', 'https://linkedin.com/in/mohammed', 'hired'),
+('Rihana Nasr', 'rihana.nasr@gmail.com', 'password123', 'pic4.jpg', 'https://facebook.com/rihana', 'https://twitter.com/rihana', 'https://linkedin.com/in/rihana', 'hired'),
+('Youssef Bashar', 'youssef.bashar@gmail.com', 'password123', 'pic5.jpg', 'https://facebook.com/youssef', 'https://twitter.com/youssef', 'https://linkedin.com/in/youssef', 'pending');
 
 -- Insert into Course
-INSERT INTO Course (Course_id, course_name, course_description, Teacher_id, num_assessments) VALUES
-(1, 'Introduction to Programming', 'Learn the basics of programming using Python', 1, 3),
-(2, 'Web Development with HTML/CSS', 'Learn the fundamentals of building websites with HTML and CSS', 2, 2),
-(3, 'Advanced JavaScript Programming', 'Deep dive into JavaScript and its advanced concepts', 3, 4),
-(4, 'Database Management with SQL', 'Learn how to design and manage databases using SQL', 4, 3),
-(5, 'Mobile App Development with Kotlin', 'Create Android apps using Kotlin programming language', 5, 5);
+INSERT INTO Course (course_name, course_description, Teacher_id, num_assessments, image_url, price) VALUES
+('Introduction to Programming', 'Learn the basics of programming using Python', 1, 3,'Webdesign.avif', 300),
+('Web Development with HTML/CSS', 'Learn the fundamentals of building websites with HTML and CSS', 3, 3, 'Webdesign.avif', 100),
+('Advanced JavaScript Programming', 'Deep dive into JavaScript and its advanced concepts', 2, 4, 'Programming.webp', 250),
+('Database Management with SQL', 'Learn how to design and manage databases using SQL', 4, 3, 'Webdesign.avif', 300),
+('Mobile App Development with Kotlin', 'Create Android apps using Kotlin programming language', 5, 5, 'Webdesign.avif', 300);
 
 -- Insert into Parent
-INSERT INTO Parent (Parent_id, email, password, Student_id) VALUES
-(1, 'parent1@gmail.com', 'password123', 1),
-(2, 'parent2@gmail.com', 'password123', 2),
-(3, 'parent3@gmail.com', 'password123', 3),
-(4, 'parent4@gmail.com', 'password123', 4),
-(5, 'parent5@gmail.com', 'password123', 5);
+INSERT INTO Parent (name, email, password, Student_id) VALUES
+('Parent 1', 'parent1@gmail.com', 'hashedpassword123', 1),
+('Parent 2', 'parent2@gmail.com', 'hashedpassword123', 2),
+('Parent 3', 'parent3@gmail.com', 'hashedpassword123', 3),
+('Parent 4', 'parent4@gmail.com', 'hashedpassword123', 4),
+('Parent 5', 'parent5@gmail.com', 'hashedpassword123', 5);
 
 -- Insert into Admin
-INSERT INTO Admin (Admin_id, email, password) VALUES
-(1, 'admin1@gmail.com', 'adminpassword'),
-(2, 'admin2@gmail.com', 'adminpassword'),
-(3, 'admin3@gmail.com', 'adminpassword'),
-(4, 'admin4@gmail.com', 'adminpassword'),
-(5, 'admin5@gmail.com', 'adminpassword');
+INSERT INTO Admin (name, email, password) VALUES
+('Admin 1', 'admin1@gmail.com', 'hashedadminpassword'),
+('Admin 2', 'admin2@gmail.com', 'hashedadminpassword'),
+('Admin 3', 'admin3@gmail.com', 'hashedadminpassword'),
+('Admin 4', 'admin4@gmail.com', 'hashedadminpassword'),
+('Admin 5', 'admin5@gmail.com', 'hashedadminpassword');
 
 -- Insert into Enrollment
 INSERT INTO Enrollment (Enrollment_id, Course_id, Student_id, enrollment_date) VALUES
@@ -293,11 +300,3 @@ INSERT INTO Hiring_Request (Request_id, Teacher_id, status, request_date, review
 (3, 3, 'rejected', '2024-10-03', 2, '2024-10-06'),
 (4, 4, 'approved', '2024-10-04', 3, '2024-10-07'),
 (5, 5, 'pending', '2024-10-05', NULL, NULL);
-
-
-ALTER TABLE Course
-ADD COLUMN image_url VARCHAR(255);
-ALTER TABLE Course
-ADD COLUMN price DECIMAL(10, 2);
-
-ALTER TABLE teacher ADD COLUMN designation VARCHAR(100);

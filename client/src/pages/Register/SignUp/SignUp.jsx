@@ -70,46 +70,9 @@ function Signup() {
   };
   
 
-  
   const handleGoogleSignup = async () => {
-    if (!userType) {
-        setError('Please select a user type before signing up with Google.');
-        return;
-    }
 
-    if (userType === 'parent') {
-        const studentId = document.querySelector('input[name="student_id"]').value;
-
-        if (!studentId) {
-            setError('Student ID is required for parent signup.');
-            return;
-        }
-
-        try {
-            console.log("Student ID:", studentId);
-            const response = await fetch('http://localhost:5000/auth/set-student-id', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ student_id: studentId }),
-            });
-
-            const data = await response.json();
-            if (!response.ok) {
-                setError(data.error || 'Failed to initiate Google signup.');
-                return;
-            }
-            window.location.href = 'http://localhost:5000/auth/google-login';
-        } catch (error) {
-            setError('An unexpected error occurred. Please try again.');
-            console.error(error);
-        }
-    } else {
-        window.location.href = 'http://localhost:5000/auth/google-login';
-    }
 };
-
 
 
   return (
@@ -173,7 +136,7 @@ function Signup() {
             {userType === 'parent' && (
               <input
                 type="text"
-                name="student_id"
+                name="studentId"
                 placeholder="Student ID"
                 aria-label="Student ID"
                 required

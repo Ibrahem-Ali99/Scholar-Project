@@ -66,7 +66,7 @@ def signup():
 
         user_id = None
         if role == 'parent':
-            user_id = new_user.parent_id  # Adjust based on the model's primary key
+            user_id = new_user.parent_id
         elif role == 'teacher':
             user_id = new_user.teacher_id
         elif role == 'student':
