@@ -1,4 +1,3 @@
-// DashboardHome.jsx
 import { useEffect, useState } from "react";
 import { PieChart, LineChart } from "@mui/x-charts";
 import Card from "../components/Card";
@@ -7,25 +6,23 @@ function DashboardHome() {
   const [dashboardData, setDashboardData] = useState(null);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchDashboardData = async () => {
-      try {
-        const response = await fetch('/api/admin');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log('Dashboard data received:', data);
-        setDashboardData(data);
-      } catch (error) {
-        console.error('Error fetching dashboard data:', error);
-        setError(error.message);
+  // DashboardHome.jsx
+useEffect(() => {
+  const fetchDashboardData = async () => {
+    try {
+      const response = await fetch('/api/admin');  // Updated path
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
+      const data = await response.json();
+      setDashboardData(data);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
-    fetchDashboardData();
-  }, []);
-
+  fetchDashboardData();
+}, []);
 
   if (error) {
     return <div className="text-red-500">Error loading dashboard: {error}</div>;
@@ -60,24 +57,24 @@ function DashboardHome() {
         </Card>
         <Card className="flex flex-col justify-between col-span-3 row-span-3">
           <div className="flex">
-            <p className="text-lg font-semibold">Daily active users</p>
+            <p className="text-lg font-semibold">Total payments</p>
           </div>
           <p className="text-right text-4xl font-bold">{daily_active_users}</p>
         </Card>
         <Card className="col-span-6 row-span-6 flex flex-col gap-2">
-          <p className="text-lg font-semibold">Users over time</p>
+          <p className="text-lg font-semibold">Enrollments per year</p>
           <div className="h-full w-full">
             <LineChart
               colors={['#7C4DFF', '#8d65fc', '#a07efc', '#bca4fc']}
               xAxis={[{
-                data: [2018, 2019, 2020, 2021, 2022, 2023, 2024],
+                data: dashboardData.enrollments_over_time.map(e => e.year),
                 valueFormatter: v => v.toString(),
                 label: "Years",
-                tickInterval: [2018, 2019, 2020, 2021, 2022, 2023, 2024]
+                tickInterval: dashboardData.enrollments_over_time.map(e => e.year)
               }]}
               series={[{
-                data: [23, 46, 67, 105, 196, 257, 326],
-                label: "Users",
+                data: dashboardData.enrollments_over_time.map(e => e.count),
+                label: "Enrollments",
               }]}
             />
           </div>

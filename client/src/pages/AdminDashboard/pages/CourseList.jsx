@@ -13,7 +13,7 @@ const CourseList = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch('/courses');
+        const response = await fetch('/api/courses');  // Updated fetch URL
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -25,7 +25,7 @@ const CourseList = () => {
         setError(error.message);
       }
     };
-
+  
     fetchCourses();
   }, []);
 
@@ -62,19 +62,19 @@ const CourseList = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="font-semibold">Currently Enrolled</p>
-                    <p>{displayedCourse.currentEnrollmentCount} student</p>
+                    <p>{displayedCourse.currentEnrollmentCount} student(s)</p>
                   </div>
                   <div>
                     <p className="font-semibold">Previously Enrolled</p>
-                    <p>{displayedCourse.dropCount + displayedCourse.passCount} students</p>
+                    <p>{displayedCourse.dropCount + displayedCourse.passCount} student(s)</p>
                   </div>
                   <div>
-                    <p className="font-semibold">Avg. hours to complete</p>
-                    <p>{displayedCourse.hoursToComplete} hr</p>
+                    <p className="font-semibold">Avg. days to complete</p>
+                    <p>{displayedCourse.hoursToComplete} day(s)</p>
                   </div>
                   <div>
-                    <p className="font-semibold">Failed attempts</p>
-                    <p>{displayedCourse.dropCount} attempts</p>
+                    <p className="font-semibold">Total number of assessments</p>
+                    <p>{displayedCourse.numAssessments} assessment(s)</p>
                   </div>
                   <div>
                     <p className="font-semibold">Difficulty</p>
@@ -88,8 +88,8 @@ const CourseList = () => {
                   <PieChart
                     series={[{
                       data: [
-                        { value: displayedCourse.passCount, label: "Pass", color: '#7C4DFF' },
-                        { value: displayedCourse.dropCount, label: "Drop", color: '#d1d5db' },
+                        { value: displayedCourse.passCount, label: "Completed", color: '#7C4DFF' },
+                        { value: displayedCourse.currentEnrollmentCount, label: "Currently Enrolled", color: '#d1d5db' },
                       ],
                       cornerRadius: 8,
                       innerRadius: 42,
@@ -158,7 +158,7 @@ const CourseList = () => {
                   <th>ID</th>
                   <th>Course Name</th>
                   <th>Course Description</th>
-                  <th>Enrollment Count</th>
+                  <th>Total Enrollment Count</th>
                   <th>Teacher</th>
                   <th>Options</th>
                 </tr>
