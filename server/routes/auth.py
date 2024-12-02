@@ -37,7 +37,6 @@ def signup():
     if role not in ROLE_MODELS:
         return jsonify({"error": "Invalid role"}), 400
 
-    # Check if the email already exists in the role-specific tables
     if role == 'teacher':
         existing_teacher = Teacher.query.filter_by(email=email).first()
         if existing_teacher:

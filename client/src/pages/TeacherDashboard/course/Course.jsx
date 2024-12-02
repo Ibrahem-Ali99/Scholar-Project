@@ -1,79 +1,66 @@
-import React, {useEffect, useState} from "react";
-import {DataGrid} from "@mui/x-data-grid";
-import {Box, Typography, useTheme} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import { Box, Typography, useTheme } from "@mui/material";
 import DashHeader from "../../../components/TeacherDashboard/DashHeader.jsx";
 
-// Import data from the data file
-import {courses, teachers} from "./data.js";
-
 const Course = () => {
-    const theme = useTheme();
-    const [courseData, setCourseData] = useState([]);
+  const theme = useTheme();
+  const [courseData, setCourseData] = useState([]);
+  const teacherId = 1; 
 
-    useEffect(() => {
-        // Map over courses and add teacher names directly
-        const courseRows = courses.map(course => {
-            // Get the teacher's name from the teachers array based on teacher_id
-            const teacher = teachers.find(teacher => teacher.teacher_id === course.teacher_id);
-            return {
-                id: course.course_id,
-                course_name: course.course_name,
-                teacher_name: teacher ? teacher.name : "Unknown",
-                course_description: course.course_description,
-            };
-        });
+  useEffect(() => {
+    fetch(`http://127.0.0.1:5000/courses?teacher_id=${teacherId}`)
+      .then(response => response.json())
+      .then(data => {
+        const courseRows = data.map(course => ({
+          id: course.course_id,
+          course_name: course.course_name,
+          course_description: course.description,
+        }));
         setCourseData(courseRows);
-    }, []);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the courses!", error);
+      });
+  }, [teacherId]);
 
-    // Define columns for DataGrid
-    const columns = [
-        {
-            field: "id",
-            headerName: "ID",
-            width: 100,
-            align: "center",
-            headerAlign: "center",
-        },
-        {
-            field: "course_name",
-            headerName: "Course Name",
-            flex: 1,
-            align: "center",
-            headerAlign: "center",
-        },
-        {
-            field: "teacher_name",
-            headerName: "Teacher",
-            flex: 1,
-            align: "center",
-            headerAlign: "center",
-            renderCell: ({value}) => {
-                return (
-                    <Typography sx={{fontSize: "13px", color: "#fff"}}>{value}</Typography>
-                );
-            },
-        },
-        {
-            field: "course_description",
-            headerName: "Description",
-            flex: 2,
-            align: "center",
-            headerAlign: "center",
-        },
-    ];
+  // Define columns for DataGrid
+  const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      width: 100,
+      align: "center",
+      headerAlign: "center",
+    },
+    {
+      field: "course_name",
+      headerName: "Course Name",
+      flex: 1,
+      align: "center",
+      headerAlign: "center",
+    },
+    {
+      field: "course_description",
+      headerName: "Description",
+      flex: 2,
+      align: "center",
+      headerAlign: "center",
+    },
+  ];
 
-    return (
-        <Box>
-            <DashHeader title={"Courses"} subTitle={"Managing the Courses and Instructors"}/>
+  return (
+    <Box>
+      <DashHeader title={"Courses"} subTitle={"Managing the Courses and Instructors"} />
 
-            <Box sx={{height: 600, mx: "auto"}}>
-                <DataGrid
-                    rows={courseData}
-                    columns={columns}
-                />
-            </Box>
-        </Box>
-    );
+      <Box sx={{ height: 600, mx: "auto" }}>
+        <DataGrid
+          rows={courseData}
+          columns={columns}
+        />
+      </Box>
+    </Box>
+  );
 };
 
 export default Course;

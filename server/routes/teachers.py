@@ -4,6 +4,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from flask import Blueprint, jsonify
 from models.user import Teacher
+from sqlalchemy import func
 
 teacher_bp = Blueprint('teacher', __name__)
 
@@ -19,7 +20,7 @@ def get_teachers():
             "facebook_url": teacher.facebook_url,
             "twitter_url": teacher.twitter_url,
             "linkedin_url": teacher.linkedin_url,
-            "course_count": teacher.courses.count()
+            "course_count": len(teacher.courses)  
         }
         for teacher in teachers
     ]

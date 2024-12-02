@@ -10,11 +10,11 @@ import os
 from routes.auth import auth
 from flask_mail import Mail
 from dotenv import load_dotenv
-
+from routes.courses import course_bp
+from routes.student import student_bp
 
 
 app = Flask(__name__)
-
 # Load environment variables from .env
 load_dotenv()
 
@@ -40,17 +40,19 @@ app.config['MAIL_PASSWORD'] = Config.MAIL_PASSWORD
 app.config['MAIL_DEFAULT_SENDER'] = Config.MAIL_DEFAULT_SENDER
 app.config['FRONTEND_URL'] = os.getenv("FRONTEND_URL")
 
-# Initialize extensions
-CORS(app)  # Ensure CORS is enabled
-mail = Mail(app)  # Initialize Flask-Mail
-db.init_app(app)  # Initialize SQLAlchemy
+CORS(app)  
+mail = Mail(app)  
+db.init_app(app) 
 
-# Register blueprints
 app.register_blueprint(course_bp)
-app.register_blueprint(teacher_bp)  # Register the teacher blueprint
-app.register_blueprint(feedback_bp)  # Register the feedback blueprint
+app.register_blueprint(teacher_bp) 
+app.register_blueprint(feedback_bp) 
 app.register_blueprint(auth, url_prefix="/auth")
+app.register_blueprint(student_bp) 
 
+@app.route('/')
+def main_page():
+    return "<h1>This is the main page of the server</h1>"
 
 if __name__ == "__main__":
     app.run(debug=True)

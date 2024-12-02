@@ -8,6 +8,8 @@ import GoogleCallback from './components/GoogleCallback/GoogleCallback';
 import CoursePage from './pages/CoursePage/CoursePage';
 import '@fortawesome/fontawesome-free/css/all.css';
 import StudentDashboard from "./pages/StudentDashboard/StudentDashboard";
+
+
 import Dashboard from "./pages/TeacherDashboard/dashboard/Dashboard";
 import Calendar from "./pages/TeacherDashboard/calendar/Calendar";
 import Course from "./pages/TeacherDashboard/course/Course";

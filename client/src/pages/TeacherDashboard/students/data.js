@@ -8,7 +8,7 @@ export const columns = [
 export const rows = [
   {
     id: 1,
-    name: "Galal Mohamed",
+    name: "Jalal Mohamed",
     email: "galal@gmail.com",
     password: "***********",
   },

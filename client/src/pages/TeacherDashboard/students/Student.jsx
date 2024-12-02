@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { Box, Typography } from "@mui/material";
-import { columns, rows } from "./data.js";
+import { Box } from "@mui/material";
 import DashHeader from "../../../components/TeacherDashboard/DashHeader.jsx";
 
 const Student = () => {
+  const [rows, setRows] = useState([]);
+  const teacherId = 5;
+
+  const columns = [
+    { field: "id", headerName: "ID", width: 90 },
+    { field: "name", headerName: "Name", width: 150 },
+    { field: "email", headerName: "Email", width: 200 },
+  ];
+
+  useEffect(() => {
+    fetch(`http://127.0.0.1:5000/students?teacher_id=${teacherId}`)
+      .then(response => response.json())
+      .then(data => {
+        setRows(data);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the students!", error);
+      });
+  }, [teacherId]);
+
   return (
     <Box>
       <DashHeader
@@ -18,7 +37,6 @@ const Student = () => {
             toolbar: GridToolbar,
           }}
           rows={rows}
-          // @ts-ignore
           columns={columns}
         />
       </Box>
