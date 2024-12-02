@@ -5,6 +5,7 @@ from models import Student, Payment, StudentProgress, Enrollment, Course
 
 dashboard_bp = Blueprint('dashboard', __name__)
 
+
 @dashboard_bp.route('/dashboard/students-enrolled', methods=['GET'])
 def get_students_enrolled():
     teacher_id = request.args.get('teacher_id')
@@ -16,6 +17,7 @@ def get_students_enrolled():
 
     student_count = db.session.query(Enrollment.student_id).filter(Enrollment.course_id.in_(course_ids)).distinct().count()
     return jsonify({"title": f"{student_count:,}", "subTitle": "Students Enrolled"})
+
 
 @dashboard_bp.route('/dashboard/money-obtained', methods=['GET'])
 def get_money_obtained():

@@ -136,7 +136,7 @@ function Signup() {
             {userType === 'parent' && (
               <input
                 type="text"
-                name="studentId"
+                name="student_id"
                 placeholder="Student ID"
                 aria-label="Student ID"
                 required

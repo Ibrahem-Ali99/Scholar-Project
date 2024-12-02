@@ -189,7 +189,7 @@ INSERT INTO Course (course_name, course_description, Teacher_id, num_assessments
 ('Database Management with SQL', 'Learn how to design and manage databases using SQL', 4, 3, 'Webdesign.avif', 300),
 ('Mobile App Development with Kotlin', 'Create Android apps using Kotlin programming language', 5, 5, 'Webdesign.avif', 300);
 
--- Insert into Parent
+-- Insert into Parent 
 INSERT INTO Parent (name, email, password, Student_id) VALUES
 ('Parent 1', 'parent1@gmail.com', 'hashedpassword123', 1),
 ('Parent 2', 'parent2@gmail.com', 'hashedpassword123', 2),
@@ -197,7 +197,7 @@ INSERT INTO Parent (name, email, password, Student_id) VALUES
 ('Parent 4', 'parent4@gmail.com', 'hashedpassword123', 4),
 ('Parent 5', 'parent5@gmail.com', 'hashedpassword123', 5);
 
--- Insert into Admin
+-- Insert into Admin 
 INSERT INTO Admin (name, email, password) VALUES
 ('Admin 1', 'admin1@gmail.com', 'hashedadminpassword'),
 ('Admin 2', 'admin2@gmail.com', 'hashedadminpassword'),

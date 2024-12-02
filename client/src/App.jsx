@@ -18,9 +18,8 @@ import PieChart from "./pages/TeacherDashboard/pieChart/PieChart";
 import LineChart from "./pages/TeacherDashboard/lineChart/LineChart";
 
 import DashApp from './pages/TeacherDashboard/DashApp.jsx';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 
 function App() {
