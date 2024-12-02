@@ -131,7 +131,9 @@ The frontend is pre-configured to communicate with the backend at http://localho
 
 # Project Folder Structure
 ●	client/: Contains the frontend React code.
+
 ●	server/: Contains the backend Flask code, including database setup and API logic.
+
 ●	requirements.txt: Lists Python dependencies for the backend.
 
 
