@@ -19,7 +19,6 @@ const Dashboard = () => {
         />
   
 </Stack>
-
       <Row1 />
       <Row2 />
       <Row3 />

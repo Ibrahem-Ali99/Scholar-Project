@@ -7,8 +7,7 @@ from routes.feedback import feedback_bp
 from config import Config
 from routes.auth import auth
 from flask_mail import Mail
-from routes.CoursePage import course_page
-
+from routes.dashboard import dashboard_bp
 
 app = Flask(__name__)
 
@@ -22,9 +21,7 @@ app.register_blueprint(course_bp)
 app.register_blueprint(teacher_bp) 
 app.register_blueprint(feedback_bp) 
 app.register_blueprint(auth, url_prefix="/auth")
-app.register_blueprint(student_bp) 
 app.register_blueprint(dashboard_bp)
-app.register_blueprint(course_page)
 
 @app.route('/')
 def main_page():

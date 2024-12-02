@@ -1,15 +1,41 @@
-import React from "react";
-import {Stack} from "@mui/material";
+// client/src/pages/TeacherDashboard/dashboard/Row1.jsx
+import React, { useEffect, useState } from "react";
+import { Stack } from "@mui/material";
 import Card from "./card.jsx";
 import SchoolIcon from '@mui/icons-material/School';
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import PendingIcon from '@mui/icons-material/Pending';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
-import {data1, data2, data3, data4} from "./data.js";
+import { data1 as defaultData1, data2, data3, data4 } from "./data.js";
 
 const Row1 = () => {
-    return (
-        
+    const [studentCount, setStudentCount] = useState("0");
+    const [chartData, setChartData] = useState(defaultData1);
+    const [moneyObtained, setMoneyObtained] = useState("0.00");
+    const [chartDataMoney, setChartDataMoney] = useState([
+        { id: 'Obtained', label: 'Money Obtained', value: 0, color: "hsl(111, 90%, 90%)" },
+        { id: 'Others', label: 'Others', value: 100, color: "hsl(22, 90%, 90%)" },
+    ]);
+    
+    useEffect(() => {
+        const teacherId = localStorage.getItem('teacher_id');
+        if (teacherId) {
+            fetch(`http://127.0.0.1:5000/dashboard/students-enrolled?teacher_id=${teacherId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.title) {
+                        setStudentCount(data.title);
+                        setChartData([
+                            { id: 'Enrolled', label: 'Enrolled', value: parseInt(data.title.replace(/,/g, '')), color: "hsl(111, 90%, 90%)" },
+                            { id: 'Others', label: 'Others', value: 100 - parseInt(data.title.replace(/,/g, '')), color: "hsl(22, 90%, 90%)" },
+                        ]);
+                    }
+                })
+              
+        }
+    }, []);
+
+    return (      
         <Stack
             direction="row"
             flexWrap="wrap"
@@ -19,21 +45,21 @@ const Row1 = () => {
             {/* card for Students */}
             <Card
                 icon={<SchoolIcon style={{fontSize: 35, color: "blue"}}/>}
-                title="00,000"
+                title={studentCount}
                 subTitle="Students enrolled"
-                data={data1}
+                data={chartData}
                 scheme="nivo"
             />
 
+            {/* Other cards remain unchanged */}
             <Card
                 icon={<AttachMoneyIcon style={{fontSize: 35, color: "green"}}/>}
                 title="000,000"
-                subTitle="Moeny obtained"
+                subTitle="Money obtained"
                 data={data2}
                 scheme="category10"
             />
 
-            {/* card for New Clients */}
             <Card
                 icon={<AssignmentTurnedInIcon style={{fontSize: 35, color: "purple"}}/>}
                 title="00"

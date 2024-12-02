@@ -7,7 +7,6 @@ from itsdangerous import URLSafeTimedSerializer
 from utils.mail import send_reset_email
 from utils.db import db
 import bcrypt
-from extensions import google
 from models.user import Student, Teacher, Parent, Admin  # Import models
 import logging
 import config
