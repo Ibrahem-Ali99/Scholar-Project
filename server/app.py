@@ -19,11 +19,16 @@ mail = Mail(app)
 db.init_app(app)  
 
 app.register_blueprint(course_bp)
-app.register_blueprint(teacher_bp)  
+app.register_blueprint(teacher_bp) 
 app.register_blueprint(feedback_bp) 
 app.register_blueprint(auth, url_prefix="/auth")
+app.register_blueprint(student_bp) 
+app.register_blueprint(dashboard_bp)
 app.register_blueprint(course_page)
 
+@app.route('/')
+def main_page():
+    return "<h1>This is the main page of the server</h1>"
 
 if __name__ == "__main__":
     app.run(debug=True)
