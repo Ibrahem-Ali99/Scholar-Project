@@ -18,13 +18,13 @@ const BarChart = lazy(() => import('./pages/TeacherDashboard/barChart/BarChart')
 const PieChart = lazy(() => import('./pages/TeacherDashboard/pieChart/PieChart'));
 const LineChart = lazy(() => import('./pages/TeacherDashboard/lineChart/LineChart'));
 const DashApp = lazy(() => import('./pages/TeacherDashboard/DashApp.jsx'));
-const AdminDashboard = lazy(() => import('./pages/AdminDashboard/AdminDashboard'));
+// const AdminDashboard = lazy(() => import('./pages/AdminDashboard/AdminDashboard'));
 
 import '@fortawesome/fontawesome-free/css/all.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-import pages from './pages/AdminDashboard/pages/pages'
+// import pages from './pages/AdminDashboard/pages/pages'
 
 
 
@@ -54,13 +54,13 @@ function App() {
                     <Route path="courses" element={<Course />} />
                     <Route path="/student-dashboard" element={<StudentDashboard />} />
 
-                    <Route path='/admin' element={<AdminDashboard />}>
+                    {/* <Route path='/admin' element={<AdminDashboard />}>
                         {
                             pages.map(page => (
                                 <Route path={`/admin${page.path}`} element={page.page} />
                             ))
                         }
-                    </Route>
+                    </Route> */}
 
                     <Route path="*" element={<LandingPage />} />
                 </Routes>
