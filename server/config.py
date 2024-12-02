@@ -33,10 +33,3 @@ class Config:
     # Google OAuth Configurations
     GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
     GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
-
-class DevelopmentConfig(Config):
-    DEBUG = True
-
-class ProductionConfig(Config):
-    DEBUG = False
-    PERMANENT_SESSION_LIFETIME = timedelta(minutes=30)

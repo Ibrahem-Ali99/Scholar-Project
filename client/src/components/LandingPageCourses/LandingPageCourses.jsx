@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import "./LandingPageCourses.css";
 
 function Courses() {
@@ -23,13 +24,18 @@ function Courses() {
                     {courses.map((course) => (
                         <div className="col-lg-4 col-md-6 course-card" key={course.course_id}>
                             <div className="events_item">
-                                <div className="thumb">
-                                    <img src={course.image_url} alt={course.course_name} />
-                                    <span className="category">{course.course_name.toUpperCase()}</span>
-                                    <span className="price">
-                                        <h6>${course.price}</h6>
-                                    </span>
-                                </div>
+                                {/* Wrap image and course name in Link */}
+                                <Link to={`/course/${course.course_id}`}>
+                                    <div className="thumb">
+                                        <img src={`../../assets/${course.image_url}`} alt={course.course_name} />
+                                        <span className="category">{course.course_name.toUpperCase()}</span>
+                                        <span className="price">
+                                            <h6>${course.price}</h6>
+                                        </span>
+                                    </div>
+                                </Link>
+
+                                {/* Keep course description outside the Link */}
                                 <div className="down-content">
                                     <h4>{course.course_name}</h4>
                                     <p>{course.description}</p>

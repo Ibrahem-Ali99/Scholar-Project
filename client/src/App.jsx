@@ -7,7 +7,6 @@ import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import GoogleCallback from './components/GoogleCallback/GoogleCallback';
 import CoursePage from './pages/CoursePage/CoursePage';  
 import '@fortawesome/fontawesome-free/css/all.css';
-import StudentDashboard from "./pages/StudentDashboard/StudentDashboard";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -22,7 +21,7 @@ function App() {
         <Route path="/reset-password/:token" element={<ResetPassword />} /> 
         <Route path="/forgot-password" element={<ForgotPassword />} /> 
         <Route path="/google/callback" element={<GoogleCallback />} /> 
-        <Route path="/course/:courseId" element={<CoursePage />} /> 
+        <Route path="/course/:courseId" element={<CoursePage />} />
         <Route path="*" element={<LandingPage />} /> 
       </Routes>
     </Router>
