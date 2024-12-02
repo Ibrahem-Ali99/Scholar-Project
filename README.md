@@ -77,28 +77,28 @@ Before running the project, ensure the following are installed:
 Step 1: Clone the Repository
 Open a terminal.
 Clone the repository using the following command:
-
+```
 git clone https://github.com/Ibrahem-Ali99/Scholar-Project.git
-
+```
 Navigate to the project directory:
-
+```
 cd Scholar-Project
-
+```
 # Frontend Setup
 1. Navigate to the Client Directory
-
+```
 cd client
-
+```
 2. Install Dependencies
 Run the following command to install all required Node.js packages:
-
+```
 npm install
-
+```
 3. Start the Frontend
 Start the React development server:
-
+```
 npm start
-
+```
 The frontend will open in your browser at http://localhost:3000. If it doesn’t, manually open the URL in your browser.
 
 # Backend Setup
