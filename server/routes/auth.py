@@ -57,7 +57,7 @@ def signup():
             student_id = data.get('student_id')
             if not student_id:
                 return jsonify({"error": "Student ID is required for parent signup"}), 400
-            new_user = Parent(email=email, password=hashed_password, student_id=student_id)
+            new_user = Parent(name=name,email=email, password=hashed_password, student_id=student_id)
         else:
             new_user = ROLE_MODELS[role](name=name, email=email, password=hashed_password)
 
