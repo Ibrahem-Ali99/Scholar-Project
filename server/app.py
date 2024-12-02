@@ -10,6 +10,7 @@ from flask_mail import Mail
 from routes.dashboard import dashboard_bp
 from routes.courses import course_bp
 from routes.student import student_bp
+from routes.dashHome import dash_home_bp
 from flask_swagger_ui import get_swaggerui_blueprint
 
 
@@ -36,6 +37,7 @@ app.register_blueprint(auth, url_prefix="/auth")
 app.register_blueprint(dashboard_bp)
 app.register_blueprint(student_bp)
 app.register_blueprint(swaggerui_blueprint)
+app.register_blueprint(dash_home_bp)
 @app.route('/')
 def main_page():
     return "<h1>This is the main page of the server</h1>"
