@@ -1,0 +1,108 @@
+// DashboardHome.jsx
+import { useEffect, useState } from "react";
+import { PieChart, LineChart } from "@mui/x-charts";
+import Card from "../components/Card";
+
+function DashboardHome() {
+  const [dashboardData, setDashboardData] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const response = await fetch('/api/admin');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('Dashboard data received:', data);
+        setDashboardData(data);
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+        setError(error.message);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+
+  if (error) {
+    return <div className="text-red-500">Error loading dashboard: {error}</div>;
+  }
+
+  if (!dashboardData) {
+    return <div>Loading dashboard data...</div>;
+  }
+
+  const { total_users, active_courses, pending_approvals, daily_active_users } = dashboardData;
+
+  return (
+    <div className="flex flex-col gap-3 h-full">
+      <div className="grid grid-cols-12 grid-rows-9 gap-4 h-full">
+        <Card className="flex flex-col justify-between col-span-3 row-span-3">
+          <div className="flex">
+            <p className="text-lg font-semibold">Total users</p>
+          </div>
+          <p className="text-right text-4xl font-bold">{total_users.students + total_users.teachers + total_users.parents + total_users.admins}</p>
+        </Card>
+        <Card className="flex flex-col justify-between col-span-3 row-span-3">
+          <div className="flex">
+            <p className="text-lg font-semibold">Active courses</p>
+          </div>
+          <p className="text-right text-4xl font-bold">{active_courses}</p>
+        </Card>
+        <Card className="flex flex-col justify-between col-span-3 row-span-3">
+          <div className="flex">
+            <p className="text-lg font-semibold">Pending approvals</p>
+          </div>
+          <p className="text-right text-4xl font-bold">{pending_approvals}</p>
+        </Card>
+        <Card className="flex flex-col justify-between col-span-3 row-span-3">
+          <div className="flex">
+            <p className="text-lg font-semibold">Daily active users</p>
+          </div>
+          <p className="text-right text-4xl font-bold">{daily_active_users}</p>
+        </Card>
+        <Card className="col-span-6 row-span-6 flex flex-col gap-2">
+          <p className="text-lg font-semibold">Users over time</p>
+          <div className="h-full w-full">
+            <LineChart
+              colors={['#7C4DFF', '#8d65fc', '#a07efc', '#bca4fc']}
+              xAxis={[{
+                data: [2018, 2019, 2020, 2021, 2022, 2023, 2024],
+                valueFormatter: v => v.toString(),
+                label: "Years",
+                tickInterval: [2018, 2019, 2020, 2021, 2022, 2023, 2024]
+              }]}
+              series={[{
+                data: [23, 46, 67, 105, 196, 257, 326],
+                label: "Users",
+              }]}
+            />
+          </div>
+        </Card>
+        <Card className="col-span-6 row-span-6 flex flex-col gap-2">
+          <p className="text-lg font-semibold">Users types</p>
+          <div className="h-full w-full">
+            <PieChart
+              colors={['#7C4DFF', '#8d65fc', '#a07efc', '#bca4fc']}
+              series={[{
+                data: [
+                  { value: total_users.students, label: "Students" },
+                  { value: total_users.teachers, label: "Teachers" },
+                  { value: total_users.parents, label: "Parents" },
+                  { value: total_users.admins, label: "Admins" },
+                ],
+                cornerRadius: 8,
+                innerRadius: 42,
+              }]}
+            />
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+export default DashboardHome;
