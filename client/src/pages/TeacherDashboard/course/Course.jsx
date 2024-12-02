@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {DataGrid} from "@mui/x-data-grid";
 import {Box, Typography, useTheme} from "@mui/material";
-import DashHeader from "../../../components/DashHeader.jsx";
+import DashHeader from "../../../components/TeacherDashboard/DashHeader.jsx";
 
 // Import data from the data file
 import {courses, teachers} from "./data.js";

@@ -50,11 +50,6 @@ function LandingPageHeader() {
                         </a>
                     </li>
                     <li>
-                        <a href="/DashApp">
-                            Teacher Dashboard!
-                        </a>
-                    </li>
-                    <li>
                         <a href="#profile" className="profile-icon">
                             <i className="fa fa-user-circle"></i>
                         </a>

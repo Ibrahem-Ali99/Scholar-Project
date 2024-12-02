@@ -2,7 +2,7 @@ import React from "react";
 import { ResponsiveBar } from "@nivo/bar";
 import { Box, useTheme } from "@mui/material";
 import Bar from "./bar.jsx";
-import DashHeader from "../../../components/DashHeader.jsx";
+import DashHeader from "../../../components/TeacherDashboard/DashHeader.jsx";
 
 const BarChart = () => {
   const theme = useTheme();

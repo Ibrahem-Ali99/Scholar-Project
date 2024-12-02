@@ -17,7 +17,7 @@ const GoogleCallback = () => {
 
         if (response.ok) {
           // Perform the redirection based on the backend response
-          navigate(data.redirect); // Programmatically navigate to the teachDashboard URL
+          navigate(data.redirect); // Programmatically navigate to the dashboard URL
         } else {
           setError(data.error || 'Google login failed.');
         }

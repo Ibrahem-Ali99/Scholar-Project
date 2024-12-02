@@ -2,17 +2,18 @@ import React from "react";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
 import { Box, CssBaseline } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
-import DashTopBar from "./components/DashTopBar.jsx";
-import DashSideBar from "./components/DashSideBar.jsx";
-import { getDesignTokens } from "./theme";
-import Dashboard from "./pages/TeacherDashboard/teachDashboard/Dashboard";
-import Course from "./pages/TeacherDashboard/course/Course";
-import Students from "./pages/TeacherDashboard/students/Student";
-import Calendar from "./pages/TeacherDashboard/calendar/Calendar";
-import BarChart from "./pages/TeacherDashboard/barChart/BarChart";
-import PieChart from "./pages/TeacherDashboard/pieChart/PieChart";
-import LineChart from "./pages/TeacherDashboard/lineChart/LineChart";
-import NotFound from "./pages/TeacherDashboard/notFound/NotFound";
+import DashTopBar from "../../components/TeacherDashboard/DashTopBar.jsx";
+import DashSideBar from "../../components/TeacherDashboard/DashSideBar.jsx";
+import { getDesignTokens } from "./dashboard/theme.jsx";
+import Dashboard from "./dashboard/Dashboard.jsx";
+import Course from "./course/Course.jsx";
+import Students from "./students/Student.jsx";
+import Calendar from "./calendar/Calendar.jsx";
+import BarChart from "./barChart/BarChart.jsx";
+import PieChart from "./pieChart/PieChart.jsx";
+import LineChart from "./lineChart/LineChart.jsx";
+import NotFound from "./notFound/NotFound.jsx";
+import "./index.css";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -37,12 +38,12 @@ export default function DashApp() {
           <DrawerHeader />
           <Routes>
             <Route index element={<Dashboard />} />
-            <Route path="./pages/course" element={<Course />} />
-            <Route path="./pages/students" element={<Students />} />
-            <Route path="calendar" element={<Calendar />} />
-            <Route path="bar" element={<BarChart />} />
-            <Route path="pie" element={<PieChart />} />
-            <Route path="line" element={<LineChart />} />
+            <Route path="./course" element={<Course />} />
+            <Route path="./students" element={<Students />} />
+            <Route path="./calendar" element={<Calendar />} />
+            <Route path="./bar" element={<BarChart />} />
+            <Route path="./pie" element={<PieChart />} />
+            <Route path="./line" element={<LineChart />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Box>

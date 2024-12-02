@@ -2,7 +2,7 @@ import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Box, Typography } from "@mui/material";
 import { columns, rows } from "./data.js";
-import DashHeader from "../../../components/DashHeader.jsx";
+import DashHeader from "../../../components/TeacherDashboard/DashHeader.jsx";
 
 const Student = () => {
   return (

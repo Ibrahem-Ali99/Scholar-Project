@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import StudentSidebar from "../../components/StudentSidebar/StudentSidebar";
-import StudentGreeting from "../../components/StudentGreeting/StudentGreeting"; 
+import StudentSidebar from "../../components/StudentDashboard/StudentSidebar/StudentSidebar";
+import StudentGreeting from "../../components/StudentDashboard/StudentGreeting/StudentGreeting";
 
 function StudentDashboard() {
     const [activeMenu, setActiveMenu] = useState("home"); 
