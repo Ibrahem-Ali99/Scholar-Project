@@ -13,7 +13,6 @@ import config
 
 auth = Blueprint('auth', __name__)
 
-# Define role models for querying
 ROLE_MODELS = {
     'student': Student,
     'teacher': Teacher,
@@ -21,11 +20,9 @@ ROLE_MODELS = {
     'admin': Admin
 }
 
-# Configure a serializer for secure token generation
 serializer = URLSafeTimedSerializer(config.Config.SECRET_KEY)
 
 
-# sign up endpoint
 @auth.route('/signup', methods=['POST', "GET"])
 def signup():
     data = request.json
@@ -79,7 +76,6 @@ def signup():
         return jsonify({"error": str(e)}), 500
 
 
-# auth.py
 
 @auth.route('/login', methods=['POST'])
 def login():
@@ -138,7 +134,6 @@ def login():
         return jsonify({"error": str(e)}), 500
 
 
-# forgot password endpoint
 @auth.route('/forgot-password', methods=['POST'])
 def forgot_password():
     data = request.json
@@ -177,8 +172,7 @@ def forgot_password():
         return jsonify({"error": "Internal server error"}), 500
 
 
-# Google authentication
-# Google OAuth login endpoint
+
 @auth.route('/google-login', methods=['GET'])
 def google_login():
     if google is None:
@@ -242,7 +236,6 @@ def google_callback():
         return jsonify({"error": "Internal server error", "message": str(e)}), 500
 
 
-# reset password endpoint
 @auth.route('/reset-password/<token>', methods=['POST'])
 def reset_password(token):
     data = request.json

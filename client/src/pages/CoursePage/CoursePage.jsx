@@ -22,7 +22,6 @@ function CoursePage({ courseId }) {
         setLoading(false);  // Set loading state to false if an error occurs
       }
     };
-
     fetchCourseData();
   }, [courseId]);  // The effect runs when the courseId changes
 

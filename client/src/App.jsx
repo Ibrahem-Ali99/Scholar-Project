@@ -8,7 +8,6 @@ import CoursePage from './pages/CoursePage/CoursePage';
 import '@fortawesome/fontawesome-free/css/all.css';
 import StudentDashboard from "./pages/StudentDashboard/StudentDashboard";
 
-
 import Dashboard from "./pages/TeacherDashboard/dashboard/Dashboard";
 import Calendar from "./pages/TeacherDashboard/calendar/Calendar";
 import Course from "./pages/TeacherDashboard/course/Course";
@@ -18,8 +17,8 @@ import PieChart from "./pages/TeacherDashboard/pieChart/PieChart";
 import LineChart from "./pages/TeacherDashboard/lineChart/LineChart";
 
 import DashApp from './pages/TeacherDashboard/DashApp.jsx';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 
 function App() {

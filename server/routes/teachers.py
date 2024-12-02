@@ -4,7 +4,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from flask import Blueprint, jsonify
 from models.user import Teacher
-from sqlalchemy import func
 
 teacher_bp = Blueprint('teacher', __name__)
 
