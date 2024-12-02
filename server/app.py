@@ -8,7 +8,8 @@ from config import Config
 from routes.auth import auth
 from flask_mail import Mail
 from routes.CoursePage import course_page
-
+from routes.student import student_bp
+from routes.dashboard import dashboard_bp
 
 app = Flask(__name__)
 
