@@ -11,12 +11,7 @@ import { data1 as defaultData1, data2, data3, data4 } from "./data.js";
 const Row1 = () => {
     const [studentCount, setStudentCount] = useState("0");
     const [chartData, setChartData] = useState(defaultData1);
-    const [moneyObtained, setMoneyObtained] = useState("0.00");
-    const [chartDataMoney, setChartDataMoney] = useState([
-        { id: 'Obtained', label: 'Money Obtained', value: 0, color: "hsl(111, 90%, 90%)" },
-        { id: 'Others', label: 'Others', value: 100, color: "hsl(22, 90%, 90%)" },
-    ]);
-    
+
     useEffect(() => {
         const teacherId = localStorage.getItem('teacher_id');
         if (teacherId) {

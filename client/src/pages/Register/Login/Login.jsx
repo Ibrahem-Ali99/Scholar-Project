@@ -25,8 +25,9 @@ function Login() {
       const result = await response.json();
       if (response.ok) {
         setSuccess(result.message);
+        // Store teacher_id if role is teacher
         if (result.role === 'teacher') {
-          localStorage.setItem('teacher_id', result.teacher_id); 
+          localStorage.setItem('teacher_id', result.teacher_id); // Correct key
           navigate('/teacher-dashboard');
         } else if (result.role === 'student') {
           navigate('/student-dashboard');

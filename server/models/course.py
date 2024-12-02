@@ -44,7 +44,7 @@ class CourseRating(db.Model):
     rated_by = db.Column(db.Integer, db.ForeignKey('student.student_id'), nullable=False)
     course_id = db.Column(db.Integer, db.ForeignKey(COURSE_FOREIGN_KEY), nullable=False)  
     rating = db.Column(db.Integer, nullable=False)
-    feedback = db.Column(db.Text)  # Change 'comment' to 'feedback'
+    comment = db.Column(db.Text)
     
     student = db.relationship('Student', backref='course_ratings', lazy=True)
     course = db.relationship('Course', back_populates='ratings', lazy=True)

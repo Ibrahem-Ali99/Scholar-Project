@@ -35,6 +35,7 @@ function App() {
                 <Route path="/forgot-password" element={<ForgotPassword/>}/>
                 <Route path="/google/callback" element={<GoogleCallback/>}/>
                 <Route path="/course/:courseId" element={<CoursePage/>}/>
+                <Route path="/course/:courseId" element={<CoursePage/>}/>
                 <Route path="/pages/dashboard/Dashboard" element={<Dashboard/>}/>
                 
                 {/* teacher dashboard */}
