@@ -25,3 +25,5 @@ def get_teachers():
         for teacher in teachers
     ]
     return jsonify(teachers_list)
+
+

@@ -23,7 +23,7 @@ def get_money_obtained():
     if not teacher_id:
         return jsonify({"error": "teacher_id is required"}), 400
 
-    course_ids = db.session.query(Course.Course_id).filter_by(Teacher_id=teacher_id).all()
+    course_ids = db.session.query(Course.course_id).filter_by(teacher_id=teacher_id).all()
     course_ids = [cid[0] for cid in course_ids]
 
     total_amount = db.session.query(db.func.sum(Payment.amount)).filter(Payment.Course_id.in_(course_ids)).scalar()

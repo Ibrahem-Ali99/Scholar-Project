@@ -39,7 +39,7 @@ function App() {
                 <Route path="/pages/dashboard/Dashboard" element={<Dashboard/>}/>
                 
                 {/* teacher dashboard */}
-                <Route path="/DashApp/*" element={<DashApp />} /> {/* Add this route */}
+                <Route path="/teacher-dashboard/*" element={<DashApp />} /> {/* Add this route */}
                 <Route path="/bar" element={<BarChart />} />
                 <Route path="/pie" element={<PieChart />} />
                 <Route path="/line" element={<LineChart />} />

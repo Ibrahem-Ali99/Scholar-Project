@@ -5,7 +5,7 @@ import DashHeader from "../../../components/TeacherDashboard/DashHeader.jsx";
 
 const Student = () => {
   const [rows, setRows] = useState([]);
-  const teacherId = 5;
+  const teacherId = localStorage.getItem('teacher_id'); 
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -14,14 +14,18 @@ const Student = () => {
   ];
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/students?teacher_id=${teacherId}`)
-      .then(response => response.json())
-      .then(data => {
-        setRows(data);
-      })
-      .catch(error => {
-        console.error("There was an error fetching the students!", error);
-      });
+    if (teacherId) {
+      fetch(`http://127.0.0.1:5000/students?teacher_id=${teacherId}`)
+        .then(response => response.json())
+        .then(data => {
+          setRows(data);
+        })
+        .catch(error => {
+          console.error("There was an error fetching the students!", error);
+        });
+    } else {
+      console.error("Teacher ID is not available.");
+    }
   }, [teacherId]);
 
   return (

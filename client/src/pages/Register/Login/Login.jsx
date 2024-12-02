@@ -14,9 +14,7 @@ function Login() {
     e.preventDefault();
     setError('');
     setSuccess('');
-
     try {
-      // Login function using fetch
       const response = await fetch('http://localhost:5000/auth/login', {
         method: 'POST',
         headers: {
@@ -24,28 +22,23 @@ function Login() {
         },
         body: JSON.stringify({ email, password }),
       });
-
-      const result = await response.json(); // Parse the response as JSON
-
+      const result = await response.json();
       if (response.ok) {
-        setSuccess(result.message); // Display the success message
-
-        // Redirect based on user role (student, teacher, or parent)
-        if (result.role === 'student') {
-          navigate('/student-dashboard');
-        } else if (result.role === 'teacher') {
+        setSuccess(result.message);
+        // Store teacher_id if role is teacher
+        if (result.role === 'teacher') {
+          localStorage.setItem('teacher_id', result.teacher_id); // Correct key
           navigate('/teacher-dashboard');
+        } else if (result.role === 'student') {
+          navigate('/student-dashboard');
         } else if (result.role === 'parent') {
           navigate('/parent-dashboard');
-        } else {
-          setError('Unknown user role.');
         }
       } else {
-        setError(result.message || 'Something went wrong');
+        setError(result.error);
       }
-    } catch (err) {
-      console.error('Error during login:', err);
-      setError('Something went wrong. Please try again.');
+    } catch (error) {
+      setError('An error occurred during login.');
     }
   };
 

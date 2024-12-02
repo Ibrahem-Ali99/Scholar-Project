@@ -8,21 +8,22 @@ student_bp = Blueprint('students', __name__)
 @student_bp.route('/students', methods=['GET'])
 def get_students():
     teacher_id = request.args.get('teacher_id')
-    if teacher_id:
-        students = Student.query.join(Enrollment, Student.student_id == Enrollment.student_id) \
-                                .join(Course, Enrollment.course_id == Course.course_id) \
-                                .filter(Course.teacher_id == teacher_id) \
-                                .with_entities(Student.student_id, Student.name, Student.email) \
-                                .all()
-    else:
-        students = Student.query.with_entities(Student.student_id, Student.name, Student.email).all()
-    
-    student_list = [
-        {
-            "id": student.student_id,
-            "name": student.name,
-            "email": student.email
-        }
-        for student in students
-    ]
-    return jsonify(student_list)
+    if not teacher_id:
+        return jsonify({"error": "teacher_id is required"}), 400
+
+    try:
+        # Example query: Get students enrolled in courses taught by the teacher
+        courses = Course.query.filter_by(teacher_id=teacher_id).all()
+        course_ids = [course.course_id for course in courses]
+        students = Student.query.join(Enrollment).filter(Enrollment.course_id.in_(course_ids)).all()
+
+        students_list = [{
+            'id': student.id,  # Uses the 'id' property from BaseUser
+            'name': student.name,
+            'email': student.email
+        } for student in students]
+
+        return jsonify(students_list), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

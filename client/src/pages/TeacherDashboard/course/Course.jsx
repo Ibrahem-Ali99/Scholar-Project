@@ -6,7 +6,7 @@ import DashHeader from "../../../components/TeacherDashboard/DashHeader.jsx";
 const Course = () => {
   const theme = useTheme();
   const [courseData, setCourseData] = useState([]);
-  const teacherId = 1; 
+  const teacherId = localStorage.getItem('teacher_id'); 
 
   useEffect(() => {
     fetch(`http://127.0.0.1:5000/courses?teacher_id=${teacherId}`)

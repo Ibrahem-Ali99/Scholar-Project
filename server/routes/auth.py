@@ -1,5 +1,6 @@
 import sys
 import os
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask import Blueprint, request, jsonify, session, url_for, redirect
 from itsdangerous import URLSafeTimedSerializer
@@ -10,7 +11,6 @@ from extensions import google
 from models.user import Student, Teacher, Parent, Admin  # Import models
 import logging
 import config
-
 
 auth = Blueprint('auth', __name__)
 
@@ -24,6 +24,7 @@ ROLE_MODELS = {
 
 # Configure a serializer for secure token generation
 serializer = URLSafeTimedSerializer(config.Config.SECRET_KEY)
+
 
 # sign up endpoint
 @auth.route('/signup', methods=['POST', "GET"])
@@ -79,8 +80,8 @@ def signup():
         return jsonify({"error": str(e)}), 500
 
 
+# auth.py
 
-# login endpoint
 @auth.route('/login', methods=['POST'])
 def login():
     data = request.json
@@ -91,9 +92,7 @@ def login():
         return jsonify({"error": "Email and password are required"}), 400
 
     try:
-        user = None
-        role = None
-        # Define a dictionary with model classes and their corresponding roles
+        user, role = None, None
         user_roles = {
             'student': Student,
             'teacher': Teacher,
@@ -101,7 +100,6 @@ def login():
             'admin': Admin
         }
 
-        # Loop through the roles and find the user based on the email
         for r, model in user_roles.items():
             user = model.query.filter_by(email=email).first()
             if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
@@ -111,12 +109,31 @@ def login():
         if not user or not role:
             return jsonify({"error": "Invalid email or password"}), 401
 
-        # Store user session
         session['user'] = email
         session['role'] = role
 
-        # Return the response with the user's role
-        return jsonify({"message": "Login successful", "role": role}), 200
+        # Set the correct ID based on role
+        if role == 'teacher':
+            session['id'] = user.teacher_id
+        elif role == 'student':
+            session['id'] = user.student_id
+        elif role == 'parent':
+            session['id'] = user.parent_id
+        elif role == 'admin':
+            session['id'] = user.admin_id
+
+        response = {"message": "Login successful", "role": role}
+
+        if role == 'teacher':
+            response["teacher_id"] = user.teacher_id
+        elif role == 'student':
+            response["student_id"] = user.student_id
+        elif role == 'parent':
+            response["parent_id"] = user.parent_id
+        elif role == 'admin':
+            response["admin_id"] = user.admin_id
+
+        return jsonify(response), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -218,14 +235,14 @@ def google_callback():
         session['role'] = 'parent'
 
         frontend_url = f'http://localhost:5173/parent-dashboard'
-        return jsonify({"message": "Google login successful", "role": 'parent', "user_id": new_user.student_id, "redirect": frontend_url}), 200
+        return jsonify({"message": "Google login successful", "role": 'parent', "user_id": new_user.student_id,
+                        "redirect": frontend_url}), 200
 
     except Exception as e:
         logging.exception("Error during Google OAuth callback")
         return jsonify({"error": "Internal server error", "message": str(e)}), 500
-    
-    
-    
+
+
 # reset password endpoint
 @auth.route('/reset-password/<token>', methods=['POST'])
 def reset_password(token):
@@ -250,8 +267,8 @@ def reset_password(token):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
-    
-    
+
+
 @auth.route('/set-student-id', methods=['POST'])
 def set_student_id():
     try:
@@ -273,10 +290,11 @@ def set_student_id():
 
     except Exception as e:
         logging.exception("Error setting student ID")
-        return jsonify({"error": "Internal server error", "message": str(e)}), 500    
-    
+        return jsonify({"error": "Internal server error", "message": str(e)}), 500
 
-# logoiut
+    # logoiut
+
+
 @auth.route('/logout', methods=['POST'])
 def logout():
     session.clear()
