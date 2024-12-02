@@ -21,7 +21,6 @@ const Row1 = () => {
                 icon={<SchoolIcon style={{fontSize: 35, color: "blue"}}/>}
                 title="00,000"
                 subTitle="Students enrolled"
-                increase="+00%"
                 data={data1}
                 scheme="nivo"
             />
@@ -30,7 +29,6 @@ const Row1 = () => {
                 icon={<AttachMoneyIcon style={{fontSize: 35, color: "green"}}/>}
                 title="000,000"
                 subTitle="Moeny obtained"
-                increase="+00%"
                 data={data2}
                 scheme="category10"
             />
@@ -40,7 +38,6 @@ const Row1 = () => {
                 icon={<AssignmentTurnedInIcon style={{fontSize: 35, color: "purple"}}/>}
                 title="00"
                 subTitle="Completion Rate"
-                increase="+00%"
                 data={data3}
                 scheme="accent"
             />
@@ -49,7 +46,6 @@ const Row1 = () => {
                 icon={<PendingIcon style={{fontSize: 35, color: "orange"}}/>}
                 title="65"
                 subTitle="Pending Due"
-                increase="+43%"
                 data={data4}
                 scheme="dark2"
             />
