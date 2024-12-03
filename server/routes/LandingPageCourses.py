@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify
 from models.course import Course
 
-course_bp = Blueprint('LandingPageCourses', __name__)
+landing_course_bp = Blueprint('LandingPageCourses', __name__)
 
-@course_bp.route('/LandingPageCourses', methods=['GET'])
+@landing_course_bp.route('/LandingPageCourses', methods=['GET'])
 def get_courses():
     courses = Course.query.all()
     return jsonify([{
