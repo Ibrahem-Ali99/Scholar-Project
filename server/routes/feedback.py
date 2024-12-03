@@ -17,7 +17,7 @@ def get_all_feedbacks():
             'rating_id': feedback.rating_id,
             'student_name': feedback.student.name,  
             'rating': feedback.rating,
-            'comment': feedback.comment,
+            'comment': feedback.feedback,
             'course_name': feedback.course.course_name  
         })
     
