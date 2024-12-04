@@ -9,7 +9,7 @@ from datetime import datetime
 
 course_list_bp = Blueprint('course_list_bp', __name__)
 
-@course_list_bp.route('/api/courses', methods=['GET'])  # Changed from admin/course
+@course_list_bp.route('/api/courses', methods=['GET'])  # changed from admin/course
 
 def get_courses():
     try:
@@ -36,7 +36,6 @@ def get_courses():
                 ).count()
             )
 
-            # Get current enrollments without badges
             current_enrollments = (
                 Enrollment.query
                 .outerjoin(StudentBadge, Enrollment.student_id == StudentBadge.student_id)
@@ -47,7 +46,6 @@ def get_courses():
                 .all()
             )
 
-            # Calculate average days to complete
             days_to_complete = []
             for enrollment in completed_enrollments:
                 badge = StudentBadge.query.filter_by(student_id=enrollment.student_id).first()
@@ -57,11 +55,10 @@ def get_courses():
 
             avg_days = int(sum(days_to_complete) / len(days_to_complete)) if days_to_complete else 0
 
-            # Get reviews with correct feedback field
             reviews = [{
                 'studentName': rating.student.name,
                 'rating': rating.rating,
-                'body': rating.feedback  # Changed from comment to feedback
+                'body': rating.feedback 
             } for rating in course.ratings]
 
             courses_list.append({
@@ -70,8 +67,8 @@ def get_courses():
                 'courseDescription': course.course_description,
                 'currentEnrollmentCount': len(current_enrollments) if current_enrollments else 0,
                 'passCount': len(completed_enrollments),
-                'hoursToComplete': avg_days,  # Now represents days instead of hours
-                'difficulty': min(max(int(avg_days/30), 1), 4),  # Difficulty based on completion time: 1-4
+                'hoursToComplete': avg_days, 
+                'difficulty': min(max(int(avg_days/30), 1), 4),  
                 'teacher': teacher_name,
                 'reviews': reviews,
                 "dropCount": incomplete_enrollments,

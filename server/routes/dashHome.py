@@ -13,7 +13,6 @@ dash_home_bp = Blueprint('dash_home_bp', __name__)
 @dash_home_bp.route('/admin', methods=['GET'])  
 def get_dashboard_data():
     try:
-        # Total users counts
         total_students = Student.query.count()
         total_teachers = Teacher.query.count()
         total_parents = Parent.query.count()
@@ -25,16 +24,11 @@ def get_dashboard_data():
             'admins': total_admins
         }
 
-        # Active courses
         active_courses = Course.query.count()
-
-        # Count pending hiring requests
         pending_approvals = HiringRequest.query.filter_by(status='pending').count()
 
-        # Total payments made
         daily_active_users = Payment.query.count()
 
-        # Get enrollments grouped by year
         enrollments = Enrollment.query.with_entities(
             func.extract('year', Enrollment.enrollment_date).label('year'),
             func.count(Enrollment.enrollment_id).label('count')

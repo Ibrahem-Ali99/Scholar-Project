@@ -15,7 +15,7 @@ class Course(db.Model):
     price = db.Column(db.Float, nullable=False)  
     image_url = db.Column(db.String(255), nullable=False) 
     
-    # Relationships
+    # relationships
     enrollments = db.relationship('Enrollment', backref='course', lazy=True)
     contents = db.relationship('CourseContent', backref='course', lazy=True)
     assessments = db.relationship('CourseAssessment', backref='course', lazy=True)

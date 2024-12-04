@@ -12,13 +12,12 @@ def get_students():
         return jsonify({"error": "teacher_id is required"}), 400
 
     try:
-        # Example query: Get students enrolled in courses taught by the teacher
         courses = Course.query.filter_by(teacher_id=teacher_id).all()
         course_ids = [course.course_id for course in courses]
         students = Student.query.join(Enrollment).filter(Enrollment.course_id.in_(course_ids)).all()
 
         students_list = [{
-            'id': student.id,  # Uses the 'id' property from BaseUser
+            'id': student.id,  
             'name': student.name,
             'email': student.email
         } for student in students]
