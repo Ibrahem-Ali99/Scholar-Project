@@ -1,0 +1,302 @@
+-- Step 1: Drop the existing 'scholar' database if it exists
+DROP DATABASE IF EXISTS scholar;
+
+-- Step 2: Create a new 'scholar' database and select it for use
+CREATE DATABASE scholar;
+USE scholar;
+
+CREATE TABLE Student (
+    Student_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    password VARCHAR(255),
+    email VARCHAR(255) UNIQUE
+);
+
+CREATE TABLE Teacher (
+    teacher_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    profile_picture VARCHAR(255),
+    facebook_url VARCHAR(255),
+    twitter_url VARCHAR(255),
+    linkedin_url VARCHAR(255),
+    hiring_status ENUM('pending', 'hired', 'rejected') DEFAULT 'pending' NOT NULL,
+    designation VARCHAR(100)
+);
+
+
+CREATE TABLE Course (
+    Course_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_name VARCHAR(255),
+    course_description TEXT,
+    Teacher_id INT,
+    num_assessments INT,
+    price DECIMAL(10, 2),
+	image_url VARCHAR(255),
+    FOREIGN KEY (Teacher_id) REFERENCES Teacher(Teacher_id)
+);
+
+CREATE TABLE Parent (
+	name VARCHAR(255) NOT NULL,
+    Parent_id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE,
+    password VARCHAR(255),
+    Student_id INT,
+    FOREIGN KEY (Student_id) REFERENCES Student(Student_id)
+);
+
+CREATE TABLE Admin (
+	name VARCHAR(255) NOT NULL,
+    Admin_id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE,
+    password VARCHAR(255)
+);
+
+CREATE TABLE Enrollment (
+    Enrollment_id INT AUTO_INCREMENT PRIMARY KEY,
+    Course_id INT,
+    Student_id INT,
+    enrollment_date DATE,
+    FOREIGN KEY (Course_id) REFERENCES Course(Course_id),
+    FOREIGN KEY (Student_id) REFERENCES Student(Student_id)
+);
+
+CREATE TABLE Payment (
+    Payment_id INT AUTO_INCREMENT PRIMARY KEY,
+    Student_id INT,
+    Course_id INT,
+    amount DECIMAL(10, 2),
+    payment_date DATE,
+    FOREIGN KEY (Student_id) REFERENCES Student(Student_id),
+    FOREIGN KEY (Course_id) REFERENCES Course(Course_id)
+);
+
+CREATE TABLE Course_content (
+    Content_id INT AUTO_INCREMENT PRIMARY KEY,
+    Course_id INT,
+    title VARCHAR(255),
+    content_type VARCHAR(255),
+    post_date DATE,
+    FOREIGN KEY (Course_id) REFERENCES Course(Course_id)
+);
+
+CREATE TABLE Course_assessment (
+    Assessment_id INT AUTO_INCREMENT PRIMARY KEY,
+    Course_id INT,
+    title VARCHAR(255),
+    max_score INT,
+    post_date DATE,
+    deadline DATE,
+    FOREIGN KEY (Course_id) REFERENCES Course(Course_id)
+);
+
+CREATE TABLE Student_progress (
+    Progress_id INT AUTO_INCREMENT PRIMARY KEY,
+    Student_id INT,
+    Assessment_id INT,
+    status ENUM('pass', 'fail'),
+    completion_date DATE,
+    score INT,
+    FOREIGN KEY (Student_id) REFERENCES Student(Student_id),
+    FOREIGN KEY (Assessment_id) REFERENCES Course_assessment(Assessment_id)
+);
+
+CREATE TABLE Badge (
+    Badge_id INT AUTO_INCREMENT PRIMARY KEY,
+    badge_name VARCHAR(255),
+    badge_description TEXT
+);
+
+CREATE TABLE Student_badge (
+    Student_badge_id INT AUTO_INCREMENT PRIMARY KEY,
+    Student_id INT,
+    Badge_id INT,
+    date_awarded DATE,
+    FOREIGN KEY (Student_id) REFERENCES Student(Student_id),
+    FOREIGN KEY (Badge_id) REFERENCES Badge(Badge_id)
+);
+
+CREATE TABLE Course_rating (
+    Rating_id INT AUTO_INCREMENT PRIMARY KEY,
+    rated_by INT,
+    Course_id INT,
+    rating INT CHECK (rating BETWEEN 1 AND 5),
+    feedback TEXT,
+    FOREIGN KEY (rated_by) REFERENCES Student(Student_id),
+    FOREIGN KEY (Course_id) REFERENCES Course(Course_id)
+);
+
+CREATE TABLE Notification (
+    Notification_id INT AUTO_INCREMENT PRIMARY KEY,
+    message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Student_notification (
+    Student_notification_id INT AUTO_INCREMENT PRIMARY KEY,
+    Student_id INT,
+    Notification_id INT,
+    is_pushed BOOLEAN,
+    FOREIGN KEY (Student_id) REFERENCES Student(Student_id),
+    FOREIGN KEY (Notification_id) REFERENCES Notification(Notification_id)
+);
+
+CREATE TABLE Sessions (
+    Session_id INT AUTO_INCREMENT PRIMARY KEY,
+    Teacher_id INT,
+    Course_id INT,
+    Notification_id INT,
+    Session_date DATE,
+    FOREIGN KEY (Teacher_id) REFERENCES Teacher(Teacher_id),
+    FOREIGN KEY (Course_id) REFERENCES Course(Course_id),
+    FOREIGN KEY (Notification_id) REFERENCES Notification(Notification_id)
+);
+
+CREATE TABLE Hiring_Request (
+    Request_id INT AUTO_INCREMENT PRIMARY KEY,
+    Teacher_id INT,
+    status ENUM('pending', 'approved', 'rejected'),
+    request_date DATE,
+    reviewed_by INT,
+    reviewed_date DATE,
+    FOREIGN KEY (Teacher_id) REFERENCES Teacher(Teacher_id),
+    FOREIGN KEY (reviewed_by) REFERENCES Admin(Admin_id)
+);
+
+
+-- Insert into Student
+INSERT INTO Student (Student_id, name, password, email) VALUES
+(1, 'Galal Mohamed', 'password123', 'galal.mohamed@gmail.com'),
+(2, 'Ibrahem Ali', 'password123', 'ibrahem.ali@gmail.com'),
+(3, 'Mohamed Hassan', 'password123', 'mohamed.hassan@gmail.com'),
+(4, 'Rihana Nasr', 'password123', 'rihana.nasr@gmail.com'),
+(5, 'Youssef Bashar', 'password123', 'youssef.bashar@gmail.com');
+
+-- Insert into Teacher
+INSERT INTO Teacher (name, email, password, profile_picture, facebook_url, twitter_url, Linkedin_url, hiring_status) VALUES
+('Galal Mohamed', 'galal.mohamed@gmail.com', 'password123', 'Gala.jpg', 'https://facebook.com/galal', 'https://twitter.com/galal', 'https://linkedin.com/in/galal', 'hired'),
+('Ibrahem Ali', 'ibrahem.ali@gmail.com', 'password123', 'IbrahemAli.jpg', 'https://facebook.com/ibrahem', 'https://twitter.com/ibrahem', 'https://linkedin.com/in/ibrahem', 'pending'),
+('Mohammed Hassan', 'mohammed@example.com', 'password123', 'Mohamed.jpg', 'https://facebook.com/mohammed', 'https://twitter.com/mohammed', 'https://linkedin.com/in/mohammed', 'hired'),
+('Rihana Nasr', 'rihana.nasr@gmail.com', 'password123', 'pic4.jpg', 'https://facebook.com/rihana', 'https://twitter.com/rihana', 'https://linkedin.com/in/rihana', 'hired'),
+('Youssef Bashar', 'youssef.bashar@gmail.com', 'password123', 'pic5.jpg', 'https://facebook.com/youssef', 'https://twitter.com/youssef', 'https://linkedin.com/in/youssef', 'pending');
+
+-- Insert into Course
+INSERT INTO Course (course_name, course_description, Teacher_id, num_assessments, image_url, price) VALUES
+('Introduction to Programming', 'Learn the basics of programming using Python', 1, 3,'Webdesign.avif', 300),
+('Web Development with HTML/CSS', 'Learn the fundamentals of building websites with HTML and CSS', 3, 3, 'Webdesign.avif', 100),
+('Advanced JavaScript Programming', 'Deep dive into JavaScript and its advanced concepts', 2, 4, 'Programming.webp', 250),
+('Database Management with SQL', 'Learn how to design and manage databases using SQL', 4, 3, 'Webdesign.avif', 300),
+('Mobile App Development with Kotlin', 'Create Android apps using Kotlin programming language', 5, 5, 'Webdesign.avif', 300);
+
+-- Insert into Parent 
+INSERT INTO Parent (name, email, password, Student_id) VALUES
+('Parent 1', 'parent1@gmail.com', 'hashedpassword123', 1),
+('Parent 2', 'parent2@gmail.com', 'hashedpassword123', 2),
+('Parent 3', 'parent3@gmail.com', 'hashedpassword123', 3),
+('Parent 4', 'parent4@gmail.com', 'hashedpassword123', 4),
+('Parent 5', 'parent5@gmail.com', 'hashedpassword123', 5);
+
+-- Insert into Admin 
+INSERT INTO Admin (name, email, password) VALUES
+('Admin 1', 'admin1@gmail.com', 'hashedadminpassword'),
+('Admin 2', 'admin2@gmail.com', 'hashedadminpassword'),
+('Admin 3', 'admin3@gmail.com', 'hashedadminpassword'),
+('Admin 4', 'admin4@gmail.com', 'hashedadminpassword'),
+('Admin 5', 'admin5@gmail.com', 'hashedadminpassword');
+
+-- Insert into Enrollment
+INSERT INTO Enrollment (Enrollment_id, Course_id, Student_id, enrollment_date) VALUES
+(1, 1, 1, '2024-11-01'),
+(2, 2, 2, '2024-11-02'),
+(3, 3, 3, '2024-11-03'),
+(4, 4, 4, '2024-11-04'),
+(5, 5, 5, '2024-11-05');
+
+-- Insert into Payment
+INSERT INTO Payment (Payment_id, Student_id, Course_id, amount, payment_date) VALUES
+(1, 1, 1, 100.00, '2024-11-01'),
+(2, 2, 2, 120.00, '2024-11-02'),
+(3, 3, 3, 150.00, '2024-11-03'),
+(4, 4, 4, 130.00, '2024-11-04'),
+(5, 5, 5, 200.00, '2024-11-05');
+
+-- Insert into Course_content
+INSERT INTO Course_content (Content_id, Course_id, title, content_type, post_date) VALUES
+(1, 1, 'Python Basics', 'PDF', '2024-11-01'),
+(2, 2, 'HTML Structure', 'PowerPoint', '2024-11-02'),
+(3, 3, 'JavaScript Functions', 'PDF', '2024-11-03'),
+(4, 4, 'SQL Queries', 'PDF', '2024-11-04'),
+(5, 5, 'Kotlin Basics', 'PowerPoint', '2024-11-05');
+
+-- Insert into Course_assessment
+INSERT INTO Course_assessment (Assessment_id, Course_id, title, max_score, post_date, deadline) VALUES
+(1, 1, 'Basic Python Quiz', 100, '2024-11-01', '2024-11-10'),
+(2, 2, 'HTML/CSS Project', 100, '2024-11-02', '2024-11-12'),
+(3, 3, 'JavaScript Advanced Quiz', 100, '2024-11-03', '2024-11-13'),
+(4, 4, 'SQL Database Test', 100, '2024-11-04', '2024-11-14'),
+(5, 5, 'Kotlin Android App', 100, '2024-11-05', '2024-11-15');
+
+-- Insert into Student_progress
+INSERT INTO Student_progress (Progress_id, Student_id, Assessment_id, status, completion_date, score) VALUES
+(1, 1, 1, 'pass', '2024-11-05', 85),
+(2, 2, 2, 'fail', '2024-11-06', 40),
+(3, 3, 3, 'pass', '2024-11-07', 90),
+(4, 4, 4, 'pass', '2024-11-08', 75),
+(5, 5, 5, 'fail', '2024-11-09', 50);
+
+-- Insert into Badge
+INSERT INTO Badge (Badge_id, badge_name, badge_description) VALUES
+(1, 'Python Expert', 'Awarded for completing the Python course with high scores'),
+(2, 'Web Developer', 'Awarded for mastering HTML/CSS fundamentals'),
+(3, 'JavaScript Guru', 'Awarded for mastering advanced JavaScript concepts'),
+(4, 'SQL Master', 'Awarded for mastering SQL queries and database management'),
+(5, 'Kotlin Developer', 'Awarded for completing Android development with Kotlin');
+
+-- Insert into Student_badge
+INSERT INTO Student_badge (Student_badge_id, Student_id, Badge_id, date_awarded) VALUES
+(1, 1, 1, '2024-11-06'),
+(2, 2, 2, '2024-11-07'),
+(3, 3, 3, '2024-11-08'),
+(4, 4, 4, '2024-11-09'),
+(5, 5, 5, '2024-11-10');
+
+-- Insert into Course_rating
+INSERT INTO Course_rating (Rating_id, rated_by, Course_id, rating, feedback) VALUES
+(1, 1, 1, 5, 'Excellent course, learned a lot about Python'),
+(2, 2, 2, 3, 'The course was good, but could use more examples'),
+(3, 3, 3, 4, 'Great course, JavaScript concepts were well explained'),
+(4, 4, 4, 2, 'The course was a bit too basic for my level'),
+(5, 5, 5, 5, 'Loved the course, especially the Android project');
+
+-- Insert into Notification
+INSERT INTO Notification (Notification_id, message, created_at) VALUES
+(1, 'New programming course available: Introduction to Programming', '2024-11-01 10:00:00'),
+(2, 'Your SQL test results are available', '2024-11-02 11:00:00'),
+(3, 'Reminder: JavaScript Quiz Deadline is approaching', '2024-11-03 12:00:00'),
+(4, 'New Kotlin development content added', '2024-11-04 14:00:00'),
+(5, 'Your course rating for Python is live', '2024-11-05 15:00:00');
+
+-- Insert into Student_notification
+INSERT INTO Student_notification (Student_notification_id, Student_id, Notification_id, is_pushed) VALUES
+(1, 1, 1, true),
+(2, 2, 2, true),
+(3, 3, 3, true),
+(4, 4, 4, false),
+(5, 5, 5, true);
+
+-- Insert into Sessions
+INSERT INTO Sessions (Session_id, Teacher_id, Course_id, Notification_id, Session_date) VALUES
+(1, 1, 1, 1, '2024-11-06'),
+(2, 2, 2, 2, '2024-11-07'),
+(3, 3, 3, 3, '2024-11-08'),
+(4, 4, 4, 4, '2024-11-09'),
+(5, 5, 5, 5, '2024-11-10');
+
+-- Insert into Hiring_Request
+INSERT INTO Hiring_Request (Request_id, Teacher_id, status, request_date, reviewed_by, reviewed_date) VALUES
+(1, 1, 'approved', '2024-10-01', 1, '2024-10-05'),
+(2, 2, 'pending', '2024-10-02', NULL, NULL),
+(3, 3, 'rejected', '2024-10-03', 2, '2024-10-06'),
+(4, 4, 'approved', '2024-10-04', 3, '2024-10-07'),
+(5, 5, 'pending', '2024-10-05', NULL, NULL);

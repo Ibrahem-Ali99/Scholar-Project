@@ -58,3 +58,87 @@ mysql -u <username> -p
 USE <database_name>;
 SHOW TABLES;
 SELECT * FROM <table_name>;
+```
+# Frontend Setup and Usage Guide
+
+This guide explains how to set up and run the frontend code of a React-based web application. Follow the instructions below to get started with the project.
+
+## Prerequisites
+Before running the project, ensure the following are installed:
+1.	Node.js
+○	Download Node.js
+2.	Python 
+○	Download Python
+3.	Flask 
+○	Install Flask via pip.
+4.	MySQL
+○	Download MySQL
+
+Step 1: Clone the Repository
+Open a terminal.
+Clone the repository using the following command:
+```
+git clone https://github.com/Ibrahem-Ali99/Scholar-Project.git
+```
+Navigate to the project directory:
+```
+cd Scholar-Project
+```
+# Frontend Setup
+1. Navigate to the Client Directory
+```
+cd client
+```
+2. Install Dependencies
+Run the following command to install all required Node.js packages:
+```
+npm install
+```
+3. Start the Frontend
+Start the React development server:
+```
+npm start
+```
+The frontend will open in your browser at http://localhost:3000. If it doesn’t, manually open the URL in your browser.
+
+# Backend Setup
+ 1. Navigate to the Server Directory
+```
+cd server
+```
+
+ 2. Install Python Dependencies
+Install Flask and other required Python packages:
+```
+pip install -r requirements.txt
+```
+ 3. Set Up the Database
+Run the provided script to initialize the database:
+```
+python init_db.py
+```
+  Ensure that MySQL is running on your machine and configured properly in the database initialization script.
+
+ 4. Start the Backend
+Start the Flask server:
+```
+python app.py
+```
+The backend server will run at http://localhost:5000.
+
+## Connecting Frontend and Backend
+The frontend is pre-configured to communicate with the backend at http://localhost:5000. No additional configuration is needed.
+
+# Project Folder Structure
+●	client/: Contains the frontend React code.
+
+●	server/: Contains the backend Flask code, including database setup and API logic.
+
+●	requirements.txt: Lists Python dependencies for the backend.
+
+
+
+
+
+
+

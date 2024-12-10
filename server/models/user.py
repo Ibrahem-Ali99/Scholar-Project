@@ -1,10 +1,14 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from utils.db import db
 
 class BaseUser(db.Model):
     __abstract__ = True
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    name = db.Column(db.String(100), nullable=False)  # Ensure that 'name' is a part of the BaseUser
+    name = db.Column(db.String(100), nullable=False)  
 
 class Student(BaseUser):
     __tablename__ = 'student'

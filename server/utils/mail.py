@@ -1,7 +1,5 @@
 from flask_mail import Mail, Message
-from flask import current_app
 
-# Initialize Flask-Mail
 mail = Mail()
 
 from flask_mail import Mail, Message
@@ -29,11 +27,9 @@ def send_reset_email(to_email, reset_token):
         Scholar Team
         """
 
-        # Create and send the email
         msg = Message(subject=subject, recipients=[to_email], body=body)
         mail.send(msg)
         return True
     except Exception as e:
-        # Log the error to identify the issue
         print(f"Failed to send email: {e}")
         return False

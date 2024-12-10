@@ -1,17 +1,17 @@
 import React from "react";
-import Header from "../../components/Header/Header";
-import MainBanner from "../../components/MainBanner/MainBanner";
-import FeatureOffering from "../../components/FeatureOffering/FeatureOffering";
-import AboutUs from "../../components/AboutUs/AboutUs"; 
-import LandingPageCourses from "../../components/LandingPageCourses/LandingPageCourses";
-import DisplayTeachers from "../../components/DisplayTeachers/DisplayTeachers";
-import Feedback from "../../components/Feedback/Feedback";
-import Footer from "../../components/Footer/Footer";
+import LandingPageHeader from "../../components/LandingPage/LandingPageHeader/LandingPageHeader.jsx";
+import MainBanner from "../../components/LandingPage/MainBanner/MainBanner";
+import FeatureOffering from "../../components/LandingPage/FeatureOffering/FeatureOffering";
+import AboutUs from "../../components/LandingPage/AboutUs/AboutUs";
+import LandingPageCourses from "../../components/LandingPage/LandingPageCourses/LandingPageCourses";
+import DisplayTeachers from "../../components/LandingPage/DisplayTeachers/DisplayTeachers";
+import Feedback from "../../components/LandingPage/Feedback/Feedback";
+import Footer from "../../components/LandingPage/Footer/Footer";
 
 function LandingPage() {
   return (
     <div className="landing-page">
-      <Header />
+      <LandingPageHeader />
       <MainBanner />
       <FeatureOffering />
       <AboutUs  />
