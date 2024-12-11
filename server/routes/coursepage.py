@@ -34,7 +34,7 @@ def get_course_ratings(course_id):
             'rating_id': rating.rating_id,
             'student_name': rating.student.name,  
             'rating': rating.rating,
-            'comment': rating.comment
+            'comment': rating.feedback
         }
         for rating in ratings
     ]

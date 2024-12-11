@@ -14,6 +14,7 @@ from routes.dashHome import dash_home_bp
 from routes.course_list import course_list_bp
 from flask_swagger_ui import get_swaggerui_blueprint
 from routes.coursepage import course_page
+from routes.payment import payment
 
 app = Flask(__name__)
 
@@ -42,6 +43,7 @@ app.register_blueprint(swaggerui_blueprint)
 app.register_blueprint(dash_home_bp, url_prefix='/api') 
 app.register_blueprint(course_list_bp, url_prefix='') 
 app.register_blueprint(course_page)
+app.register_blueprint(payment)
 
 @app.route('/')
 def main_page():

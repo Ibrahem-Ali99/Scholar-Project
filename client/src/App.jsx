@@ -19,6 +19,7 @@ const PieChart = lazy(() => import('./pages/TeacherDashboard/pieChart/PieChart')
 const LineChart = lazy(() => import('./pages/TeacherDashboard/lineChart/LineChart'));
 const DashApp = lazy(() => import('./pages/TeacherDashboard/DashApp.jsx'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard/AdminDashboard'));
+const CheckOutPage = lazy(() => import('./pages/CheckOut/CheckOutPage.jsx'));
 
 import '@fortawesome/fontawesome-free/css/all.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -53,6 +54,7 @@ function App() {
                     <Route path="/students" element={<Student />} />
                     <Route path="courses" element={<Course />} />
                     <Route path="/student-dashboard" element={<StudentDashboard />} />
+                    <Route path="/checkout/:courseId" element={<CheckOutPage />} />
 
                     <Route path='/admin' element={<AdminDashboard />}>
                         {

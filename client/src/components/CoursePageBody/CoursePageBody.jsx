@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './CoursePageBody.module.css';
 
 const CoursePageBody = () => {
   const { courseId } = useParams();
+  const navigate = useNavigate();
   const [course, setCourse] = useState(null);
   const [ratings, setRatings] = useState([]);
 
@@ -32,6 +33,15 @@ const CoursePageBody = () => {
   if (!course) {
     return <div>Loading...</div>;
   }
+
+  const handleEnroll = () => {
+    if (course && course.course_id) {
+      console.log(course);
+      navigate(`/checkout/${course.course_id}`);
+    } else {
+      console.error('Invalid course ID for enrollment');
+    }
+  };
 
   return (
     <div className={styles.coursePageContainer}>
@@ -64,7 +74,6 @@ const CoursePageBody = () => {
         </ul>
       </div>
 
-
       <div className={styles.sidebar}>
         <div className={styles.courseFeatures}>
           <h3>Course Features</h3>
@@ -74,17 +83,21 @@ const CoursePageBody = () => {
             <li><strong>Lectures:</strong> {course.contents.length}</li>
             <li><strong>Course Price:</strong> ${course.price}</li>
           </ul>
-          <button className={styles.enrollButton}>Enroll Now</button>
+          <button className={styles.enrollButton} onClick={handleEnroll}>Enroll Now</button>
         </div>
 
         <div className={styles.feedbackSection}>
-        <h3>Student Feedback</h3>
+          <h3>Student Feedback</h3>
           {ratings.length > 0 ? (
             ratings.map(rating => (
               <p key={rating.rating_id}>
                 <strong>{rating.student_name}:</strong> {rating.comment} 
                 <span className={styles.starRating}>{"⭐".repeat(rating.rating)}</span>
-            </p>)) ) : ( <p>No ratings yet.</p>)}
+              </p>
+            ))
+          ) : (
+            <p>No ratings yet.</p>
+          )}
         </div>
       </div>
     </div>
