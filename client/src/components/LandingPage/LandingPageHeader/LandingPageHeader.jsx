@@ -1,17 +1,26 @@
-import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import './LandingPageHeader.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 function LandingPageHeader() {
+    const navigate = useNavigate();
+    const location = useLocation(); 
+
     const handleScroll = (id) => {
-        if (id === 'home') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-            const element = document.getElementById(id);
-            if (element) {
-                element.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (location.pathname === "/") {
+            if (id === 'home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
             }
-        }
+        } else if (id === 'home') {
+                navigate("/");
+            } else {
+                navigate(`/#${id}`); 
+            }
     };
 
     return (
@@ -25,22 +34,47 @@ function LandingPageHeader() {
                 </div>
                 <ul className="nav">
                     <li>
-                        <a href="#home" onClick={() => handleScroll('home')} className="active">
+                        <a
+                            href="#home"
+                            onClick={(e) => {
+                                e.preventDefault(); 
+                                handleScroll('home');
+                            }}
+                            className="active"
+                        >
                             Home
                         </a>
                     </li>
                     <li>
-                        <a href="#courses" onClick={() => handleScroll('courses')}>
+                        <a
+                            href="#courses"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handleScroll('courses');
+                            }}
+                        >
                             Courses
                         </a>
                     </li>
                     <li>
-                        <a href="#team" onClick={() => handleScroll('team')}>
+                        <a
+                            href="#team"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handleScroll('team');
+                            }}
+                        >
                             Team
                         </a>
                     </li>
                     <li>
-                        <a href="#about" onClick={() => handleScroll('about')}>
+                        <a
+                            href="#about"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handleScroll('about');
+                            }}
+                        >
                             About
                         </a>
                     </li>

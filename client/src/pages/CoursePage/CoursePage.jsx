@@ -3,12 +3,11 @@ import CoursePageBody from "../../components/CoursePageBody/CoursePageBody";
 import Footer from "../../components/LandingPage/Footer/Footer";
 
 function CoursePage() {
-
   return (
     <div className="course-page" style={{ paddingTop: "65px" }}>
-      <Header/>
+      <Header />
       <CoursePageBody />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

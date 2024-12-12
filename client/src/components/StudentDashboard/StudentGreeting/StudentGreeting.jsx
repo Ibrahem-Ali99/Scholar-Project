@@ -1,41 +1,38 @@
 import React, { useState, useEffect } from "react";
 import "./StudentGreeting.css";
 
-function StudentGreeting() {
-    const [studentName, setStudentName] = useState("Guest");  
+const StudentGreeting = () => {
+  const [studentName, setStudentName] = useState("");
 
-    useEffect(() => {
-        fetch("http://127.0.0.1:5000/student")  
-            .then((response) => response.json())
-            .then((data) => {
-                if (data && data.student_name) {
-                    setStudentName(data.student_name);  
-                } else {
-                    console.error("Student data is invalid or missing name");
-                }
-            })
-            .catch((error) => {
-                console.error("Error fetching student data:", error);
-            });
-    }, []); 
+  useEffect(() => {
+    const studentId = sessionStorage.getItem("student_id");
 
-    return (
-        <section className="greeting" id="greeting">
-            <div className="container">
-                <div className="section-heading">
-                    <h2>Welcome!</h2>
-                </div>
-                <div className="row">
-                    <div className="col-lg-12">
-                        <div className="greeting-card">
-                            <h3>Hello, {studentName}!</h3> 
-                            <p>We're glad to have you on the Scholar platform. Enjoy your learning journey!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-}
+    if (!studentId) {
+      setStudentName("Student");
+      return;
+    }
+
+    fetch(`http://127.0.0.1:5000/studentname?student_id=${studentId}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch student name");
+        }
+        return response.json();
+      })
+      .then((data) => setStudentName(data.student_name))
+      .catch(() => setStudentName("Student")); // Fallback if fetch fails
+  }, []);
+
+  return (
+    <div className="greeting">
+      <div className="container">
+        <div className="greeting-card">
+          <h3>Hello, {studentName}!</h3>
+          <p>We're glad to have you on Scholar!</p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default StudentGreeting;

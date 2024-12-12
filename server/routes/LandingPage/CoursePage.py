@@ -2,9 +2,9 @@ from flask import Blueprint, jsonify
 from utils.db import db
 from models import Course, CourseContent, CourseRating
 
-course_page = Blueprint('course_page', __name__)
+course_page_bp = Blueprint('course_page', __name__)
 
-@course_page.route('/courses/<int:course_id>', methods=['GET'])
+@course_page_bp.route('/courses/<int:course_id>', methods=['GET'])
 def get_course(course_id):
     course = Course.query.get_or_404(course_id)
     contents = CourseContent.query.filter_by(course_id=course_id).all()
@@ -26,7 +26,7 @@ def get_course(course_id):
 
     return jsonify(course_data)
 
-@course_page.route('/courses/<int:course_id>/ratings', methods=['GET'])
+@course_page_bp.route('/courses/<int:course_id>/ratings', methods=['GET'])
 def get_course_ratings(course_id):
     ratings = CourseRating.query.filter_by(course_id=course_id).all()
     ratings_data = [
@@ -34,7 +34,7 @@ def get_course_ratings(course_id):
             'rating_id': rating.rating_id,
             'student_name': rating.student.name,  
             'rating': rating.rating,
-            'comment': rating.comment
+            'comment': rating.feedback
         }
         for rating in ratings
     ]

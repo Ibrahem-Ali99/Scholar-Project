@@ -11,7 +11,7 @@ function StudentSidebar({ handleMenuClick }) {
             </div>
             <ul className="nav-links">
                 <li>
-                    <a href="#" className="nav-item" onClick={() => handleMenuClick("home")}>
+                    <a href="#home" className="nav-item" onClick={() => handleMenuClick("home")}>
                         <span className="nav-icon">
                             <i className="fas fa-home"></i>
                         </span>
@@ -19,7 +19,7 @@ function StudentSidebar({ handleMenuClick }) {
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="nav-item" onClick={() => handleMenuClick("courses")}>
+                    <a href="#courses" className="nav-item" onClick={() => handleMenuClick("courses")}>
                         <span className="nav-icon">
                             <i className="fas fa-book"></i>
                         </span>
@@ -27,7 +27,7 @@ function StudentSidebar({ handleMenuClick }) {
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="nav-item" onClick={() => handleMenuClick("assessments")}>
+                    <a href="#assessments" className="nav-item" onClick={() => handleMenuClick("assessments")}>
                         <span className="nav-icon">
                             <i className="fas fa-file-alt"></i>
                         </span>
@@ -36,7 +36,7 @@ function StudentSidebar({ handleMenuClick }) {
                 </li>
             </ul>
             <div className="logout">
-                <a href="#" className="nav-item">
+                <a href="#logout" className="nav-item">
                     <span className="nav-icon">
                         <i className="fas fa-sign-out-alt"></i>
                     </span>

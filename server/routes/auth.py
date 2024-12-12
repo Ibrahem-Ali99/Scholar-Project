@@ -107,16 +107,6 @@ def login():
         session['user'] = email
         session['role'] = role
 
-        # set the correct ID based on role
-        if role == 'teacher':
-            session['id'] = user.teacher_id
-        elif role == 'student':
-            session['id'] = user.student_id
-        elif role == 'parent':
-            session['id'] = user.parent_id
-        elif role == 'admin':
-            session['id'] = user.admin_id
-
         response = {"message": "Login successful", "role": role}
 
         if role == 'teacher':
@@ -132,6 +122,7 @@ def login():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 
 @auth.route('/forgot-password', methods=['POST'])
