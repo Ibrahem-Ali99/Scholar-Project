@@ -6,7 +6,7 @@ from models import Course, Enrollment, Payment, Student
 
 payment = Blueprint("payment", __name__)
 
-# Get course details by ID
+
 @payment.route('/courses/<int:course_id>', methods=['GET'])
 def get_course(course_id):
     course = Course.query.get(course_id)
@@ -20,7 +20,7 @@ def get_course(course_id):
         })
     return jsonify({'message': 'Course not found'}), 404
 
-# Enroll a student in a course
+
 @payment.route('/enroll', methods=['POST'])
 def enroll_student():
     data = request.get_json()
