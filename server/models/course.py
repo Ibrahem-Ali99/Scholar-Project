@@ -6,9 +6,10 @@ from utils.db import db
 
 class Course(db.Model):
     __tablename__ = 'course'
+
     course_id = db.Column(db.Integer, primary_key=True)
     course_name = db.Column(db.String(255), nullable=False)
-    course_description = db.Column(db.Text, nullable=True)
+    course_description = db.Column(db.Text, nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.teacher_id'), nullable=False)
     num_assessments = db.Column(db.Integer, nullable=True)
     price = db.Column(db.Float, nullable=False)
@@ -16,16 +17,18 @@ class Course(db.Model):
 
     # Relationships
     teacher = db.relationship('Teacher', back_populates='courses', lazy=True)
+    quizzes = db.relationship('Quiz', back_populates='course', lazy=True)
+    course_content = db.relationship('CourseContent', back_populates='course', lazy=True)
     enrollments = db.relationship('Enrollment', back_populates='course', lazy=True)
     payments = db.relationship('Payment', back_populates='course', lazy=True)
     assessments = db.relationship('CourseAssessment', back_populates='course', lazy=True)
     ratings = db.relationship('CourseRating', back_populates='course', lazy=True)
     notifications = db.relationship('Notification', back_populates='course', lazy=True)
-    course_content = db.relationship('CourseContent', back_populates='course', lazy=True)
 
 
 class CourseContent(db.Model):
     __tablename__ = 'course_content'
+
     content_id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.course_id'), nullable=False)
     title = db.Column(db.String(255), nullable=False)

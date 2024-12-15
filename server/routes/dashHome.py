@@ -1,18 +1,18 @@
-
 from flask import Blueprint, jsonify
 from models.user import Student, Teacher, Parent, Admin
 from models.course import Course
-from models.enrollment import Enrollment, Payment
+from models.enrollment import Enrollment
+from models.payment import Payment
 from models.hiring_requests import HiringRequest
 from sqlalchemy import func
-from datetime import datetime
+from datetime import datetime, date
 
 dash_home_bp = Blueprint('dash_home_bp', __name__)
 
-
-@dash_home_bp.route('/admin', methods=['GET'])  
+@dash_home_bp.route('/admin', methods=['GET'])
 def get_dashboard_data():
     try:
+        # Total Users
         total_students = Student.query.count()
         total_teachers = Teacher.query.count()
         total_parents = Parent.query.count()
@@ -25,9 +25,11 @@ def get_dashboard_data():
         }
 
         active_courses = Course.query.count()
+
         pending_approvals = HiringRequest.query.filter_by(status='pending').count()
 
-        daily_active_users = Payment.query.count()
+        today = date.today()
+        daily_active_users = Payment.query.filter(Payment.payment_date == today).count()
 
         enrollments = Enrollment.query.with_entities(
             func.extract('year', Enrollment.enrollment_date).label('year'),
