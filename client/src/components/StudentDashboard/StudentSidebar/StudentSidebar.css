@@ -157,3 +157,25 @@ body {
   font-size: 10px;
   transition: transform 0.3s ease;
 }
+.logout-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  width: 100%;
+  transition: background 0.3s ease, padding-left 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #7c4dff;
+  padding-left: 30px;
+}
+
+.logout-button .nav-icon {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}

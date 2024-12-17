@@ -1,7 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./StudentSidebar.css";
 
 function StudentSidebar({ handleMenuClick }) {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        const confirmLogout = window.confirm("Are you sure you want to logout?");
+        if (confirmLogout) {
+            sessionStorage.clear(); 
+            window.alert("You have been logged out successfully.");
+            navigate("/"); 
+        }
+    };
+
     return (
         <div className="sidebar">
             <div className="sidebar-header">
@@ -36,12 +48,12 @@ function StudentSidebar({ handleMenuClick }) {
                 </li>
             </ul>
             <div className="logout">
-                <a href="#logout" className="nav-item">
+                <button className="nav-item logout-button" onClick={handleLogout}>
                     <span className="nav-icon">
                         <i className="fas fa-sign-out-alt"></i>
                     </span>
                     <span>Logout</span>
-                </a>
+                </button>
             </div>
         </div>
     );
