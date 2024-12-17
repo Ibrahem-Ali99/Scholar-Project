@@ -7,6 +7,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -15,6 +16,7 @@ function Login() {
     setError('');
     setSuccess('');
     try {
+      setIsLoading(true); 
       const response = await fetch('http://localhost:5000/auth/login', {
         method: 'POST',
         headers: {
@@ -23,11 +25,12 @@ function Login() {
         body: JSON.stringify({ email, password }),
       });
       const result = await response.json();
+      setIsLoading(false); 
+
       if (response.ok) {
         setSuccess(result.message);
-        // Store teacher_id if role is teacher
         if (result.role === 'teacher') {
-          localStorage.setItem('teacher_id', result.teacher_id); // Correct key
+          localStorage.setItem('teacher_id', result.teacher_id); 
           navigate('/teacher-dashboard');
         } else if (result.role === 'student') {
           navigate('/student-dashboard');
@@ -38,35 +41,42 @@ function Login() {
         setError(result.error);
       }
     } catch (error) {
+      setIsLoading(false); 
       setError('An error occurred during login.');
     }
   };
 
-  // Google login redirect to backend
   const handleGoogleLogin = () => {
+    setError('');
+    setIsLoading(true);
     window.location.href = 'http://localhost:5000/auth/google-login'; 
   };
 
   useEffect(() => {
-    // Check if we're on the callback URL
     if (location.pathname === '/auth/google/callback') {
-      // Get the role from the query string
-      const role = new URLSearchParams(window.location.search).get('role');
-      
-      if (!role) {
-        setError('No role found in URL.');
-        return;
+      const searchParams = new URLSearchParams(location.search);
+      const role = searchParams.get('role');
+      const errorParam = searchParams.get('error');
+      const successParam = searchParams.get('success');
+
+      setIsLoading(false); 
+
+      if (errorParam) {
+        setError(decodeURIComponent(errorParam));
+      } else if (successParam) {
+        setSuccess(decodeURIComponent(successParam));
       }
 
-      // Redirect based on the role
-      if (role === 'student') {
-        navigate('/student-dashboard');
-      } else if (role === 'teacher') {
-        navigate('/teacher-dashboard');
-      } else if (role === 'parent') {
-        navigate('/parent-dashboard');
-      } else {
-        setError('Unknown role.');
+      if (role) {
+        if (role === 'student') {
+          navigate('/student-dashboard');
+        } else if (role === 'teacher') {
+          navigate('/teacher-dashboard');
+        } else if (role === 'parent') {
+          navigate('/parent-dashboard');
+        } else {
+          setError('Unknown role.');
+        }
       }
     }
   }, [location, navigate]);
@@ -77,8 +87,8 @@ function Login() {
         <div className={styles.left}>
           <h1 className={styles.title}>Scholar</h1>
           <div className={styles.socialLogin}>
-            <button className={styles.google} onClick={handleGoogleLogin}>
-              Sign in with Google
+            <button className={styles.google} onClick={handleGoogleLogin} disabled={isLoading}>
+              {isLoading ? 'Redirecting...' : 'Sign in with Google'}
             </button>
           </div>
           <p className={styles.or}>or use your email password</p>
@@ -102,8 +112,8 @@ function Login() {
             <p className={styles.forgot} onClick={() => navigate('/forgot-password')}>
               Forgot Your Password?
             </p>
-            <button type="submit" className={styles.btn}>
-              Sign In
+            <button type="submit" className={styles.btn} disabled={isLoading}>
+              {isLoading ? 'Signing In...' : 'Sign In'}
             </button>
           </form>
         </div>

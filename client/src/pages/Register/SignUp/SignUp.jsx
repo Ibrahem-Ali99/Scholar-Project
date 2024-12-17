@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './SignUp.module.css';
 
 function Signup() {
-  const [userType, setUserType] = useState(null); 
+  const [userType, setUserType] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
@@ -12,36 +12,36 @@ function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     if (!userType) {
       setError('Please select a user type before proceeding.');
       setLoading(false);
       return;
     }
-  
+
     const formData = {
       role: userType,
       name: e.target.name.value,
       email: e.target.email.value,
       password: e.target.password.value,
     };
-  
+
     if (userType === 'parent') {
-      const student_id = e.target.student_id.value; 
+      const student_id = e.target.student_id.value;
       if (!student_id) {
         setError('Student ID is required for parent signup.');
         setLoading(false);
         return;
       }
-      formData.student_id = student_id; 
+      formData.student_id = student_id;
     }
-  
+
     if (formData.password.length < 8) {
       setError('Password must be at least 8 characters long.');
       setLoading(false);
       return;
     }
-  
+
     try {
       const response = await fetch('http://localhost:5000/auth/signup', {
         method: 'POST',
@@ -50,30 +50,35 @@ function Signup() {
         },
         body: JSON.stringify(formData),
       });
-  
+
       const result = await response.json();
-  
+
       if (response.ok) {
         setSuccess(result.message || 'Signup successful!');
         setError('');
-        setTimeout(() => navigate('/login'), 2000); 
+        setTimeout(() => navigate('/login'), 2000);
       } else {
         setError(result.error || 'Signup failed. Please try again.');
         setSuccess('');
       }
     } catch (err) {
-      setError('Network error. Please try again later.', err);
+      setError('Network error. Please try again later.');
       setSuccess('');
     } finally {
       setLoading(false);
     }
   };
-  
 
-  const handleGoogleSignup = async () => {
-
-};
-
+  const handleGoogleSignup = () => {
+    if (!userType) {
+      setError('Please select a user type before proceeding.');
+      return;
+    }
+    const role = userType;
+    const student_id = role === 'parent' ? document.querySelector('input[name="student_id"]').value : null;
+    const googleLoginUrl = `http://localhost:5000/auth/google-login?role=${role}${student_id ? `&student_id=${student_id}` : ''}`;
+    window.location.href = googleLoginUrl;
+  };
 
   return (
     <div className={styles.signupPage}>
@@ -117,7 +122,9 @@ function Signup() {
 
             {/* Dropdown for User Type */}
             <div className={styles.dropdownGroup}>
-              <label htmlFor="userType" className={styles.dropdownLabel}>User Type</label>
+              <label htmlFor="userType" className={styles.dropdownLabel}>
+                User Type
+              </label>
               <select
                 id="userType"
                 name="userType"
