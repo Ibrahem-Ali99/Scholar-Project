@@ -13,13 +13,6 @@ function StudentDashboard() {
 
     const handleMenuClick = (menu) => {
         setActiveMenu(menu);
-        if (menu === "logout") {
-            const confirmed = window.confirm("Are you sure you want to log out?");
-            if (confirmed) {
-                sessionStorage.clear();
-                window.location.href = "/";
-            }
-        }
     };
 
     return (

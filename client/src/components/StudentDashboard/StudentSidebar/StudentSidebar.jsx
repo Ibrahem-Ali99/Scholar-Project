@@ -10,7 +10,7 @@ function StudentSidebar({ handleMenuClick }) {
         if (confirmLogout) {
             sessionStorage.clear(); 
             window.alert("You have been logged out successfully.");
-            navigate("/"); 
+            navigate("/");
         }
     };
 
