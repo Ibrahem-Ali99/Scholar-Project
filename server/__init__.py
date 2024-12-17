@@ -22,6 +22,8 @@ from routes.course_list import course_list_bp
 from routes.StudentDashboard.StudentDashboardCourses import student_dashboard_course_bp
 from routes.StudentDashboard.DisplayStudentName import student_name_bp
 from routes.StudentDashboard.AnnouncementsAndTeachers import announcements_and_teachers_bp
+from routes.StudentDashboard.PerformanceChart import performance_bp
+from routes.StudentDashboard.Timetable import timetable_bp
 
 def create_app():
     app = Flask(__name__)
@@ -54,7 +56,8 @@ def create_app():
     app.register_blueprint(student_dashboard_course_bp)
     app.register_blueprint(student_name_bp)
     app.register_blueprint(announcements_and_teachers_bp)
-
+    app.register_blueprint(performance_bp)
+    app.register_blueprint(timetable_bp)
     @app.route('/')
     def main_page():
         return "<h1>This is the main page of the server</h1>"

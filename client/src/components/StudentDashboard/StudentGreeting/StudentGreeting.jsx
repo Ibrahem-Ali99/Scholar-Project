@@ -20,7 +20,7 @@ const StudentGreeting = () => {
         return response.json();
       })
       .then((data) => setStudentName(data.student_name))
-      .catch(() => setStudentName("Student")); // Fallback if fetch fails
+      .catch(() => setStudentName("Student")); 
   }, []);
 
   return (

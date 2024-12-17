@@ -3,7 +3,11 @@ import StudentSidebar from "../../components/StudentDashboard/StudentSidebar/Stu
 import StudentGreeting from "../../components/StudentDashboard/StudentGreeting/StudentGreeting";
 import StudentEnrollCourses from "../../components/StudentDashboard/StudentEnrollCourses/StudentEnrollCourses";
 import AnnouncementsAndTeachers from "../../components/StudentDashboard/AnnouncementsAndTeachers/AnnouncementsAndTeachers";
+// import PerformanceSummary from "../../components/StudentDashboard/PerformanceSummary/PerformanceSummary";
+import PerformanceChart from "../../components/StudentDashboard/PerformanceChart/PerformanceChart";
+import Timetable from "../../components/StudentDashboard/Timetable/Timetable";
 
+import "./StudentDashboard.css"
 function StudentDashboard() {
     const [activeMenu, setActiveMenu] = useState("home");
 
@@ -18,7 +22,10 @@ function StudentDashboard() {
                 {activeMenu === "home" && (
                     <div>
                         <StudentGreeting />
+                        <PerformanceChart />
+                        <Timetable />
                         <AnnouncementsAndTeachers />
+                        {/* <PerformanceSummary /> */}
                     </div>
                 )}
                 {activeMenu === "courses" && <StudentEnrollCourses />}
