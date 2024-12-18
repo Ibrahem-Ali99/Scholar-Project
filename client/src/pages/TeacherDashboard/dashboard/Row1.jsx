@@ -15,7 +15,7 @@ const Row1 = () => {
     useEffect(() => {
         const teacherId = localStorage.getItem('teacher_id');
         if (teacherId) {
-            // fetch Students Enrolled
+            // fetch students enrolled
             fetch(`http://127.0.0.1:5000/dashboard/students-enrolled?teacher_id=${teacherId}`)
                 .then(response => response.json())
                 .then(data => {
@@ -28,7 +28,7 @@ const Row1 = () => {
                     }
                 });
 
-            // fetch Money Obtained
+            // fetch money obtained
             fetch(`http://127.0.0.1:5000/dashboard/money-obtained?teacher_id=${teacherId}`)
                 .then(response => response.json())
                 .then(data => {
@@ -64,7 +64,7 @@ const Row1 = () => {
                 scheme="category10"
             />
 
-            {/* Other cards remain unchanged */}
+            
             <Card
                 icon={<AssignmentTurnedInIcon style={{fontSize: 35, color: "purple"}}/>}
                 title="00"

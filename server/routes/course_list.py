@@ -9,8 +9,7 @@ from datetime import datetime
 
 course_list_bp = Blueprint('course_list_bp', __name__)
 
-@course_list_bp.route('/api/courses', methods=['GET'])  # changed from admin/course
-
+@course_list_bp.route('/api/courses', methods=['GET'])
 def get_courses():
     try:
         courses = Course.query.all()
