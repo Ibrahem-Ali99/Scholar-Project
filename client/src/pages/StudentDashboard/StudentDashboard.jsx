@@ -6,7 +6,6 @@ import AnnouncementsAndTeachers from "../../components/StudentDashboard/Announce
 import PerformanceChart from "../../components/StudentDashboard/PerformanceChart/PerformanceChart";
 import Timetable from "../../components/StudentDashboard/Timetable/Timetable";
 
-import "./StudentDashboard.css";
 
 function StudentDashboard() {
     const [activeMenu, setActiveMenu] = useState("home");

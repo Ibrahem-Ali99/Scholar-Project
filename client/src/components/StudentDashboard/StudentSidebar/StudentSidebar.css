@@ -12,7 +12,7 @@ body {
   width: 250px;
   height: 100%;
   background: linear-gradient(45deg, #7c4dff, #2b2d42);
-  padding-top: 40px; 
+  padding-top: 40px;
   position: fixed;
   transition: width 0.5s ease, background 0.3s ease;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -32,11 +32,6 @@ body {
   display: flex;
   align-items: center;
   color: #fff;
-}
-
-.brand i {
-  margin-right: 10px;
-  font-size: 28px;
 }
 
 .nav-links {
@@ -62,9 +57,7 @@ body {
 .nav-icon {
   font-size: 16px;
   width: 35px;
-  min-width: 35px;
   height: 35px;
-  line-height: 35px;
   text-align: center;
   display: inline-block;
   margin-right: 15px;
@@ -106,28 +99,13 @@ body {
   transform-origin: top;
 }
 
-.logout {
-  margin-top: auto;
-}
-
 .sidebar.collapsed {
   width: 80px;
-  background: linear-gradient(45deg, #7c4dff, #2b2d42);
 }
 
 .sidebar.collapsed .nav-item span,
-.sidebar.collapsed .sidebar-header h3 span,
-.sidebar.collapsed .nav-item .dropdown-icon,
-.sidebar.collapsed .dropdown-menu {
-  display: none;
-}
-
 .sidebar.collapsed .nav-item .nav-icon {
-  display: block;
-}
-
-.sidebar.collapsed .sidebar-header h3 {
-  justify-content: center;
+  display: none;
 }
 
 .content {
@@ -138,40 +116,24 @@ body {
   align-items: flex-start;
 }
 
-.toggle-btn {
-  width: 20px;
-  height: 20px;
-  background: #7c4dff;
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  position: absolute;
-  right: -10px;
+.logout {
+  margin-top: 20px; 
 }
 
-.toggle-btn .toggle-icon {
-  font-size: 10px;
-  transition: transform 0.3s ease;
-}
 .logout-button {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1rem;
-  cursor: pointer;
   display: flex;
   align-items: center;
   padding: 12px 20px;
+  color: #fff;
+  background: transparent;
+  border: none;
   width: 100%;
   transition: background 0.3s ease, padding-left 0.3s ease;
+  cursor: pointer;
 }
 
 .logout-button:hover {
-  background-color: #7c4dff;
+  background: #7c4dff;
   padding-left: 30px;
 }
 

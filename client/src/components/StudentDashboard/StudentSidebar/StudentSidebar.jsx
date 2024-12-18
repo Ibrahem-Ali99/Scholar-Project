@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types"; 
 import { useNavigate } from "react-router-dom";
 import "./StudentSidebar.css";
 
@@ -8,9 +9,9 @@ function StudentSidebar({ handleMenuClick }) {
     const handleLogout = () => {
         const confirmLogout = window.confirm("Are you sure you want to logout?");
         if (confirmLogout) {
-            sessionStorage.clear(); 
+            sessionStorage.clear();
             window.alert("You have been logged out successfully.");
-            navigate("/");
+            navigate("/"); 
         }
     };
 
@@ -48,7 +49,7 @@ function StudentSidebar({ handleMenuClick }) {
                 </li>
             </ul>
             <div className="logout">
-                <button className="nav-item logout-button" onClick={handleLogout}>
+                <button className="logout-button" onClick={handleLogout}>
                     <span className="nav-icon">
                         <i className="fas fa-sign-out-alt"></i>
                     </span>
@@ -58,5 +59,9 @@ function StudentSidebar({ handleMenuClick }) {
         </div>
     );
 }
+
+StudentSidebar.propTypes = {
+    handleMenuClick: PropTypes.func.isRequired, 
+};
 
 export default StudentSidebar;
