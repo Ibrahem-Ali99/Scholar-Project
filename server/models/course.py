@@ -6,17 +6,17 @@ from utils.db import db
 
 class Course(db.Model):
     __tablename__ = 'course'
-
     course_id = db.Column(db.Integer, primary_key=True)
     course_name = db.Column(db.String(255), nullable=False)
     course_description = db.Column(db.Text, nullable=False)
-    teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.teacher_id'), nullable=False)
-    num_assessments = db.Column(db.Integer, nullable=True)
-    price = db.Column(db.Float, nullable=False)
-    image_url = db.Column(db.String(255), nullable=True)
+    teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.teacher_id'))
+    num_assessments = db.Column(db.Integer, nullable=False, default=0)
+    price = db.Column(db.Numeric(10, 2), nullable=False)
+    image_url = db.Column(db.String(255))
 
     # Relationships
     teacher = db.relationship('Teacher', back_populates='courses', lazy=True)
+    sessions = db.relationship('Session', back_populates='course', lazy=True)
     quizzes = db.relationship('Quiz', back_populates='course', lazy=True)
     course_content = db.relationship('CourseContent', back_populates='course', lazy=True)
     enrollments = db.relationship('Enrollment', back_populates='course', lazy=True)
