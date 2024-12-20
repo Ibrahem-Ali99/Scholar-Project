@@ -17,8 +17,6 @@ const GoogleCallback = lazy(() => import('./components/GoogleCallback/GoogleCall
 const StudentDashboard = lazy(() => import('./pages/StudentDashboard/StudentDashboard'));
 const StudentCoursePage = lazy(() => import('./pages/StudentCoursePage/StudentCoursePage'));
 const CoursePage = lazy(() => import('./pages/CoursePage/CoursePage'));
-const CheckOutPage = lazy(() => import('./pages/CheckOutPage/CheckOutPage.jsx'));
-const ThankYouPage = lazy(() => import('./components/ThankYouPage/ThankYouPage.jsx'));
 
 const Dashboard = lazy(() => import('./pages/TeacherDashboard/dashboard/Dashboard'));
 const Calendar = lazy(() => import('./pages/TeacherDashboard/calendar/Calendar'));
@@ -27,6 +25,7 @@ const Student = lazy(() => import('./pages/TeacherDashboard/students/Student'));
 const BarChart = lazy(() => import('./pages/TeacherDashboard/barChart/BarChart'));
 const LineChart = lazy(() => import('./pages/TeacherDashboard/lineChart/LineChart'));
 const DashApp = lazy(() => import('./pages/TeacherDashboard/DashApp'));
+
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard/AdminDashboard'));
 import pages from './pages/AdminDashboard/pages/pages';
 
@@ -48,9 +47,7 @@ function App() {
           <Route path="/student-dashboard" element={<StudentDashboard />} />
           <Route path="/student-dashboard/course/:courseId" element={<StudentCoursePage />} />
           <Route path="/course/:courseId" element={<CoursePage />} />
-          <Route path="/checkout/:courseId" element={<CheckOutPage />} />
-          <Route path="/thank-you" element={<ThankYouPage />} />
-          
+
           {/* Teacher  */}
           <Route path="/pages/dashboard/Dashboard" element={<Dashboard />} />
           <Route path="/teacher-dashboard/*" element={<DashApp />} />
