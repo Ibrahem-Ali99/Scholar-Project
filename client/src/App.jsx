@@ -1,7 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-
 import '@mui/material';
 import '@fortawesome/fontawesome-free/css/all.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,7 +14,6 @@ const Login = lazy(() => import('./pages/Register/Login/Login'));
 const SignUp = lazy(() => import('./pages/Register/SignUp/SignUp'));
 const ResetPassword = lazy(() => import('./pages/Register/ResetPassword/ResetPassword'));
 const ForgotPassword = lazy(() => import('./pages/Register/ForgotPassword/ForgotPassword'));
-const GoogleCallback = lazy(() => import('./components/GoogleCallback/GoogleCallback'));
 const StudentDashboard = lazy(() => import('./pages/StudentDashboard/StudentDashboard'));
 const StudentCoursePage = lazy(() => import('./pages/StudentCoursePage/StudentCoursePage'));
 const CoursePage = lazy(() => import('./pages/CoursePage/CoursePage'));
@@ -51,7 +49,6 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/google/callback" element={<GoogleCallback />} />
 
           {/* Student  */}
           <Route path="/student-dashboard" element={<StudentDashboard />} />
@@ -70,9 +67,9 @@ function App() {
           <Route path="courses" element={<Course />} />
           
           {/* Admin  */}
-          <Route path="/admin" element={<AdminDashboard />}>
+          <Route path="/admin-dashboard" element={<AdminDashboard />}>
             {pages.map((page, index) => (
-              <Route key={page.path || index} path={`/admin${page.path}`} element={page.page} />
+              <Route key={page.path || index} path={`/admin-dashboard${page.path}`} element={page.page} />
             ))}
           </Route>
 

@@ -27,4 +27,4 @@ server/.env
 SECRET_KEY=your_actual_secret_key
 MYSQL_PASSWORD=your_actual_mysql_password
 
-
+server/flask_sessions/
