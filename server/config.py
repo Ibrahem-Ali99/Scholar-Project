@@ -5,11 +5,16 @@ from datetime import timedelta
 load_dotenv()
 
 class Config:
-    SECRET_KEY = os.getenv("APP_SECRET_KEY", "default_secret_key")
-    SESSION_COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME", "google-login-session")
-    PERMANENT_SESSION_LIFETIME = timedelta(minutes=int(os.getenv("SESSION_LIFETIME", 10)))
+    SECRET_KEY = os.getenv("APP_SECRET_KEY")
+    SESSION_COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME")
+    SESSION_COOKIE_DOMAIN = None
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SECURE = False   
+    SESSION_COOKIE_SAMESITE = 'Lax'
+    PERMANENT_SESSION_LIFETIME = timedelta(minutes=int(os.getenv("SESSION_LIFETIME")))
     SESSION_TYPE = os.getenv("SESSION_TYPE", "filesystem")
-
+    SESSION_USE_SIGNER = True
+    SESSION_FILE_DIR = './flask_session/'
     # MySQL configurations
     MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
     MYSQL_USER = os.getenv("MYSQL_USER", "root")

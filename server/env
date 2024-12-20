@@ -14,11 +14,11 @@ MYSQL_DB=scholar
 
 
 # Google OAuth Configuration
-GOOGLE_CLIENT_ID=271252672105-a6i4ubo72i4k3c4j0v6bjftq95nbhjci.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=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
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
 
 # Reset Email
-MAIL_USERNAME=mohamed.ps4.acc.hassan@gmail.com
-MAIL_PASSWORD=nemejvzzolwfsqrg
-MAIL_DEFAULT_SENDER=mohamed.ps4.acc.hassan@gmail.com
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_DEFAULT_SENDER=
 FRONTEND_URL=http://localhost:5173
