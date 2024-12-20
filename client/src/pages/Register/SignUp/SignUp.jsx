@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignUp.module.css';
 
 function Signup() {
-  const [userType, setUserType] = useState(null); 
+  const [userType, setUserType] = useState(''); 
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
@@ -11,37 +12,39 @@ function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setError(''); 
+    setSuccess(''); 
     setLoading(true);
-  
+
     if (!userType) {
       setError('Please select a user type before proceeding.');
       setLoading(false);
       return;
     }
-  
+
     const formData = {
       role: userType,
       name: e.target.name.value,
       email: e.target.email.value,
       password: e.target.password.value,
     };
-  
+
     if (userType === 'parent') {
-      const student_id = e.target.student_id.value; 
+      const student_id = e.target.student_id.value;
       if (!student_id) {
         setError('Student ID is required for parent signup.');
         setLoading(false);
         return;
       }
-      formData.student_id = student_id; 
+      formData.student_id = student_id;
     }
-  
+
     if (formData.password.length < 8) {
       setError('Password must be at least 8 characters long.');
       setLoading(false);
       return;
     }
-  
+
     try {
       const response = await fetch('http://localhost:5000/auth/signup', {
         method: 'POST',
@@ -50,30 +53,48 @@ function Signup() {
         },
         body: JSON.stringify(formData),
       });
-  
+
       const result = await response.json();
-  
+
       if (response.ok) {
         setSuccess(result.message || 'Signup successful!');
         setError('');
-        setTimeout(() => navigate('/login'), 2000); 
+        setTimeout(() => navigate('/login'), 2000);
       } else {
         setError(result.error || 'Signup failed. Please try again.');
         setSuccess('');
       }
     } catch (err) {
-      setError('Network error. Please try again later.', err);
+      setError('Network error. Please try again later.');
       setSuccess('');
     } finally {
       setLoading(false);
     }
   };
-  
 
-  const handleGoogleSignup = async () => {
+  const handleGoogleSignup = () => {
+    setError(''); 
+    if (!userType) {
+      setError('Please select a user type before signing up with Google.');
+      return;
+    }
 
-};
+    if (userType === 'parent') {
+      const studentIdInput = document.getElementById('student_id');
+      const student_id = studentIdInput ? studentIdInput.value : '';
+      if (!student_id) {
+        setError('Student ID is required for parent signup.');
+        return;
+      }
+    }
 
+    const queryParams = new URLSearchParams({
+      role: userType,
+      student_id: userType === 'parent' ? document.getElementById('student_id').value : '',
+    });
+
+    window.location.href = `http://localhost:5000/auth/google-login?${queryParams.toString()}`;
+  };
 
   return (
     <div className={styles.signupPage}>
@@ -81,6 +102,18 @@ function Signup() {
         <div className={styles.left}>
           <h1 className={styles.title}>Scholar</h1>
           <div className={styles.socialSignup}>
+            {error && <p className={styles.error}>{error}</p>}
+            <select
+              className={styles.roleDropdown}
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+            >
+              <option value="">Select Role</option>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+              <option value="parent">Parent</option>
+              <option value="admin">Admin</option>
+            </select>
             <button
               className={styles.google}
               onClick={handleGoogleSignup}
@@ -91,7 +124,6 @@ function Signup() {
           </div>
           <p className={styles.or}>or sign up with your email</p>
           <form onSubmit={handleSignup}>
-            {error && <p className={styles.error}>{error}</p>}
             {success && <p className={styles.success}>{success}</p>}
             <input
               type="text"
@@ -114,39 +146,20 @@ function Signup() {
               aria-label="Password"
               required
             />
-
-            {/* Dropdown for User Type */}
-            <div className={styles.dropdownGroup}>
-              <label htmlFor="userType" className={styles.dropdownLabel}>User Type</label>
-              <select
-                id="userType"
-                name="userType"
-                value={userType || ''}
-                onChange={(e) => setUserType(e.target.value)}
-                required
-              >
-                <option value="">Select User Type</option>
-                <option value="student">Student</option>
-                <option value="parent">Parent</option>
-                <option value="teacher">Teacher</option>
-              </select>
-            </div>
-
-            {/* Conditionally render the student ID input field */}
             {userType === 'parent' && (
               <input
                 type="text"
+                id="student_id"
                 name="student_id"
                 placeholder="Student ID"
                 aria-label="Student ID"
                 required
               />
             )}
-
             <button
               className={styles.btn}
               type="submit"
-              disabled={loading} // Keep disabled if loading
+              disabled={loading}
               aria-label="Sign Up"
             >
               {loading ? 'Signing Up...' : 'Sign Up'}

@@ -9,6 +9,7 @@ import bcrypt
 from models.user import Student, Teacher, Parent, Admin
 import logging
 import config
+import base64
 
 auth = Blueprint('auth', __name__)
 
@@ -21,12 +22,6 @@ ROLE_MODELS = {
 
 serializer = URLSafeTimedSerializer(config.Config.SECRET_KEY)
 
-@auth.route('/debug-session', methods=['GET'])
-def debug_session():
-    return {
-        "session": dict(session),
-        "cookies": request.cookies.to_dict(),
-    }
     
 @auth.route('/signup', methods=['POST'])
 def signup():
@@ -92,7 +87,6 @@ def login():
         session['user_id'] = getattr(user, f"{role}_id", None)
         session['role'] = role
 
-        # Log session and cookies
         logging.info(f"Session data after login: {dict(session)}")
         logging.info(f"Cookies being set in response: {request.cookies.to_dict()}")
 
@@ -106,10 +100,6 @@ def login():
         logging.error(f"Login error: {e}")
         return jsonify({"error": "Internal server error"}), 500
 
-@auth.after_request
-def after_request(response):
-    logging.info(f"Response headers: {response.headers}")
-    return response
 
 
 @auth.route('/forgot-password', methods=['POST'])
@@ -117,16 +107,16 @@ def forgot_password():
     try:
         data = request.json
         email = data.get('email')
-
         if not email:
             return jsonify({"error": "Email is required"}), 400
-
         user = next((model.query.filter_by(email=email).first() for model in ROLE_MODELS.values() if model.query.filter_by(email=email).first()), None)
         if not user:
             return jsonify({"error": "Email not found"}), 404
-
         reset_token = serializer.dumps(email, salt='password-reset-salt')
-        if send_reset_email(email, reset_token):
+        encoded_token = base64.urlsafe_b64encode(reset_token.encode()).decode()
+        reset_url = f"reset-password/{encoded_token}"
+        logging.info(f"Generated reset URL: {reset_url}")
+        if send_reset_email(email, reset_url): 
             logging.info(f"Password reset email sent to {email}")
             return jsonify({"message": "Password reset email sent"}), 200
 
@@ -137,17 +127,22 @@ def forgot_password():
         return jsonify({"error": "Internal server error"}), 500
 
 
+
 @auth.route('/reset-password/<token>', methods=['POST'])
 def reset_password(token):
     try:
+        decoded_token = base64.urlsafe_b64decode(token.encode()).decode() 
+        logging.info(f"Decoded token: {decoded_token}")
+
+        email = serializer.loads(decoded_token, salt='password-reset-salt', max_age=3600)
+        logging.info(f"Decoded email: {email}")
+
         data = request.json
         new_password = data.get('new_password')
         if not new_password:
             return jsonify({"error": "New password is required"}), 400
 
-        email = serializer.loads(token, salt='password-reset-salt', max_age=3600)
-        user = next((model.query.filter_by(email=email).first() for model in ROLE_MODELS.values() if model.query.filter_by(email=email).first()), None)
-
+        user = next((model.query.filter_by(email=email).first() for model in ROLE_MODELS.values()), None)
         if not user:
             return jsonify({"error": "User not found"}), 404
 
@@ -158,7 +153,7 @@ def reset_password(token):
     except Exception as e:
         logging.error(f"Reset password error: {e}")
         db.session.rollback()
-        return jsonify({"error": "Internal server error"}), 500
+        return jsonify({"error": f"Internal server error: {str(e)}"}), 500
 
 
 @auth.route('/logout', methods=['POST'])

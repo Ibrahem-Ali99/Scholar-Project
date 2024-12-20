@@ -24,6 +24,7 @@ from routes.StudentDashboard.DisplayStudentName import student_name_bp
 from routes.StudentDashboard.AnnouncementsAndTeachers import announcements_and_teachers_bp
 from routes.StudentDashboard.PerformanceChart import performance_bp
 from routes.StudentDashboard.Timetable import timetable_bp
+from routes.GoogleOAuth import google_oauth_bp
 
 from routes.payment import payment_bp
 from flask_session import Session
@@ -66,7 +67,8 @@ def create_app():
     app.register_blueprint(performance_bp)
     app.register_blueprint(timetable_bp)
     app.register_blueprint(payment_bp)
-
+    app.register_blueprint(google_oauth_bp, url_prefix='/auth')
+    
     @app.route('/')
     def main_page():
         return "<h1>This is the main page of the server</h1>"
