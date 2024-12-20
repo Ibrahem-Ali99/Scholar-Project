@@ -28,9 +28,10 @@ from routes.ParentDashboard.DisplayParentName import parent_name_bp
 from routes.ParentDashboard.ParentChildrens import parent_children_bp
 from routes.ParentDashboard.StudentProgress import student_progress_bp
 from routes.GoogleOAuth import google_oauth_bp
-
+from routes.TeacherDashboard.AddSession import session_bp  
 from routes.payment import payment_bp
 from flask_session import Session
+
 def create_app():
     app = Flask(__name__)
 
@@ -58,7 +59,7 @@ def create_app():
     app.register_blueprint(course_bp)
     app.register_blueprint(teacher_bp)
     app.register_blueprint(feedback_bp)
-    app.register_blueprint(auth, url_prefix="/auth")#, url_prefix="/auth"
+    app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(dashboard_bp)
     app.register_blueprint(swaggerui_blueprint)
     app.register_blueprint(dash_home_bp, url_prefix='/api')
@@ -74,6 +75,8 @@ def create_app():
     app.register_blueprint(parent_children_bp)
     app.register_blueprint(student_progress_bp)
     app.register_blueprint(google_oauth_bp, url_prefix='/auth')
+    app.register_blueprint(session_bp)
+
     
     @app.route('/')
     def main_page():
