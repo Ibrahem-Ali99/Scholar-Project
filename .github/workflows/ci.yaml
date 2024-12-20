@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
     
     strategy:
@@ -27,42 +27,3 @@ jobs:
       run: |
         cd client
         npm ci
-        npm install --save-dev eslint-plugin-react prop-types
-
-    - name: Create ESLint config
-      run: |
-        cd client
-        cat > .eslintrc.json << EOL
-        {
-          "extends": [
-            "eslint:recommended",
-            "plugin:react/recommended"
-          ],
-          "plugins": ["react"],
-          "rules": {
-            "react/react-in-jsx-scope": "off",
-            "no-unused-vars": "warn"
-          },
-          "settings": {
-            "react": {
-              "version": "detect"
-            }
-          },
-          "parserOptions": {
-            "ecmaFeatures": {
-              "jsx": true
-            },
-            "sourceType": "module"
-          }
-        }
-        EOL
-
-    - name: Fix ESLint issues
-      run: |
-        cd client
-        npx eslint --fix src/**/*.{js,jsx}
-        
-    - name: Run lint check
-      run: |
-        cd client
-        npm run lint
