@@ -24,7 +24,7 @@ Thumbs.db
 
 # Ignore environment and session files
 server/.env
-server/flask_sessions/
+server/flask_session/
 
 # Sensitive configuration files
 server/config.py
