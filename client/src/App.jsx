@@ -69,9 +69,9 @@ function App() {
           <Route path="courses" element={<Course />} />
           
           {/* Admin  */}
-          <Route path="/admin" element={<AdminDashboard />}>
+          <Route path="/admin-dashboard" element={<AdminDashboard />}>
             {pages.map((page, index) => (
-              <Route key={page.path || index} path={`/admin${page.path}`} element={page.page} />
+              <Route key={page.path || index} path={`/admin-dashboard${page.path}`} element={page.page} />
             ))}
           </Route>
 

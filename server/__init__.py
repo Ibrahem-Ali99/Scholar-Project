@@ -27,6 +27,7 @@ from routes.StudentDashboard.Timetable import timetable_bp
 from routes.ParentDashboard.DisplayParentName import parent_name_bp
 from routes.ParentDashboard.ParentChildrens import parent_children_bp
 from routes.ParentDashboard.StudentProgress import student_progress_bp
+from routes.GoogleOAuth import google_oauth_bp
 
 from routes.payment import payment_bp
 from flask_session import Session
@@ -72,6 +73,8 @@ def create_app():
     app.register_blueprint(parent_name_bp)
     app.register_blueprint(parent_children_bp)
     app.register_blueprint(student_progress_bp)
+    app.register_blueprint(google_oauth_bp, url_prefix='/auth')
+    
     @app.route('/')
     def main_page():
         return "<h1>This is the main page of the server</h1>"

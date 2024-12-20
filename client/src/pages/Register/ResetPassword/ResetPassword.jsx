@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import styles from "./ResetPassword.module.css"; // Import your CSS module
+import styles from "./ResetPassword.module.css"; 
 
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -8,7 +8,8 @@ const ResetPassword = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { token } = useParams(); // Extract token from the URL
+  const { token } = useParams(); 
+  console.log("Decoded token:", decodeURIComponent(token));  
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -24,7 +25,6 @@ const ResetPassword = () => {
 
     setIsLoading(true);
     try {
-      // Sending the request using fetch API
       const response = await fetch(`http://localhost:5000/auth/reset-password/${token}`, {
         method: "POST",
         headers: {
@@ -35,12 +35,12 @@ const ResetPassword = () => {
         }),
       });
 
-      const result = await response.json(); // Parse the response as JSON
+      const result = await response.json(); 
 
       if (response.ok) {
         setSuccess(result.message);
         setError("");
-        setTimeout(() => navigate("/login"), 2000); // Redirect to login after success
+        setTimeout(() => navigate("/login"), 2000); 
       } else {
         setError(result.error || "Something went wrong.");
         setSuccess("");
