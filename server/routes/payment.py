@@ -28,6 +28,7 @@ def create_payment():
 
         course_id = data.get('course_id')
         amount = data.get('amount')
+        amount = float(amount)
         card_last_four = data.get('card_last_four_digits')
         card_month = data.get('card_month')
         card_year = data.get('card_year')

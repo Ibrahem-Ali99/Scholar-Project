@@ -31,6 +31,7 @@ function CheckoutPage() {
         return response.json();
       })
       .then((data) => {
+        console.log("Fetched course details:", data);
         setCourseDetails(data);
         setFormData((prevData) => ({
           ...prevData,
@@ -219,10 +220,10 @@ function CheckoutPage() {
               className={styles.courseImage}
             />
             <p>Course: {courseDetails.course_name}</p>
-            <p>Original Price: ${courseDetails.price.toFixed(2)}</p>
-            <p>Subtotal: ${courseDetails.price.toFixed(2)}</p>
+            <p>Original Price: ${courseDetails.price}</p>
+            <p>Subtotal: ${courseDetails.price}</p>
             <p>Estimated Tax: $0.00</p>
-            <h3>Total: ${courseDetails.price.toFixed(2)}</h3>
+            <h3>Total: ${courseDetails.price}</h3>
           </div>
         </div>
       ) : (
