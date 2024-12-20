@@ -24,10 +24,29 @@ jobs:
         cache: 'npm'
         
     - name: Install dependencies
-      run: npm ci
+      run: |
+        cd client
+        npm ci
+      
+    - name: Lint
+      run: |
+        cd client
+        npm run lint
       
     - name: Build
-      run: npm run build --if-present
+      run: |
+        cd client
+        npm run build --if-present
       
     - name: Test
-      run: npm test
+      run: |
+        cd client
+        npm test
+      
+    - name: Cache node_modules
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('client/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
