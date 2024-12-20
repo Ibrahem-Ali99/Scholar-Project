@@ -40,7 +40,6 @@ export default function DashApp() {
             <Route path="./course" element={<Course />} />
             <Route path="./students" element={<Students />} />
             <Route path="./calendar" element={<Calendar />} />
-            <Route path="./Quiz" element={<Quiz />} />
             <Route path="./bar" element={<BarChart />} />
             <Route path="./line" element={<LineChart />} />
             <Route path="*" element={<NotFound />} />
@@ -50,3 +49,5 @@ export default function DashApp() {
     </ThemeProvider>
   );
 }
+
+/*some comments */
