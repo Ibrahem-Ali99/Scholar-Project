@@ -7,15 +7,12 @@ performance_bp = Blueprint('performance', __name__)
 @performance_bp.route('/student/performance', methods=['GET'])
 def get_student_performance():
     try:
-        # Retrieve student ID
         student_id = request.args.get('student_id', type=int)
         if not student_id:
             return jsonify({"error": "Student ID is required"}), 400
 
-        # Total Enrollments
         total_courses = Enrollment.query.filter_by(student_id=student_id).count()
 
-        # Quiz Data: Separate completed and in-progress quizzes
         total_quizzes = StudentQuizProgress.query.filter_by(student_id=student_id).count()
         completed_quizzes = StudentQuizProgress.query.filter_by(
             student_id=student_id, status='completed'
@@ -23,7 +20,6 @@ def get_student_performance():
 
         in_progress_quizzes = total_quizzes - completed_quizzes
 
-        # Quiz Scores Data
         quizzes = StudentQuizProgress.query.filter_by(student_id=student_id).all()
         quiz_data = [
             {

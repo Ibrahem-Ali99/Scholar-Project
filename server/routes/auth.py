@@ -112,11 +112,13 @@ def after_request(response):
     return response
 
 
+
 @auth.route('/forgot-password', methods=['POST'])
 def forgot_password():
     try:
         data = request.json
         email = data.get('email')
+
 
         if not email:
             return jsonify({"error": "Email is required"}), 400

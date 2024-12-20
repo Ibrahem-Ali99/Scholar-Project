@@ -13,26 +13,20 @@
 #     if not student_id:
 #         return jsonify({"error": "Student ID is required"}), 400
 
-#     # Total Courses
 #     total_courses = Enrollment.query.filter_by(student_id=student_id).count()
 
-#     # Completed Courses
 #     completed_courses = Enrollment.query.filter_by(student_id=student_id, completion_status="completed").count()
 
-#     # Average Score
 #     avg_score = StudentProgress.query.with_entities(func.avg(StudentProgress.score)).filter_by(student_id=student_id).scalar()
 #     avg_score = round(avg_score, 2) if avg_score else 0
 
-#     # Pending Assessments
 #     total_assessments = CourseAssessment.query.count()
 #     completed_assessments = StudentProgress.query.filter_by(student_id=student_id).count()
 #     pending_assessments = total_assessments - completed_assessments
 
-#     # Attendance (if tracked)
 #     attendance = Attendance.query.filter_by(student_id=student_id).with_entities(func.avg(Attendance.percentage)).scalar()
 #     attendance = round(attendance, 2) if attendance else 0
 
-#     # Response
 #     return jsonify({
 #         "total_courses": total_courses,
 #         "completed_courses": completed_courses,

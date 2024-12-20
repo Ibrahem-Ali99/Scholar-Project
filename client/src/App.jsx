@@ -9,6 +9,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import ScrollToTop from './components/ScrollToTop';
 
+// Lazy loading all the components
 const LandingPage = lazy(() => import('./pages/LandingPage/LandingPage'));
 const Login = lazy(() => import('./pages/Register/Login/Login'));
 const SignUp = lazy(() => import('./pages/Register/SignUp/SignUp'));
@@ -21,6 +22,7 @@ const CoursePage = lazy(() => import('./pages/CoursePage/CoursePage'));
 const CheckOutPage = lazy(() => import('./pages/CheckOutPage/CheckOutPage.jsx'));
 const ThankYouPage = lazy(() => import('./components/ThankYouPage/ThankYouPage.jsx'));
 
+// Teacher Dashboard
 const Dashboard = lazy(() => import('./pages/TeacherDashboard/dashboard/Dashboard'));
 const Calendar = lazy(() => import('./pages/TeacherDashboard/calendar/Calendar'));
 const Course = lazy(() => import('./pages/TeacherDashboard/course/Course'));
@@ -29,8 +31,13 @@ const BarChart = lazy(() => import('./pages/TeacherDashboard/barChart/BarChart')
 const LineChart = lazy(() => import('./pages/TeacherDashboard/lineChart/LineChart'));
 const DashApp = lazy(() => import('./pages/TeacherDashboard/DashApp'));
 
+// Admin Dashboard
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard/AdminDashboard'));
 import pages from './pages/AdminDashboard/pages/pages';
+
+// Parent Dashboard 
+const ParentDashboard = lazy(() => import('./pages/ParentDashboard/ParentDashboard'));
+
 
 function App() {
   return (
@@ -71,6 +78,9 @@ function App() {
 
           {/* Fallback */}
           <Route path="*" element={<LandingPage />} />
+
+          {/* Parent */}
+          <Route path="/parent-dashboard" element={<ParentDashboard />} />
         </Routes>
       </Suspense>
     </Router>
