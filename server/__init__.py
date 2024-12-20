@@ -24,6 +24,9 @@ from routes.StudentDashboard.DisplayStudentName import student_name_bp
 from routes.StudentDashboard.AnnouncementsAndTeachers import announcements_and_teachers_bp
 from routes.StudentDashboard.PerformanceChart import performance_bp
 from routes.StudentDashboard.Timetable import timetable_bp
+from routes.ParentDashboard.DisplayParentName import parent_name_bp
+from routes.ParentDashboard.ParentChildrens import parent_children_bp
+from routes.ParentDashboard.StudentProgress import student_progress_bp
 
 def create_app():
     app = Flask(__name__)
@@ -42,7 +45,6 @@ def create_app():
         config={'app_name': "Scholar Project"}
     )
 
-    # Register blueprints
     app.register_blueprint(landing_course_bp)
     app.register_blueprint(course_bp)
     app.register_blueprint(teacher_bp)
@@ -58,6 +60,9 @@ def create_app():
     app.register_blueprint(announcements_and_teachers_bp)
     app.register_blueprint(performance_bp)
     app.register_blueprint(timetable_bp)
+    app.register_blueprint(parent_name_bp)
+    app.register_blueprint(parent_children_bp)
+    app.register_blueprint(student_progress_bp)
     @app.route('/')
     def main_page():
         return "<h1>This is the main page of the server</h1>"

@@ -107,14 +107,17 @@ def login():
         session['user'] = email
         session['role'] = role
 
+        
+
         response = {"message": "Login successful", "role": role}
 
         if role == 'teacher':
             response["teacher_id"] = user.teacher_id
         elif role == 'student':
             response["student_id"] = user.student_id
-        elif role == 'parent':
-            response["parent_id"] = user.parent_id
+        elif  role == 'parent':
+            response["parent_id"] = user.parent_id  
+
         elif role == 'admin':
             response["admin_id"] = user.admin_id
 
@@ -122,6 +125,7 @@ def login():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 
 
@@ -134,7 +138,6 @@ def forgot_password():
         return jsonify({"error": "Invalid email"}), 400
 
     try:
-        # Search for the email in all role models
         found = False
         for model in ROLE_MODELS.values():
             user = model.query.filter_by(email=email).first()

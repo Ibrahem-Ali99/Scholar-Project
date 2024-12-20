@@ -10,10 +10,8 @@ def get_student_name():
         return jsonify({"error": "Student ID is required"}), 400
 
     try:
-        # Fetch the student record
         student = Student.query.get_or_404(student_id)
 
-        # Return the student name
         return jsonify({"student_name": student.name}), 200
 
     except Exception as e:
