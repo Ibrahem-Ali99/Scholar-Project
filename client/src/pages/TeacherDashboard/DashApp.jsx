@@ -10,7 +10,6 @@ import Course from "./course/Course.jsx";
 import Students from "./students/Student.jsx";
 import Calendar from "./calendar/Calendar.jsx";
 import BarChart from "./barChart/BarChart.jsx";
-import PieChart from "./pieChart/PieChart.jsx";
 import LineChart from "./lineChart/LineChart.jsx";
 import NotFound from "./notFound/NotFound.jsx";
 import "./index.css";
@@ -42,7 +41,6 @@ export default function DashApp() {
             <Route path="./students" element={<Students />} />
             <Route path="./calendar" element={<Calendar />} />
             <Route path="./bar" element={<BarChart />} />
-            <Route path="./pie" element={<PieChart />} />
             <Route path="./line" element={<LineChart />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -16,7 +16,7 @@ from routes.LandingPage.Feedback import feedback_bp
 from routes.LandingPage.Courses import course_bp
 from routes.LandingPage.CoursePage import course_page_bp
 from routes.auth import auth
-from routes.teacher_dashboard import dashboard_bp
+from server.routes.TeacherDashboard.row1 import dashboard_bp
 from routes.admin_dashboard import dash_home_bp
 from routes.course_list import course_list_bp
 from routes.StudentDashboard.StudentDashboardCourses import student_dashboard_course_bp

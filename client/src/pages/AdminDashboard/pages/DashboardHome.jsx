@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PieChart, LineChart } from "@mui/x-charts";
+import { LineChart } from "@mui/x-charts";
 import Card from "../components/Card";
 
 function DashboardHome() {
@@ -82,19 +82,6 @@ useEffect(() => {
         <Card className="col-span-6 row-span-6 flex flex-col gap-2">
           <p className="text-lg font-semibold">Users types</p>
           <div className="h-full w-full">
-            <PieChart
-              colors={['#7C4DFF', '#8d65fc', '#a07efc', '#bca4fc']}
-              series={[{
-                data: [
-                  { value: total_users.students, label: "Students" },
-                  { value: total_users.teachers, label: "Teachers" },
-                  { value: total_users.parents, label: "Parents" },
-                  { value: total_users.admins, label: "Admins" },
-                ],
-                cornerRadius: 8,
-                innerRadius: 42,
-              }]}
-            />
           </div>
         </Card>
       </div>

@@ -23,7 +23,6 @@ const Calendar = lazy(() => import('./pages/TeacherDashboard/calendar/Calendar')
 const Course = lazy(() => import('./pages/TeacherDashboard/course/Course'));
 const Student = lazy(() => import('./pages/TeacherDashboard/students/Student'));
 const BarChart = lazy(() => import('./pages/TeacherDashboard/barChart/BarChart'));
-const PieChart = lazy(() => import('./pages/TeacherDashboard/pieChart/PieChart'));
 const LineChart = lazy(() => import('./pages/TeacherDashboard/lineChart/LineChart'));
 const DashApp = lazy(() => import('./pages/TeacherDashboard/DashApp'));
 
@@ -53,7 +52,6 @@ function App() {
           <Route path="/pages/dashboard/Dashboard" element={<Dashboard />} />
           <Route path="/teacher-dashboard/*" element={<DashApp />} />
           <Route path="/bar" element={<BarChart />} />
-          <Route path="/pie" element={<PieChart />} />
           <Route path="/line" element={<LineChart />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/students" element={<Student />} />

@@ -1,4 +1,4 @@
-import { BarChart, PieChart } from "@mui/x-charts";
+import { BarChart} from "@mui/x-charts";
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 
@@ -85,16 +85,7 @@ const CourseList = () => {
               <div className="flex flex-col gap-2">
                 <h2 className="border-b pb-1">Pass-to-drop ratio</h2>
                 <div className="h-52">
-                  <PieChart
-                    series={[{
-                      data: [
-                        { value: displayedCourse.passCount, label: "Completed", color: '#7C4DFF' },
-                        { value: displayedCourse.currentEnrollmentCount, label: "Currently Enrolled", color: '#d1d5db' },
-                      ],
-                      cornerRadius: 8,
-                      innerRadius: 42,
-                    }]}
-                  />
+
                 </div>
               </div>
             </div>
