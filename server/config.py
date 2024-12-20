@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import os
 from datetime import timedelta
 
-load_dotenv()
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), 'env'))
 
 class Config:
     SECRET_KEY = os.getenv("APP_SECRET_KEY")
