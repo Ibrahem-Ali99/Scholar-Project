@@ -339,3 +339,6 @@ INSERT INTO hiring_request (teacher_id, status, request_date, reviewed_by, revie
 (3, 'rejected', '2024-10-03', 2, '2024-10-06'),
 (4, 'approved', '2024-10-04', 3, '2024-10-07'),
 (5, 'pending', '2024-10-05', NULL, NULL);
+
+ALTER TABLE session
+ADD COLUMN session_link VARCHAR(255) AFTER session_date;
