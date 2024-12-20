@@ -10,7 +10,7 @@ class Session(db.Model):
     teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.teacher_id'), nullable=False)
     course_id = db.Column(db.Integer, db.ForeignKey('course.course_id'), nullable=False)
     session_date = db.Column(db.Date, nullable=False)
-
+    session_link = db.Column(db.String(255), nullable=True)
     # Relationships
     teacher = db.relationship('Teacher', back_populates='sessions', lazy=True)
     course = db.relationship('Course', back_populates='sessions', lazy=True)
