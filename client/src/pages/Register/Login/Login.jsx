@@ -18,6 +18,7 @@ function Login() {
     try {
       const response = await fetch("http://localhost:5000/auth/login", {
         method: "POST",
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json",
         },
@@ -28,8 +29,7 @@ function Login() {
   
       if (response.ok) {
         setSuccess(result.message);
-  
-        // Dynamically store the user ID in sessionStorage
+
         if (result.role === "student") {
           sessionStorage.setItem("student_id", result.student_id);
           navigate("/student-dashboard");
@@ -57,9 +57,7 @@ function Login() {
   };
 
   useEffect(() => {
-    // Check if we're on the callback URL
     if (location.pathname === "/auth/google/callback") {
-      // Get the role from the query string
       const role = new URLSearchParams(window.location.search).get("role");
 
       if (!role) {
@@ -67,7 +65,6 @@ function Login() {
         return;
       }
 
-      // Redirect based on the role
       if (role === "student") {
         navigate("/student-dashboard");
       } else if (role === "teacher") {
