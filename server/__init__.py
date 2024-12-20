@@ -22,14 +22,21 @@ from routes.course_list import course_list_bp
 from routes.StudentDashboard.StudentDashboardCourses import student_dashboard_course_bp
 from routes.StudentDashboard.DisplayStudentName import student_name_bp
 from routes.StudentDashboard.AnnouncementsAndTeachers import announcements_and_teachers_bp
-
+from routes.payment import payment_bp
+from flask_session import Session
 def create_app():
     app = Flask(__name__)
 
     app.config.from_object(Config)
-
-    CORS(app)
+    CORS(
+    app,
+    supports_credentials=True,
+    origins=["http://localhost:5173"], 
+    methods=["GET", "POST", "OPTIONS"], 
+    allow_headers=["Content-Type", "Authorization", "X-Requested-With"],  
+    )
     Mail(app)
+    Session(app)
     db.init_app(app)
 
     SWAGGER_URL = '/api/docs'
@@ -40,12 +47,11 @@ def create_app():
         config={'app_name': "Scholar Project"}
     )
 
-    # Register blueprints
     app.register_blueprint(landing_course_bp)
     app.register_blueprint(course_bp)
     app.register_blueprint(teacher_bp)
     app.register_blueprint(feedback_bp)
-    app.register_blueprint(auth, url_prefix="/auth")
+    app.register_blueprint(auth, url_prefix="/auth")#, url_prefix="/auth"
     app.register_blueprint(dashboard_bp)
     app.register_blueprint(swaggerui_blueprint)
     app.register_blueprint(dash_home_bp, url_prefix='/api')
@@ -54,6 +60,7 @@ def create_app():
     app.register_blueprint(student_dashboard_course_bp)
     app.register_blueprint(student_name_bp)
     app.register_blueprint(announcements_and_teachers_bp)
+    app.register_blueprint(payment_bp)
 
     @app.route('/')
     def main_page():

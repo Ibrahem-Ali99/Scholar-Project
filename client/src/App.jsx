@@ -19,6 +19,8 @@ const LineChart = lazy(() => import('./pages/TeacherDashboard/lineChart/LineChar
 const DashApp = lazy(() => import('./pages/TeacherDashboard/DashApp.jsx'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard/AdminDashboard'));
 const CoursePage = lazy(() => import('./pages/CoursePage/CoursePage.jsx'));
+const CheckOutPage = lazy(() => import('./pages/CheckOutPage/CheckOutPage.jsx'));
+const ThankYouPage = lazy(() => import('./components/ThankYouPage/ThankYouPage.jsx'));
 
 import ScrollToTop from './components/ScrollToTop';
 import '@fortawesome/fontawesome-free/css/all.css';
@@ -51,7 +53,8 @@ function App() {
           <Route path="/students" element={<Student />} />
           <Route path="courses" element={<Course />} />
           <Route path="/student-dashboard" element={<StudentDashboard />} />
-
+          <Route path="/checkout/:courseId" element={<CheckOutPage />} />
+          <Route path="/thank-you" element={<ThankYouPage />} /> {/* New route */}
           <Route path="/admin" element={<AdminDashboard />}>
             {pages.map((page, index) => (
               <Route key={page.path || index} path={`/admin${page.path}`} element={page.page} />
