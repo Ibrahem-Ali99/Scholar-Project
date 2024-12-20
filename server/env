@@ -1,24 +1,20 @@
-# Flask Secret Key (used to sign session cookies)
-APP_SECRET_KEY=2ac983b155ad862c94c29f29ff90038ec3c033587ac35636885eb5c3aa3f78ab
-
-# Session Config / lifetime in  minutes
-SESSION_COOKIE_NAME=google-login-session
-SESSION_LIFETIME=10
-SESSION_TYPE=filesystem 
-
 # SQL Configuration
-MYSQL_HOST=DESKTOP-DFJM3O9
+SECRET_KEY=
+MYSQL_HOST=localhost
 MYSQL_USER=root
 MYSQL_PASSWORD=0000
 MYSQL_DB=scholar
 
+APP_SECRET_KEY=2ac983b155ad862c94c29f29ff90038ec3c033587ac35636885eb5c3aa3f78ab
 
-# Google OAuth Configuration
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
+SESSION_COOKIE_NAME=google-login-session
+SESSION_LIFETIME=10
+SESSION_TYPE=filesystem 
 
-# Reset Email
-MAIL_USERNAME=
-MAIL_PASSWORD=
-MAIL_DEFAULT_SENDER=
+GOOGLE_CLIENT_ID=271252672105-a6i4ubo72i4k3c4j0v6bjftq95nbhjci.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+
+MAIL_USERNAME=mohamed.ps4.acc.hassan@gmail.com
+MAIL_PASSWORD=nemejvzzolwfsqrg
+MAIL_DEFAULT_SENDER=mohamed.ps4.acc.hassan@gmail.com
 FRONTEND_URL=http://localhost:5173
