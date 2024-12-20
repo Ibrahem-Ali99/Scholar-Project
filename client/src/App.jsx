@@ -28,7 +28,7 @@ const Student = lazy(() => import('./pages/TeacherDashboard/students/Student'));
 const BarChart = lazy(() => import('./pages/TeacherDashboard/barChart/BarChart'));
 const LineChart = lazy(() => import('./pages/TeacherDashboard/lineChart/LineChart'));
 const DashApp = lazy(() => import('./pages/TeacherDashboard/DashApp'));
-
+const Fileupload = lazy(() => import('./pages/TeacherDashboard/fileupload/fileupload'));
 // Admin Dashboard
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard/AdminDashboard'));
 import pages from './pages/AdminDashboard/pages/pages';
@@ -64,6 +64,7 @@ function App() {
           <Route path="/line" element={<LineChart />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/students" element={<Student />} />
+          <Route path="/fileupload" element={<Fileupload />} />
           <Route path="courses" element={<Course />} />
           
           {/* Admin  */}
