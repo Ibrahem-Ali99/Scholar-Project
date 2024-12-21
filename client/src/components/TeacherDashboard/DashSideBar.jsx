@@ -67,7 +67,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const items = [
-  { text: "Dashboard", icon: <HomeOutlinedIcon />, path: "/" },
+  { text: "Dashboard", icon: <HomeOutlinedIcon />, path: "/teacher-dashboard" },
   { text: "Manage Courses", icon: <PeopleOutlinedIcon />, path: "/courses" },
   { text: "Student Information", icon: <ContactsOutlinedIcon />, path: "/students" },
   { text: "Calendar", icon: <CalendarTodayOutlinedIcon />, path: "/calendar" },
