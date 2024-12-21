@@ -20,7 +20,7 @@ This repository contains a Scrum board organized for agile project management, f
 
 - **Todo**: Tasks that are planned but not started.
 - **In Progress**: Tasks actively being worked on.
-- **Done**: Completed tasks.
+- **Pushed**: Work that needs to be reviewed.
 - **Canceled**: Tasks that were removed from the sprint.
 - **Labels**: Each story can be labeled as a `story`, `bug`, or `spike` for categorization and prioritization.
 
