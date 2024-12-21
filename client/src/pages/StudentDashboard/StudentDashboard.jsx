@@ -5,7 +5,7 @@ import StudentEnrollCourses from "../../components/StudentDashboard/StudentEnrol
 import AnnouncementsAndTeachers from "../../components/StudentDashboard/AnnouncementsAndTeachers/AnnouncementsAndTeachers";
 import PerformanceChart from "../../components/StudentDashboard/PerformanceChart/PerformanceChart";
 import Timetable from "../../components/StudentDashboard/Timetable/Timetable";
-
+import Quizpage from "../../components/StudentDashboard/quizpage/quiz";
 
 function StudentDashboard() {
     const [activeMenu, setActiveMenu] = useState("home");
@@ -24,10 +24,11 @@ function StudentDashboard() {
                         <PerformanceChart />
                         <Timetable />
                         <AnnouncementsAndTeachers />
+                        <Quizpage/>
                     </div>
                 )}
                 {activeMenu === "courses" && <StudentEnrollCourses />}
-                {activeMenu === "assessments" && <div>Assessments Content</div>}
+                {activeMenu === "assessments" && <Quizpage/>}
             </div>
         </div>
     );
