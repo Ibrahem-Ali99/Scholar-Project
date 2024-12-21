@@ -4,8 +4,8 @@ import StudentGreeting from "../../components/StudentDashboard/StudentGreeting/S
 import StudentEnrollCourses from "../../components/StudentDashboard/StudentEnrollCourses/StudentEnrollCourses";
 import AnnouncementsAndTeachers from "../../components/StudentDashboard/AnnouncementsAndTeachers/AnnouncementsAndTeachers";
 import PerformanceChart from "../../components/StudentDashboard/PerformanceChart/PerformanceChart";
+import Feedback from "../../components/StudentDashboard/Feedback/Feedback";
 import Timetable from "../../components/StudentDashboard/Timetable/Timetable";
-
 
 function StudentDashboard() {
     const [activeMenu, setActiveMenu] = useState("home");
@@ -28,6 +28,7 @@ function StudentDashboard() {
                 )}
                 {activeMenu === "courses" && <StudentEnrollCourses />}
                 {activeMenu === "assessments" && <div>Assessments Content</div>}
+                {activeMenu === "feedback" && <Feedback />} 
             </div>
         </div>
     );

@@ -1,6 +1,3 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import pytest
 from server.app import create_app
 from server.utils.db import db
@@ -17,3 +14,4 @@ def client():
 def test_get_students(client):
     response = client.get('/students')
     assert response.status_code == 200
+
