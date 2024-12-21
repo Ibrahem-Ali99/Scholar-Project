@@ -71,7 +71,7 @@ function App() {
           <Route path="/students" element={<Student />} />
           <Route path="/fileupload" element={<Fileupload />} />
           <Route path="/courses" element={<Course />} />
-          <Route path="/badge" element={<BadgeAward />} />
+          <Route path="/badges" element={<BadgeAward />} />
           <Route path="/quizCreation" element={<QuizCreation />} /> 
 
           {/* Admin Routes */}
