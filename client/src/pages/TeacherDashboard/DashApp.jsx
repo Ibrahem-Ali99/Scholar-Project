@@ -44,7 +44,7 @@ export default function DashApp() {
             <Route path="./bar" element={<BarChart />} />
             <Route path="./line" element={<LineChart />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="badge" element={<BadgeAward />} />
+            <Route path="badges" element={<BadgeAward />} />
           </Routes>
         </Box>
       </Box>
