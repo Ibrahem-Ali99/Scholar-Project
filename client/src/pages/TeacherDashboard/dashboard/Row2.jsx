@@ -22,7 +22,7 @@ const Row2 = () => {
             description: "Create and manage your quizzes",
             icon: QuizIcon,
             bgColor: "#1e88e5",
-            onClick: () => navigate(""),
+            onClick: () => navigate("/quizCreation"),
         },
         {
             title: "Schedule Sessions",

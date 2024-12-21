@@ -31,6 +31,7 @@ const LineChart = lazy(() => import('./pages/TeacherDashboard/lineChart/LineChar
 const DashApp = lazy(() => import('./pages/TeacherDashboard/DashApp'));
 const BadgeAward = lazy(() => import('./pages/TeacherDashboard/badge/BadgeAward'));
 const Fileupload = lazy(() => import('./pages/TeacherDashboard/fileupload/fileupload'));
+const QuizCreation = lazy(() => import('./pages/TeacherDashboard/quizCreation/quizCreation'));
 
 // Admin Dashboard
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard/AdminDashboard'));
@@ -38,7 +39,6 @@ import pages from './pages/AdminDashboard/pages/pages';
 
 // Parent Dashboard
 const ParentDashboard = lazy(() => import('./pages/ParentDashboard/ParentDashboard'));
-
 
 function App() {
   return (
@@ -70,8 +70,9 @@ function App() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/students" element={<Student />} />
           <Route path="/fileupload" element={<Fileupload />} />
-          <Route path="courses" element={<Course />} />
-          <Route path="badge" element={<BadgeAward />} />
+          <Route path="/courses" element={<Course />} />
+          <Route path="/badge" element={<BadgeAward />} />
+          <Route path="/quizCreation" element={<QuizCreation />} /> 
 
           {/* Admin Routes */}
           <Route path="/admin-dashboard" element={<AdminDashboard />}>

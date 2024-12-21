@@ -36,7 +36,8 @@ from flask_session import Session
 from routes.StudentDashboard.ShowEnrolledCourses import student_enrolled_courses_bp
 from routes.StudentDashboard.FeedbackForm import feedback_form_bp
 from routes.StudentDashboard.Quiz import quiz_bp
-
+from routes.TeacherDashboard.QuizCreation import quiz_creation_bp
+from routes.TeacherDashboard.ValidateQuestion import validate_quiz_creation_bp
 def create_app():
     app = Flask(__name__)
 
@@ -86,7 +87,8 @@ def create_app():
     app.register_blueprint(student_enrolled_courses_bp)
     app.register_blueprint(feedback_form_bp, name="unique_feedback")
     app.register_blueprint(quiz_bp,url_prefix="/quiz")
-
+    app.register_blueprint(quiz_creation_bp)
+    app.register_blueprint(validate_quiz_creation_bp)
     @app.route('/')
     def main_page():
         return "<h1>This is the main page of the server</h1>"
