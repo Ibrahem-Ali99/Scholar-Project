@@ -27,7 +27,7 @@ def get_enrolled_students():
 
 # Add to badge.py routes file
 
-@badge_bp.route('/api/badges', methods=['GET'])
+@badge_bp.route('/api/teacher/badges', methods=['GET'])
 def get_badges():
     try:
         badges = Badge.query.all()
