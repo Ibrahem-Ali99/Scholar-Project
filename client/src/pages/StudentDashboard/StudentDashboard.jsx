@@ -7,6 +7,7 @@ import PerformanceChart from "../../components/StudentDashboard/PerformanceChart
 import Feedback from "../../components/StudentDashboard/Feedback/Feedback";
 import Timetable from "../../components/StudentDashboard/Timetable/Timetable";
 
+
 function StudentDashboard() {
     const [activeMenu, setActiveMenu] = useState("home");
 
@@ -24,11 +25,11 @@ function StudentDashboard() {
                         <PerformanceChart />
                         <Timetable />
                         <AnnouncementsAndTeachers />
+                        <Quizpage/>
                     </div>
                 )}
                 {activeMenu === "courses" && <StudentEnrollCourses />}
                 {activeMenu === "assessments" && <div>Assessments Content</div>}
-                {activeMenu === "feedback" && <Feedback />} 
             </div>
         </div>
     );
