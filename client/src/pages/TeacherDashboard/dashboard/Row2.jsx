@@ -36,7 +36,7 @@ const Row2 = () => {
             description: "Motivate your students with your badges",
             icon: FileUploadIcon,
             bgColor: "#ff9800",
-            onClick: () => navigate("/badges"),
+            onClick: () => navigate("/teacher-dashboard/badges"),
         },
     ];
 
