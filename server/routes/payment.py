@@ -188,3 +188,29 @@ def delete_payment(payment_id):
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@payment_bp.route('/api/admin/payment', methods=['GET'])  
+def get_admin_payments():
+    try:
+        payments = db.session.query(
+            Payment, Student, Course
+        ).join(
+            Student, Payment.student_id == Student.student_id
+        ).join(
+            Course, Payment.course_id == Course.course_id
+        ).all()
+
+        result = [{
+            'payment_id': p.Payment.payment_id,
+            'student_name': p.Student.name,
+            'student_email': p.Student.email,
+            'course_name': p.Course.course_name,
+            'amount': float(p.Payment.amount),
+            'payment_date': p.Payment.payment_date.strftime('%Y-%m-%d'),
+            'card_last_four_digits': p.Payment.card_last_four_digits
+        } for p in payments]
+
+        return jsonify(result), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500

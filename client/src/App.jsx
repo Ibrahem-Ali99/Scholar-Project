@@ -5,7 +5,6 @@ import '@mui/material';
 import '@fortawesome/fontawesome-free/css/all.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
 import ScrollToTop from './components/ScrollToTop';
 
 // Lazy loading all the components

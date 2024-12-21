@@ -6,6 +6,7 @@ from datetime import timedelta
 load_dotenv()
 
 class Config:
+
     # Secret key for sessions and other cryptographic operations
     SECRET_KEY = os.getenv("APP_SECRET_KEY")  
 
