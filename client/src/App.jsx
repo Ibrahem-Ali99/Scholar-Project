@@ -75,9 +75,9 @@ function App() {
           <Route path="/quizCreation" element={<QuizCreation />} /> 
 
           {/* Admin Routes */}
-          <Route path="/admin-dashboard" element={<AdminDashboard />}>
+          <Route path="/admin" element={<AdminDashboard />}>
             {pages.map((page, index) => (
-              <Route key={page.path || index} path={`/admin-dashboard${page.path}`} element={page.page} />
+              <Route key={page.path || index} path={`/admin${page.path}`} element={page.page} />
             ))}
           </Route>
 
