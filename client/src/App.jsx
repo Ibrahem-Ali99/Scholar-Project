@@ -29,6 +29,7 @@ const Student = lazy(() => import('./pages/TeacherDashboard/students/Student'));
 const BarChart = lazy(() => import('./pages/TeacherDashboard/barChart/BarChart'));
 const LineChart = lazy(() => import('./pages/TeacherDashboard/lineChart/LineChart'));
 const DashApp = lazy(() => import('./pages/TeacherDashboard/DashApp'));
+const BadgeAward = lazy(() => import('./pages/TeacherDashboard/badge/BadgeAward'));
 
 // Admin Dashboard
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard/AdminDashboard'));
@@ -67,6 +68,7 @@ function App() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/students" element={<Student />} />
           <Route path="courses" element={<Course />} />
+          <Route path="badge" element={<BadgeAward />} />
           
           {/* Admin  */}
           <Route path="/admin" element={<AdminDashboard />}>
