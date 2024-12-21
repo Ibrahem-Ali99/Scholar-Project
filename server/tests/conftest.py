@@ -14,16 +14,15 @@ def app():
     app = create_app()
     app.config.update({
         "TESTING": True,
-        "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:", 
+        "SQLALCHEMY_DATABASE_URI": "sqlite:///test_database.db", 
         "SQLALCHEMY_TRACK_MODIFICATIONS": False,
         "MAIL_SUPPRESS_SEND": True,
         "SESSION_TYPE": "filesystem",
     })
     with app.app_context():
-        db.create_all()
+        db.create_all() 
         yield app
-        db.session.remove()
-        db.drop_all()
+        db.session.remove()  
 
 
 @pytest.fixture
@@ -33,9 +32,7 @@ def client(app):
 
 @pytest.fixture
 def test_session(app):
-    """
-    created a separate session for testing to avoid affecting the original db
-    """
+
     connection = db.engine.connect()
     transaction = connection.begin()
     options = dict(bind=connection, binds={})
@@ -46,7 +43,7 @@ def test_session(app):
     yield test_session
 
     test_session.remove()
-    transaction.rollback() 
+    transaction.rollback()  
     connection.close()
 
 
