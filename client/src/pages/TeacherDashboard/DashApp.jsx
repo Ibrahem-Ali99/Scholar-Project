@@ -12,6 +12,7 @@ import Calendar from "./calendar/Calendar.jsx";
 import BarChart from "./barChart/BarChart.jsx";
 import LineChart from "./lineChart/LineChart.jsx";
 import NotFound from "./notFound/NotFound.jsx";
+import BadgeAward from "./badge/BadgeAward.jsx";
 import "./index.css";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -43,6 +44,7 @@ export default function DashApp() {
             <Route path="./bar" element={<BarChart />} />
             <Route path="./line" element={<LineChart />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="badge" element={<BadgeAward />} />
           </Routes>
         </Box>
       </Box>

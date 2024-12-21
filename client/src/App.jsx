@@ -28,6 +28,7 @@ const Student = lazy(() => import('./pages/TeacherDashboard/students/Student'));
 const BarChart = lazy(() => import('./pages/TeacherDashboard/barChart/BarChart'));
 const LineChart = lazy(() => import('./pages/TeacherDashboard/lineChart/LineChart'));
 const DashApp = lazy(() => import('./pages/TeacherDashboard/DashApp'));
+const BadgeAward = lazy(() => import('./pages/TeacherDashboard/badge/BadgeAward'));
 const Fileupload = lazy(() => import('./pages/TeacherDashboard/fileupload/fileupload'));
 
 // Admin Dashboard
@@ -67,8 +68,7 @@ function App() {
           <Route path="/students" element={<Student />} />
           <Route path="/fileupload" element={<Fileupload />} />
           <Route path="courses" element={<Course />} />
-
-          {/* Admin */}
+          <Route path="badge" element={<BadgeAward />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />}>
             {pages.map((page, index) => (
               <Route key={page.path || index} path={`/admin-dashboard${page.path}`} element={page.page} />

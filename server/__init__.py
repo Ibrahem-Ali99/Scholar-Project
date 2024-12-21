@@ -17,6 +17,7 @@ from routes.LandingPage.Courses import course_bp
 from routes.LandingPage.CoursePage import course_page_bp
 from routes.auth import auth
 from server.routes.TeacherDashboard.row1 import dashboard_bp
+from routes.TeacherDashboard.badge import badge_bp 
 from routes.AdminDashboard.admin_dashboard import dash_home_bp
 from routes.AdminDashboard.course_list import course_list_bp
 from routes.AdminDashboard.teacher_approval import teacher_approval_bp
@@ -63,6 +64,7 @@ def create_app():
     app.register_blueprint(feedback_bp)
     app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(dashboard_bp)
+    app.register_blueprint(badge_bp)
     app.register_blueprint(swaggerui_blueprint)
     app.register_blueprint(dash_home_bp, url_prefix='/api')
     app.register_blueprint(course_list_bp, url_prefix='')
