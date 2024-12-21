@@ -1,6 +1,7 @@
 import DashboardHome from './DashboardHome'
 import CourseList from './CourseList'
-
+import TeacherApproval from './TeacherApproval'
+import PaymentManagement from './PaymentManagement'
 const pages = [
   {
     path: "",
@@ -10,7 +11,7 @@ const pages = [
   },
   {
     path: "/teacher",
-    page: <></>,
+    page: <TeacherApproval/>,
     buttonText: "Teacher Approval",
     buttonIcon: <></>,
   },
@@ -22,10 +23,10 @@ const pages = [
   },
   {
     path: "/payment",
-    page: <></>,
+    page: <PaymentManagement/>,
     buttonText: "Payment Management",
     buttonIcon: <></>,
-  },
+  }
 ]
 
 export default pages

@@ -5,20 +5,20 @@ from datetime import timedelta
 load_dotenv()
 
 class Config:
-    SECRET_KEY = os.getenv("APP_SECRET_KEY")
+    SECRET_KEY = os.getenv("APP_SECRET_KEY") or "dev-default-key-change-in-production"
     SESSION_COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME")
     SESSION_COOKIE_DOMAIN = None
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SECURE = False   
     SESSION_COOKIE_SAMESITE = 'Lax'
-    PERMANENT_SESSION_LIFETIME = timedelta(minutes=int(os.getenv("SESSION_LIFETIME")))
+    PERMANENT_SESSION_LIFETIME = timedelta(minutes=int(os.getenv("SESSION_LIFETIME", "10")))
     SESSION_TYPE = os.getenv("SESSION_TYPE", "filesystem")
     SESSION_USE_SIGNER = True
     SESSION_FILE_DIR = './flask_session/'
     # MySQL configurations
     MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
     MYSQL_USER = os.getenv("MYSQL_USER", "root")
-    MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "0000")
+    MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "password123")
     MYSQL_DB = os.getenv("MYSQL_DB", "scholar")
 
     SQLALCHEMY_DATABASE_URI = (

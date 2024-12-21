@@ -6,13 +6,13 @@ from models.payment import Payment
 from models.hiring_requests import HiringRequest
 from sqlalchemy import func
 from datetime import datetime, date
-
+from utils.db import db
 dash_home_bp = Blueprint('dash_home_bp', __name__)
 
 @dash_home_bp.route('/admin', methods=['GET'])
 def get_dashboard_data():
     try:
-        # Total Users
+        # Total Users count - unchanged as user models remain the same
         total_students = Student.query.count()
         total_teachers = Teacher.query.count()
         total_parents = Parent.query.count()
@@ -24,14 +24,17 @@ def get_dashboard_data():
             'admins': total_admins
         }
 
+        # Active courses - unchanged as Course model remains similar
         active_courses = Course.query.count()
 
-        pending_approvals = HiringRequest.query.filter_by(status='pending').count()
+        # Pending teacher approvals - using hiring_status from Teacher model
+        pending_approvals = Teacher.query.filter_by(hiring_status='pending').count()
 
-        today = date.today()
-        daily_active_users = Payment.query.filter(Payment.payment_date == today).count()
+        # Daily payments - using Payment model
+        total_payments = Payment.query.count()
 
-        enrollments = Enrollment.query.with_entities(
+        # Enrollments over time - using Enrollment model
+        enrollments = db.session.query(
             func.extract('year', Enrollment.enrollment_date).label('year'),
             func.count(Enrollment.enrollment_id).label('count')
         ).group_by(
@@ -43,14 +46,24 @@ def get_dashboard_data():
             for year, count in enrollments
         ]
 
+        # If no enrollments, provide sample data for chart
+        if not enrollments_data:
+            current_year = datetime.now().year
+            enrollments_data = [
+                {'year': year, 'count': 0} 
+                for year in range(current_year-2, current_year+1)
+            ]
+        total_enrollments = Enrollment.query.count()
+
         dashboard_data = {
             'total_users': total_users,
             'active_courses': active_courses,
             'pending_approvals': pending_approvals,
-            'daily_active_users': daily_active_users,
+            'total_enrollments': total_enrollments,
             'enrollments_over_time': enrollments_data
         }
 
         return jsonify(dashboard_data)
+
     except Exception as e:
         return jsonify({'error': str(e)}), 500
