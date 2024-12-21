@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from models import Parent, Student
+from models import Parent
 
 parent_children_bp = Blueprint("parent_children", __name__)
 

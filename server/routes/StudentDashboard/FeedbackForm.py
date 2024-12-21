@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from models import CourseRating
-from utils.db import db
-
+from utils.db import singleton_db  
+db = singleton_db.get_db
 feedback_form_bp = Blueprint("feedback", __name__)
 
 @feedback_form_bp.route("/submit-feedback", methods=["POST"])
@@ -31,5 +31,5 @@ def submit_feedback():
 
         return jsonify({"message": "Feedback submitted successfully!"}), 201
     except Exception as e:
-        db.session.rollback()
+        db  .session.rollback()
         return jsonify({"error": f"Internal server error: {str(e)}"}), 500

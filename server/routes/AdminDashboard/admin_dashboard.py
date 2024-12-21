@@ -6,7 +6,8 @@ from models.payment import Payment
 from models.hiring_requests import HiringRequest
 from sqlalchemy import func
 from datetime import datetime, date
-from utils.db import db
+from utils.db import singleton_db
+db = singleton_db.get_db
 dash_home_bp = Blueprint('dash_home_bp', __name__)
 
 @dash_home_bp.route('/admin', methods=['GET'])

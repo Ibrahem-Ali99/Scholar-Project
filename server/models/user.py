@@ -1,6 +1,8 @@
-from utils.db import db
+from utils.db import singleton_db  
 
-class Student(db.Model):
+db = singleton_db.get_db  
+
+class Student(db.Model):  
     __tablename__ = 'student'
 
     student_id = db.Column(db.Integer, primary_key=True)
@@ -17,6 +19,7 @@ class Student(db.Model):
     student_badges = db.relationship('StudentBadge', back_populates='student', lazy=True)
     notifications = db.relationship('StudentNotification', back_populates='student', lazy=True)
     course_ratings = db.relationship('CourseRating', back_populates='student', lazy=True)
+
 
 class Teacher(db.Model):
     __tablename__ = 'teacher'

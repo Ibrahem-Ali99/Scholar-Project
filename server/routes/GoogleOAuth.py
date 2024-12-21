@@ -1,6 +1,7 @@
 from flask import Blueprint, request, redirect, url_for, session, jsonify
 from oauthlib.oauth2 import WebApplicationClient
-from utils.db import db
+from utils.db  import singleton_db
+db = singleton_db.get_db
 from models.user import Student, Teacher, Parent, Admin
 import requests
 import config
@@ -114,6 +115,6 @@ def google_callback():
     except requests.exceptions.RequestException as e:
         return jsonify({"error": f"HTTP request failed: {str(e)}"}), 500
     except Exception as e:
-        db.session.rollback()
+        db  .session.rollback()
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
 

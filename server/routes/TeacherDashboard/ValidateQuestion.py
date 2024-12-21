@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from models import Quiz, Course
-from utils.db import db
-
+from utils.db  import singleton_db
+db = singleton_db.get_db
 validate_quiz_creation_bp = Blueprint('validate_quiz_creation_bp', __name__)
 
 @validate_quiz_creation_bp.route('/course/validate/<int:course_id>', methods=['GET'])

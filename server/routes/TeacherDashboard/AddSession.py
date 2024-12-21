@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from datetime import datetime
 from models import Session, Notification
-from utils.db import db
-
+from utils.db import singleton_db
+db = singleton_db.get_db
 session_bp = Blueprint("session_bp", __name__)
 
 @session_bp.route("/session/add", methods=["POST"])

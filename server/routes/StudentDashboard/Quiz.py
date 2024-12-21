@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from models import Quiz, StudentQuizProgress
-from utils.db import db
+from utils.db   import singleton_db 
 from datetime import date
-
+db = singleton_db.get_db
 quiz_bp = Blueprint('quiz_bp', __name__)
 
 @quiz_bp.route('/get-quiz', methods=['GET'])

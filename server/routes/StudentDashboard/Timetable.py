@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from sqlalchemy.sql import text
-from utils.db import db
-
+from utils.db   import singleton_db
+db = singleton_db.get_db
 timetable_bp = Blueprint('timetable', __name__)
 
 @timetable_bp.route('/student/timetable', methods=['GET'])

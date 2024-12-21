@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, session
 from models import Student, Course, Enrollment
-from utils.db import db  
-
+from utils.db  import singleton_db
+db = singleton_db.get_db
 student_enrolled_courses_bp = Blueprint("student_enrolled_courses", __name__)
 
 @student_enrolled_courses_bp.route("/student/enrolled-courses", methods=["GET"])

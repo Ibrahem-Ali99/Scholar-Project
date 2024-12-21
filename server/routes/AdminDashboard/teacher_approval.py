@@ -2,9 +2,9 @@
 from flask import Blueprint, jsonify, request
 from models.hiring_requests import HiringRequest
 from models.user import Teacher
-from utils.db import db
+from utils.db import singleton_db
 from datetime import date
-
+db = singleton_db.get_db
 teacher_approval_bp = Blueprint('teacher_approval', __name__)
 
 @teacher_approval_bp.route('/api/admin/teacher-applications', methods=['GET'])

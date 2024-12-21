@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from . import dashboard_bp
-from utils.db import db
+from utils.db  import singleton_db 
+db = singleton_db.get_db
 from models import (
     Student, Payment, StudentProgress, Enrollment, Course,
     CourseAssessment, StudentQuizProgress, Teacher, Session

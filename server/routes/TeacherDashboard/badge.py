@@ -3,16 +3,15 @@ from flask import Blueprint, request, jsonify
 from models.badge import Badge, StudentBadge
 from models.user import Student
 from models.enrollment import Enrollment
-from utils.db import db
+from utils.db import singleton_db  
 from datetime import date
 from sqlalchemy import distinct
-
+db = singleton_db.get_db
 badge_bp = Blueprint('badge_bp', __name__)
 
 @badge_bp.route('/api/teacher/students', methods=['GET'])
 def get_enrolled_students():
     try:
-        # Get unique students who are enrolled in any course
         students = db.session.query(Student).join(
             Enrollment, Student.student_id == Enrollment.student_id
         ).distinct().all()
@@ -25,7 +24,6 @@ def get_enrolled_students():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# Add to badge.py routes file
 
 @badge_bp.route('/api/teacher/badges', methods=['GET'])
 def get_badges():
@@ -45,7 +43,6 @@ def award_badge():
         student_id = data.get('student_id')
         badge_id = data.get('badge_id')
 
-        # Check if student already has this badge
         existing_badge = StudentBadge.query.filter_by(
             student_id=student_id,
             badge_id=badge_id
@@ -65,7 +62,6 @@ def award_badge():
         db.session.add(new_award)
         db.session.commit()
 
-        # Get badge details for response
         badge = Badge.query.get(badge_id)
         student = Student.query.get(student_id)
 

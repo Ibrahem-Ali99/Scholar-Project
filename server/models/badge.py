@@ -1,8 +1,8 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.db import db
-
+from utils.db import singleton_db
+db = singleton_db.get_db
 class Badge(db.Model):
     __tablename__ = 'badge'
     badge_id = db.Column(db.Integer, primary_key=True)

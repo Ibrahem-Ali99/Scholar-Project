@@ -1,4 +1,6 @@
-from utils.db import db
+from utils.db import singleton_db
+
+db = singleton_db.get_db
 
 class Quiz(db.Model):
     __tablename__ = 'quiz'

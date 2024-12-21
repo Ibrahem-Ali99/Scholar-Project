@@ -4,7 +4,8 @@ from venv import logger
 from flask import Blueprint, request, jsonify, session
 from itsdangerous import URLSafeTimedSerializer
 from utils.mail import send_reset_email
-from utils.db import db
+from utils.db   import singleton_db
+db = singleton_db.get_db
 import bcrypt
 from models.user import Student, Teacher, Parent, Admin
 import logging

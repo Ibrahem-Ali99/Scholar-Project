@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify, session
-from utils.db import db
+from utils.db  import singleton_db
+db = singleton_db.get_db
 from models.payment import Payment
 from models.user import Student
 from models.course import Course

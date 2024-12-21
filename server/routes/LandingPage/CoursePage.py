@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
-from utils.db import db
+from utils.db import singleton_db
 from models import Course, CourseContent, CourseRating
-
+db = singleton_db.get_db
 course_page_bp = Blueprint('course_page', __name__)
 
 @course_page_bp.route('/courses/<int:course_id>', methods=['GET'])
