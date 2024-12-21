@@ -8,7 +8,7 @@ load_dotenv()
 class Config:
 
     # Secret key for sessions and other cryptographic operations
-    SECRET_KEY = os.getenv("APP_SECRET_KEY")  
+    SECRET_KEY = os.getenv("APP_SECRET_KEY", "2ac983b155ad862c94c29f29ff90038ec3c033587ac35636885eb5c3aa3f78ab")  
 
     # Session configuration
     SESSION_COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME")
