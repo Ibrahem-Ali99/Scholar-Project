@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Feedback.css";
+import "./StudentFeedback.css";
 
-const Feedback = () => {
+const StudentFeedback = () => {
     const [enrolledCourses, setEnrolledCourses] = useState([]);
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -58,4 +58,4 @@ const Feedback = () => {
     );
 };
 
-export default Feedback;
+export default StudentFeedback;

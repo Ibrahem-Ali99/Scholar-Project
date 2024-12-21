@@ -2,9 +2,9 @@ from flask import Blueprint, jsonify, request
 from models import CourseRating
 from utils.db import db
 
-feedback_bp = Blueprint("feedback", __name__)
+feedback_form_bp = Blueprint("feedback", __name__)
 
-@feedback_bp.route("/submit-feedback", methods=["POST"])
+@feedback_form_bp.route("/submit-feedback", methods=["POST"])
 def submit_feedback():
     data = request.json
     try:

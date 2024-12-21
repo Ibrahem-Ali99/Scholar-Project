@@ -4,9 +4,9 @@ import StudentGreeting from "../../components/StudentDashboard/StudentGreeting/S
 import StudentEnrollCourses from "../../components/StudentDashboard/StudentEnrollCourses/StudentEnrollCourses";
 import AnnouncementsAndTeachers from "../../components/StudentDashboard/AnnouncementsAndTeachers/AnnouncementsAndTeachers";
 import PerformanceChart from "../../components/StudentDashboard/PerformanceChart/PerformanceChart";
-import Feedback from "../../components/StudentDashboard/Feedback/Feedback";
+import StudentFeedback from "../../components/StudentDashboard/StudentFeedback/StudentFeedback";
 import Timetable from "../../components/StudentDashboard/Timetable/Timetable";
-
+// import quiz from "../../components/StudentDashboard/quizpage/quiz"
 
 function StudentDashboard() {
     const [activeMenu, setActiveMenu] = useState("home");
@@ -25,11 +25,12 @@ function StudentDashboard() {
                         <PerformanceChart />
                         <Timetable />
                         <AnnouncementsAndTeachers />
-                        <Quizpage/>
+                        {/* <quiz/> */}
                     </div>
                 )}
                 {activeMenu === "courses" && <StudentEnrollCourses />}
                 {activeMenu === "assessments" && <div>Assessments Content</div>}
+                {activeMenu === "feedback" && <StudentFeedback />} 
             </div>
         </div>
     );

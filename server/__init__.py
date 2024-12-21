@@ -34,7 +34,7 @@ from routes.TeacherDashboard.AddSession import session_bp
 from routes.payment import payment_bp
 from flask_session import Session
 from routes.StudentDashboard.ShowEnrolledCourses import student_enrolled_courses_bp
-from routes.StudentDashboard.FeedbackForm import feedback_bp
+from routes.StudentDashboard.FeedbackForm import feedback_form_bp
 def create_app():
     app = Flask(__name__)
 
@@ -82,7 +82,7 @@ def create_app():
     app.register_blueprint(google_oauth_bp, url_prefix='/auth')
     app.register_blueprint(session_bp)
     app.register_blueprint(student_enrolled_courses_bp)
-    app.register_blueprint(feedback_bp, name="unique_feedback")
+    app.register_blueprint(feedback_form_bp, name="unique_feedback")
 
     @app.route('/')
     def main_page():
