@@ -19,6 +19,7 @@ const CoursePage = lazy(() => import('./pages/CoursePage/CoursePage'));
 const CheckOutPage = lazy(() => import('./pages/CheckOutPage/CheckOutPage.jsx'));
 const ThankYouPage = lazy(() => import('./components/ThankYouPage/ThankYouPage.jsx'));
 const FeedbackForm = lazy(() => import('./components/StudentDashboard/FeedbackForm/FeedbackForm'));
+const Quiz = lazy(() => import('./components/StudentDashboard/Quiz/Quiz'));
 
 // Teacher Dashboard
 const Dashboard = lazy(() => import('./pages/TeacherDashboard/dashboard/Dashboard'));
@@ -38,28 +39,30 @@ import pages from './pages/AdminDashboard/pages/pages';
 // Parent Dashboard
 const ParentDashboard = lazy(() => import('./pages/ParentDashboard/ParentDashboard'));
 
+
 function App() {
   return (
     <Router>
       <ScrollToTop />
       <Suspense fallback={<div className="loading-screen">Loading...</div>}>
         <Routes>
-          {/* General */}
+          {/* General Routes */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          {/* Student */}
+          {/* Student Routes */}
           <Route path="/student-dashboard" element={<StudentDashboard />} />
           <Route path="/student-dashboard/course/:courseId" element={<StudentCoursePage />} />
           <Route path="/course/:courseId" element={<CoursePage />} />
           <Route path="/checkout/:courseId" element={<CheckOutPage />} />
           <Route path="/thank-you" element={<ThankYouPage />} />
           <Route path="/feedback/:courseId" element={<FeedbackForm />} />
+          <Route path="/assessments/:courseId" element={<Quiz />} />
 
-          {/* Teacher */}
+          {/* Teacher Routes */}
           <Route path="/pages/dashboard/Dashboard" element={<Dashboard />} />
           <Route path="/teacher-dashboard/*" element={<DashApp />} />
           <Route path="/bar" element={<BarChart />} />
@@ -69,17 +72,19 @@ function App() {
           <Route path="/fileupload" element={<Fileupload />} />
           <Route path="courses" element={<Course />} />
           <Route path="badge" element={<BadgeAward />} />
+
+          {/* Admin Routes */}
           <Route path="/admin-dashboard" element={<AdminDashboard />}>
             {pages.map((page, index) => (
               <Route key={page.path || index} path={`/admin-dashboard${page.path}`} element={page.page} />
             ))}
           </Route>
 
-          {/* Fallback */}
-          <Route path="*" element={<LandingPage />} />
-
-          {/* Parent */}
+          {/* Parent Routes */}
           <Route path="/parent-dashboard" element={<ParentDashboard />} />
+
+          {/* Fallback Route */}
+          <Route path="*" element={<LandingPage />} />
         </Routes>
       </Suspense>
     </Router>
