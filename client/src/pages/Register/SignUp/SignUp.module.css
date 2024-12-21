@@ -1,4 +1,3 @@
-/* Container for the entire signup page */
 .signupPage {
   display: flex;
   justify-content: center;
@@ -9,7 +8,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* Card container for the signup form */
 .authCard {
   display: flex;
   width: 80%;
@@ -20,7 +18,7 @@
   overflow: hidden;
 }
 
-/* Left side of the card */
+
 .left {
   flex: 1;
   padding: 40px;
@@ -30,10 +28,10 @@
   align-items: center;
 }
 
-/* Right side of the card */
+
 .right {
   flex: 1;
-  background: linear-gradient(135deg, #7c4dff, #8e24aa); /* Updated gradient */
+  background: linear-gradient(135deg, #7c4dff, #8e24aa);
   color: white;
   padding: 30px;
   text-align: center;
@@ -44,19 +42,19 @@
 
 
 
-/* Title */
+
 .title {
   font-size: 2.5rem;
-  color: #7c4dff; /* Title color for the right side */
+  color: #7c4dff; 
   margin-bottom: 20px;
 }
 
-/* Sign In button for the right side */
+
 .right .btn {
   display: inline-block;
   width: 100%;
   padding: 12px;
-  background: #7c4dff; /* Updated to the specified color */
+  background: #7c4dff; 
   color: white;
   border: none;
   border-radius: 5px;
@@ -70,23 +68,23 @@
   transform: scale(1.05);
 }
 
-/* Error and Success messages */
+
 .error, .success {
   font-size: 0.9rem;
-  color: #ff0000; /* Red for error messages */
+  color: #ff0000;
   margin-bottom: 10px;
 }
 
 .success {
-  color: #4caf50; /* Green for success messages */
+  color: #4caf50; 
 }
 
-/* Google Sign-Up button for the left part */
+
 .socialSignup .google {
   display: inline-block;
   width: 100%;
   padding: 12px;
-  background: #db4437;
+  background: #c73f00;
   color: white;
   border: none;
   border-radius: 5px;
@@ -95,17 +93,17 @@
   transition: background 0.3s ease;
 }
 .socialSignup button:hover {
-  background: #c1351d; /* Slightly darker red on hover */
+  background: #f46046; 
 }
 
-/* Text separating social login and email sign up */
+
 .or {
   margin: 20px 0;
   color: #888;
   font-size: 1rem;
 }
 
-/* Form styles */
+
 input {
   width: 100%;
   padding: 12px;
@@ -121,7 +119,7 @@ input {
   outline: none;
 }
 
-/* Dropdown styles */
+
 .dropdownGroup {
   width: 100%;
   margin-bottom: 16px;
@@ -145,7 +143,7 @@ select {
   display: inline-block;
   width: 100%;
   padding: 12px;
-  background: #7c4dff; /* Updated to the specified color */
+  background: #7c4dff; 
   color: white;
   border: none;
   border-radius: 5px;
@@ -160,14 +158,14 @@ select {
 }
 
 .error {
-  color: #ff0000; /* Red for error */
+  color: #ff0000; 
   font-size: 1rem;
   margin-bottom: 10px;
   font-weight: bold;
 }
 
 .success {
-  color: #4caf50; /* Green for success */
+  color: #4caf50; 
   font-size: 1rem;
   margin-bottom: 10px;
   font-weight: bold;
@@ -176,4 +174,13 @@ select {
 .googleButton:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.roleDropdown {
+  margin-bottom: 20px; 
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
 }

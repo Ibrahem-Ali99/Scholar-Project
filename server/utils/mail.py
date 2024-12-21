@@ -1,19 +1,15 @@
 from flask_mail import Mail, Message
-
-mail = Mail()
-
-from flask_mail import Mail, Message
 from flask import current_app
+import logging
 
 mail = Mail()
 
 def send_reset_email(to_email, reset_token):
     try:
-        # Generate the reset URL
         frontend_url = current_app.config.get('FRONTEND_URL', 'http://localhost:5173')
-        reset_url = f"{frontend_url}/reset-password/{reset_token}"
+        reset_url = f"{frontend_url}/{reset_token}"
+        logging.info(f"Generated reset URL: {reset_url}")
 
-        # Email subject and body
         subject = "Password Reset Request"
         body = f"""
         Hello,
@@ -31,5 +27,5 @@ def send_reset_email(to_email, reset_token):
         mail.send(msg)
         return True
     except Exception as e:
-        print(f"Failed to send email: {e}")
+        logging.error(f"Failed to send email: {e}")
         return False

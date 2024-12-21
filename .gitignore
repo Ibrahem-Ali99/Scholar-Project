@@ -22,9 +22,12 @@ migrations/
 .DS_Store
 Thumbs.db
 
+# Ignore environment and session files
 server/.env
+server/flask_session/
 
-SECRET_KEY=your_actual_secret_key
-MYSQL_PASSWORD=your_actual_mysql_password
+# Sensitive configuration files
+server/config.py
 
-
+# Ignore env file
+env

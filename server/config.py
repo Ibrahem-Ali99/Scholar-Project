@@ -2,23 +2,29 @@ from dotenv import load_dotenv
 import os
 from datetime import timedelta
 
+# Load environment variables from .env file
 load_dotenv()
 
 class Config:
-    SECRET_KEY = os.getenv("APP_SECRET_KEY") or "dev-default-key-change-in-production"
+
+    # Secret key for sessions and other cryptographic operations
+    SECRET_KEY = os.getenv("APP_SECRET_KEY")  
+
+    # Session configuration
     SESSION_COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME")
     SESSION_COOKIE_DOMAIN = None
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SECURE = False   
     SESSION_COOKIE_SAMESITE = 'Lax'
-    PERMANENT_SESSION_LIFETIME = timedelta(minutes=int(os.getenv("SESSION_LIFETIME", "10")))
+    PERMANENT_SESSION_LIFETIME = timedelta(minutes=int(os.getenv("SESSION_LIFETIME", 30)))
     SESSION_TYPE = os.getenv("SESSION_TYPE", "filesystem")
     SESSION_USE_SIGNER = True
     SESSION_FILE_DIR = './flask_session/'
+
     # MySQL configurations
     MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
     MYSQL_USER = os.getenv("MYSQL_USER", "root")
-    MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "password123")
+    MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "YourPassword")
     MYSQL_DB = os.getenv("MYSQL_DB", "scholar")
 
     SQLALCHEMY_DATABASE_URI = (
@@ -26,7 +32,7 @@ class Config:
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    # flask mail configurations
+    # Flask mail configurations
     MAIL_SERVER = os.getenv("MAIL_SERVER", "smtp.gmail.com")
     MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
     MAIL_USE_TLS = os.getenv("MAIL_USE_TLS", "True") == "True"

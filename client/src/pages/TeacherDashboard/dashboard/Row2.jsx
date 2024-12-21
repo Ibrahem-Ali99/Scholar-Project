@@ -15,7 +15,7 @@ const Row2 = () => {
             description: "upload and share course materials",
             icon: FileUploadIcon,
             bgColor: "#ca0000",
-            onClick: () => navigate(""),
+            onClick: () => navigate("/fileupload"),
         },
         {
             title: "Quiz Creation",

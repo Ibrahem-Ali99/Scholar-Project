@@ -1,23 +1,16 @@
-# Flask Secret Key (used to sign session cookies)
 APP_SECRET_KEY=2ac983b155ad862c94c29f29ff90038ec3c033587ac35636885eb5c3aa3f78ab
-
-# Session Config / lifetime in  minutes
 SESSION_COOKIE_NAME=google-login-session
 SESSION_LIFETIME=10
-SESSION_TYPE=filesystem 
 
-# SQL Configuration
-MYSQL_HOST=DESKTOP-DFJM3O9
-MYSQL_USER=root
-MYSQL_PASSWORD=password123
-MYSQL_DB=scholar
+SESSION_TYPE=filesystem
+MYSQL_HOST=localhost
+MYSQL_USER=
+MYSQL_PASSWORD=
+MYSQL_DB=
 
-
-# Google OAuth Configuration
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 
-# Reset Email
 MAIL_USERNAME=
 MAIL_PASSWORD=
 MAIL_DEFAULT_SENDER=

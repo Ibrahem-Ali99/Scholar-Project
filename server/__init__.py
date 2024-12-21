@@ -29,9 +29,12 @@ from routes.StudentDashboard.Timetable import timetable_bp
 from routes.ParentDashboard.DisplayParentName import parent_name_bp
 from routes.ParentDashboard.ParentChildrens import parent_children_bp
 from routes.ParentDashboard.StudentProgress import student_progress_bp
-
+from routes.GoogleOAuth import google_oauth_bp
+from routes.TeacherDashboard.AddSession import session_bp  
 from routes.payment import payment_bp
 from flask_session import Session
+from routes.StudentDashboard.ShowEnrolledCourses import student_enrolled_courses_bp
+from routes.StudentDashboard.FeedbackForm import feedback_bp
 def create_app():
     app = Flask(__name__)
 
@@ -59,7 +62,7 @@ def create_app():
     app.register_blueprint(course_bp)
     app.register_blueprint(teacher_bp)
     app.register_blueprint(feedback_bp)
-    app.register_blueprint(auth, url_prefix="/auth")#, url_prefix="/auth"
+    app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(dashboard_bp)
     app.register_blueprint(badge_bp)
     app.register_blueprint(swaggerui_blueprint)
@@ -76,6 +79,11 @@ def create_app():
     app.register_blueprint(parent_name_bp)
     app.register_blueprint(parent_children_bp)
     app.register_blueprint(student_progress_bp)
+    app.register_blueprint(google_oauth_bp, url_prefix='/auth')
+    app.register_blueprint(session_bp)
+    app.register_blueprint(student_enrolled_courses_bp)
+    app.register_blueprint(feedback_bp, name="unique_feedback")
+
     @app.route('/')
     def main_page():
         return "<h1>This is the main page of the server</h1>"

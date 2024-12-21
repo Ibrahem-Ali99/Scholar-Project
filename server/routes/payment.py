@@ -48,6 +48,11 @@ def create_payment():
             print("Missing fields:", missing_fields)
             return jsonify({'error': f"Missing fields: {', '.join(missing_fields)}"}), 400
 
+        existing_payment = Payment.query.filter_by(student_id=student_id, course_id=course_id).first()
+        if existing_payment:
+            print("Duplicate payment attempt for course:", course_id)
+            return jsonify({'error': 'Student has already purchased this course'}), 400
+        
         student = Student.query.get(student_id)
         course = Course.query.get(course_id)
         print("Student found:", student)
