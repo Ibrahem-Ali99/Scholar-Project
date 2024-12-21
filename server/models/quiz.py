@@ -9,12 +9,17 @@ class Quiz(db.Model):
     max_score = db.Column(db.Integer, nullable=False)
     post_date = db.Column(db.Date, nullable=False)
     deadline = db.Column(db.Date, nullable=False)
-    question = db.Column(db.String(255), nullable=True)  
-    answer = db.Column(db.String(255), nullable=True)    
+    question = db.Column(db.String(255), nullable=True)
+    option_a = db.Column(db.Text, nullable=True)
+    option_b = db.Column(db.Text, nullable=True)
+    option_c = db.Column(db.Text, nullable=True)
+    option_d = db.Column(db.Text, nullable=True)
+    answer = db.Column(db.String(10), nullable=True)
 
     # Relationships
     course = db.relationship('Course', back_populates='quizzes', lazy=True)
     student_quiz_progress = db.relationship('StudentQuizProgress', back_populates='quiz', lazy=True)
+
     
 
 

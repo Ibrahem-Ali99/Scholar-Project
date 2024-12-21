@@ -35,6 +35,8 @@ from routes.payment import payment_bp
 from flask_session import Session
 from routes.StudentDashboard.ShowEnrolledCourses import student_enrolled_courses_bp
 from routes.StudentDashboard.FeedbackForm import feedback_form_bp
+from routes.StudentDashboard.Quiz import quiz_bp
+
 def create_app():
     app = Flask(__name__)
 
@@ -83,6 +85,7 @@ def create_app():
     app.register_blueprint(session_bp)
     app.register_blueprint(student_enrolled_courses_bp)
     app.register_blueprint(feedback_form_bp, name="unique_feedback")
+    app.register_blueprint(quiz_bp,url_prefix="/quiz")
 
     @app.route('/')
     def main_page():
