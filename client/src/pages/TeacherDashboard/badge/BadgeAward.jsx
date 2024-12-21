@@ -34,7 +34,7 @@ const BadgeAward = () => {
 
   const fetchBadges = async () => {
     try {
-      const response = await fetch('/api/badges');
+      const response = await fetch('/api/teacher/badges');
       const data = await response.json();
       setBadges(data);
     } catch (error) {
