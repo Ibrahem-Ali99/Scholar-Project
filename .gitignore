@@ -31,3 +31,6 @@ server/config.py
 
 # Ignore env file
 env
+
+# pytest
+.pytest_cache
