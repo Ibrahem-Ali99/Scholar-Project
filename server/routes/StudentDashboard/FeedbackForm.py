@@ -15,6 +15,9 @@ def submit_feedback():
 
         if not rated_by or not course_id or not rating:
             return jsonify({"error": "Rated_by, course_id, and rating are required."}), 400
+        
+        if not (1 <= int(rating) <= 5): 
+            return jsonify({"error": "Rating must be between 1 and 5."}), 400
 
         new_feedback = CourseRating(
             rated_by=rated_by,

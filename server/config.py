@@ -24,7 +24,7 @@ class Config:
     # MySQL configurations
     MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
     MYSQL_USER = os.getenv("MYSQL_USER", "root")
-    MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "YourPassword")
+    MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "Ali29430")
     MYSQL_DB = os.getenv("MYSQL_DB", "scholar")
 
     SQLALCHEMY_DATABASE_URI = (

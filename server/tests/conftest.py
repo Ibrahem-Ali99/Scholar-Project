@@ -3,7 +3,7 @@ import sys
 import os
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from server.app import create_app
 from utils.db import db
