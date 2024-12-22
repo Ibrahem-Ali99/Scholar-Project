@@ -1,10 +1,12 @@
 from flask import Blueprint, jsonify, request, session
 from models import Student, Course, Enrollment
 from utils.db  import singleton_db
+from utils.role_access import role_required
 db = singleton_db.get_db
 student_enrolled_courses_bp = Blueprint("student_enrolled_courses", __name__)
 
 @student_enrolled_courses_bp.route("/student/enrolled-courses", methods=["GET"])
+@role_required(["student", "admin"])
 def get_student_enrolled_courses():
     student_id = request.args.get("student_id") or session.get("student_id")
     if not student_id:

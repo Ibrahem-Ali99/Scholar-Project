@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from . import dashboard_bp
 from utils.db  import singleton_db 
+from utils.role_access import role_required
 db = singleton_db.get_db
 from models import (
     Student, Payment, StudentProgress, Enrollment, Course,
@@ -8,6 +9,7 @@ from models import (
 )
 
 @dashboard_bp.route('/dashboard/session-activity', methods=['GET'])
+@role_required(['teacher', 'admin'])
 def get_session_activity():
     teacher_id = request.args.get('teacher_id', type=int)
 
@@ -36,6 +38,7 @@ def get_session_activity():
     }])
 
 @dashboard_bp.route('/dashboard/assessment-scores', methods=['GET'])
+@role_required(['teacher', 'admin'])
 def get_assessment_scores():
     teacher_id = request.args.get('teacher_id', type=int)
     if not teacher_id:

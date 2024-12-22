@@ -1,10 +1,12 @@
 from flask import Blueprint, jsonify, request
 from models import Student
 from sqlalchemy.exc import SQLAlchemyError
+from utils.role_access import role_required
 
 student_name_bp = Blueprint("studentname", __name__)
 
 @student_name_bp.route('/studentname', methods=['GET'])
+@role_required(['student', 'teacher', 'admin'])
 def get_student_name():
     student_id = request.args.get('student_id', type=int)
     if not student_id:

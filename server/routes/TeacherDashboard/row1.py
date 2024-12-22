@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from . import dashboard_bp
 from utils.db import singleton_db
+from utils.role_access import role_required
 db = singleton_db.get_db
 from models import (
     Student, Payment, StudentProgress, Enrollment, Course,
@@ -8,6 +9,7 @@ from models import (
 )
 
 @dashboard_bp.route('/dashboard/students-enrolled', methods=['GET'])
+@role_required(['teacher', 'admin'])
 def get_students_enrolled():
     teacher_id = request.args.get('teacher_id')
     if not teacher_id:
@@ -26,6 +28,7 @@ def get_students_enrolled():
     })
 
 @dashboard_bp.route('/dashboard/money-obtained', methods=['GET'])
+@role_required(['teacher', 'admin'])
 def get_money_obtained():
     teacher_id = request.args.get('teacher_id')
     if not teacher_id:
@@ -44,6 +47,7 @@ def get_money_obtained():
     })
 
 @dashboard_bp.route('/dashboard/last-assignment-completed', methods=['GET'])
+@role_required(['teacher', 'admin'])
 def get_last_assignment_completed():
     teacher_id = request.args.get('teacher_id')
     if not teacher_id:
@@ -75,6 +79,7 @@ def get_last_assignment_completed():
     })
 
 @dashboard_bp.route('/dashboard/pending-assignments', methods=['GET'])
+@role_required(['teacher', 'admin'])
 def get_pending_assignments():
     teacher_id = request.args.get('teacher_id')
     if not teacher_id:

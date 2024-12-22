@@ -2,10 +2,13 @@ from flask import Blueprint, request, jsonify
 from models import Quiz
 from utils.db   import singleton_db
 from datetime import datetime
+from utils.role_access import role_required
+
 db = singleton_db.get_db
 quiz_creation_bp = Blueprint('quiz_creation_bp', __name__)
 
 @quiz_creation_bp.route('/quiz/create', methods=['POST'])
+@role_required(['teacher', 'admin'])
 def create_quiz():
     data = request.get_json()
     try:

@@ -2,10 +2,12 @@ from flask import Blueprint, jsonify, request
 from datetime import datetime
 from models import Session, Notification
 from utils.db import singleton_db
+from utils.role_access import role_required
 db = singleton_db.get_db
 session_bp = Blueprint("session_bp", __name__)
 
 @session_bp.route("/session/add", methods=["POST"])
+@role_required(["teacher", "admin"]) 
 def add_session():
     data = request.json
     try:

@@ -1,9 +1,11 @@
 from flask import Blueprint, jsonify, request, session
 from models import Student, Course, Enrollment
+from utils.role_access import role_required
 
 student_dashboard_course_bp = Blueprint("StudentDashboardCourses", __name__)
 
 @student_dashboard_course_bp.route("/StudentDashboardCourses", methods=["GET"])
+@role_required(["student", "admin"]) 
 def get_student_dashboard_courses():
     student_id = request.args.get("student_id") or session.get("student_id")
     if not student_id:

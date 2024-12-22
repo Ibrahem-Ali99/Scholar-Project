@@ -1,10 +1,12 @@
 from flask import Blueprint, jsonify, request
 from models.enrollment import Enrollment
 from models.quiz import StudentQuizProgress
+from utils.role_access import role_required
 
 performance_bp = Blueprint('performance', __name__)
 
 @performance_bp.route('/student/performance', methods=['GET'])
+@role_required(['student', 'admin'])
 def get_student_performance():
     try:
         student_id = request.args.get('student_id', type=int)

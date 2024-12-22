@@ -1,10 +1,12 @@
 from flask import Blueprint, jsonify, request
 from sqlalchemy.sql import text
 from utils.db   import singleton_db
+from utils.role_access import role_required
 db = singleton_db.get_db
 timetable_bp = Blueprint('timetable', __name__)
 
 @timetable_bp.route('/student/timetable', methods=['GET'])
+@role_required(['student', 'admin'])
 def get_student_timetable():
     try:
         student_id = request.args.get('student_id', type=int)

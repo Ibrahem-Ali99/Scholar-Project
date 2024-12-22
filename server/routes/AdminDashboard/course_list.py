@@ -6,10 +6,12 @@ from models.user import Teacher
 from models.progress import StudentProgress, StudentBadge
 from sqlalchemy import func
 from datetime import datetime
+from utils.role_access import role_required
 
 course_list_bp = Blueprint('course_list_bp', __name__)
 
 @course_list_bp.route('/api/courses', methods=['GET'])
+@role_required(['admin'])
 def get_courses():
     try:
         courses = Course.query.all()

@@ -1,9 +1,11 @@
 from flask import Blueprint, jsonify, request
 from models import Parent
+from utils.role_access import role_required
 
 parent_children_bp = Blueprint("parent_children", __name__)
 
 @parent_children_bp.route('/parent/children', methods=['GET'])
+@role_required(['parent', 'admin'])
 def get_parent_children():
     parent_id = request.args.get('parent_id', type=int)
     

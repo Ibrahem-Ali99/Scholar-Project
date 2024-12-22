@@ -2,10 +2,12 @@ from flask import Blueprint, jsonify, request
 from models import Quiz, StudentQuizProgress
 from utils.db   import singleton_db 
 from datetime import date
+from utils.role_access import role_required
 db = singleton_db.get_db
 quiz_bp = Blueprint('quiz_bp', __name__)
 
 @quiz_bp.route('/get-quiz', methods=['GET'])
+@role_required(['student', 'admin']) 
 def get_quiz_by_course():
 
     course_id = request.args.get('course_id')
@@ -43,6 +45,7 @@ def get_quiz_by_course():
 
 
 @quiz_bp.route('/submit-quiz', methods=['POST'])
+@role_required(['student']) 
 def submit_quiz():
     data = request.get_json()
     student_id = data.get('student_id')

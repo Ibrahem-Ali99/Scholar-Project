@@ -7,10 +7,12 @@ from models.hiring_requests import HiringRequest
 from sqlalchemy import func
 from datetime import datetime, date
 from utils.db import singleton_db
+from utils.role_access import role_required
 db = singleton_db.get_db
 dash_home_bp = Blueprint('dash_home_bp', __name__)
 
 @dash_home_bp.route('/admin', methods=['GET'])
+@role_required(['admin'])
 def get_dashboard_data():
     try:
         # Total Users count - unchanged as user models remain the same

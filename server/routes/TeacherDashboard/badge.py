@@ -6,10 +6,12 @@ from models.enrollment import Enrollment
 from utils.db import singleton_db  
 from datetime import date
 from sqlalchemy import distinct
+from utils.role_access import role_required
 db = singleton_db.get_db
 badge_bp = Blueprint('badge_bp', __name__)
 
 @badge_bp.route('/api/teacher/students', methods=['GET'])
+@role_required(['teacher', 'admin'])
 def get_enrolled_students():
     try:
         students = db.session.query(Student).join(
@@ -26,6 +28,7 @@ def get_enrolled_students():
 
 
 @badge_bp.route('/api/teacher/badges', methods=['GET'])
+@role_required(['teacher', 'admin'])
 def get_badges():
     try:
         badges = Badge.query.all()
@@ -37,6 +40,7 @@ def get_badges():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 @badge_bp.route('/api/teacher/award-badge', methods=['POST'])
+@role_required(['teacher', 'admin'])
 def award_badge():
     try:
         data = request.get_json()

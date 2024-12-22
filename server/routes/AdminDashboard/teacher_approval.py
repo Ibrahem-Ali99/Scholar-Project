@@ -4,10 +4,12 @@ from models.hiring_requests import HiringRequest
 from models.user import Teacher
 from utils.db import singleton_db
 from datetime import date
+from utils.role_access import role_required
 db = singleton_db.get_db
 teacher_approval_bp = Blueprint('teacher_approval', __name__)
 
 @teacher_approval_bp.route('/api/admin/teacher-applications', methods=['GET'])
+@role_required(['admin'])
 def get_teacher_applications():
     try:
         applications = db.session.query(

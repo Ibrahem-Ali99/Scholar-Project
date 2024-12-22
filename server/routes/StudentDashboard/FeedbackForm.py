@@ -1,10 +1,12 @@
 from flask import Blueprint, jsonify, request
 from models import CourseRating
 from utils.db import singleton_db  
+from utils.role_access import role_required 
 db = singleton_db.get_db
 feedback_form_bp = Blueprint("feedback", __name__)
 
 @feedback_form_bp.route("/submit-feedback", methods=["POST"])
+@role_required(["student", "admin"])
 def submit_feedback():
     data = request.json
     try:

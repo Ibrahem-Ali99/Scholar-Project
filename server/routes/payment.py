@@ -5,10 +5,12 @@ from models.payment import Payment
 from models.user import Student
 from models.course import Course
 from datetime import datetime, timezone
+from utils.role_access import role_required
 
 payment_bp = Blueprint('payment', __name__)
 
 @payment_bp.route('/payment', methods=['POST'])
+@role_required(['student'])
 def create_payment():
     print("Session details during payment:", dict(session))
     print("Cookies received:", request.cookies)
@@ -117,6 +119,7 @@ def create_payment():
 
 
 @payment_bp.route('/payment/student/<int:student_id>', methods=['GET'])
+@role_required(['student', 'admin'])
 def get_payments_by_student(student_id):
     try:
         student = Student.query.get(student_id)
@@ -143,6 +146,7 @@ def get_payments_by_student(student_id):
 
 
 @payment_bp.route('/payment/course/<int:course_id>', methods=['GET'])
+@role_required(['admin', 'teacher'])
 def get_payments_by_course(course_id):
     try:
         payments = Payment.query.filter_by(course_id=course_id).all()
@@ -204,6 +208,7 @@ def delete_payment(payment_id):
         return jsonify({'error': str(e)}), 500
 
 @payment_bp.route('/api/admin/payment', methods=['GET'])  
+@role_required(['admin']) 
 def get_admin_payments():
     try:
         payments = db.session.query(

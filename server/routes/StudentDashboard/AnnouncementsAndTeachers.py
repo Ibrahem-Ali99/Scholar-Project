@@ -3,10 +3,11 @@ from models.enrollment import Enrollment
 from models.user import Teacher
 from models.notification import Notification, StudentNotification
 import traceback
-
+from utils.role_access import role_required
 announcements_and_teachers_bp = Blueprint('announcements_and_teachers', __name__)
 
 @announcements_and_teachers_bp.route('/announcements_and_teachers', methods=['GET'])
+@role_required(['student', 'admin']) 
 def get_announcements_and_teachers():
     try:
         student_id = request.args.get('student_id', type=int)

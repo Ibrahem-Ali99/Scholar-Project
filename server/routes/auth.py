@@ -1,11 +1,7 @@
-import sys
-import os
-from venv import logger
 from flask import Blueprint, request, jsonify, session
 from itsdangerous import URLSafeTimedSerializer
 from utils.mail import send_reset_email
-from utils.db   import singleton_db
-db = singleton_db.get_db
+from utils.db import singleton_db
 import bcrypt
 from models.user import Student, Teacher, Parent, Admin
 import logging
@@ -14,16 +10,26 @@ import base64
 
 auth = Blueprint('auth', __name__)
 
+db = singleton_db.get_db
 ROLE_MODELS = {
     'student': Student,
     'teacher': Teacher,
     'parent': Parent,
     'admin': Admin
 }
-
 serializer = URLSafeTimedSerializer(config.Config.SECRET_KEY)
 
-    
+def role_required(allowed_roles):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            user_role = session.get('role')
+            if not user_role or user_role not in allowed_roles:
+                return jsonify({"error": "Unauthorized access"}), 403
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+
 @auth.route('/signup', methods=['POST'])
 def signup():
     try:
@@ -66,7 +72,7 @@ def signup():
 
 @auth.route('/login', methods=['POST'])
 def login():
-    session.permanent = True 
+    session.permanent = True
     try:
         data = request.json
         email = data.get('email')
@@ -88,19 +94,27 @@ def login():
         session['user_id'] = getattr(user, f"{role}_id", None)
         session['role'] = role
 
-        logging.info(f"Session data after login: {dict(session)}")
-        logging.info(f"Cookies being set in response: {request.cookies.to_dict()}")
-
-        response = {
+        return jsonify({
             "message": "Login successful",
             "role": role,
             f"{role}_id": session['user_id'],
-        }
-        return jsonify(response), 200
+        }), 200
     except Exception as e:
         logging.error(f"Login error: {e}")
         return jsonify({"error": "Internal server error"}), 500
 
+
+@auth.route('/protected-route', methods=['GET'])
+@role_required(['admin', 'teacher'])
+def protected_route():
+    return jsonify({"message": "You have access to this route!"}), 200
+
+
+@auth.route('/logout', methods=['POST'])
+def logout():
+    session.clear()
+    logging.info("User logged out successfully")
+    return jsonify({"message": "Logged out successfully"}), 200
 
 
 @auth.route('/forgot-password', methods=['POST'])
@@ -108,7 +122,6 @@ def forgot_password():
     try:
         data = request.json
         email = data.get('email')
-
 
         if not email:
             return jsonify({"error": "Email is required"}), 400
@@ -128,7 +141,6 @@ def forgot_password():
     except Exception as e:
         logging.error(f"Forgot password error: {e}")
         return jsonify({"error": "Internal server error"}), 500
-
 
 
 @auth.route('/reset-password/<token>', methods=['POST'])
@@ -157,10 +169,3 @@ def reset_password(token):
         logging.error(f"Reset password error: {e}")
         db.session.rollback()
         return jsonify({"error": f"Internal server error: {str(e)}"}), 500
-
-
-@auth.route('/logout', methods=['POST'])
-def logout():
-    session.clear()
-    logging.info("User logged out successfully")
-    return jsonify({"message": "Logged out successfully"}), 200
