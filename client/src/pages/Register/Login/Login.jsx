@@ -42,7 +42,7 @@ function Login() {
           navigate("/parent-dashboard");
         }else if (result.role === "admin") {
           sessionStorage.setItem("admin_id", result.admin_id);
-          navigate("/admin-dashboard"); 
+          navigate("/admin"); 
         }else {
           setError("Unknown role received.");
         }
@@ -82,7 +82,7 @@ function Login() {
       } else if (role === "parent") {
         navigate("/parent-dashboard");
       } else if(role == "admin"){
-          navigate("/admin-dashboard");
+          navigate("/admin");
         }
      else {
         setError("Unknown role.");

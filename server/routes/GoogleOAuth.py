@@ -88,6 +88,8 @@ def google_callback():
             session.clear()
             session['user_id'] = getattr(existing_user, f"{role}_id", None)
             session['role'] = role
+            if role == 'admin':
+                dashboard_url = f"http://localhost:5173/{role}"
             dashboard_url = f"http://localhost:5173/{role}-dashboard"
             return redirect(dashboard_url)
 
@@ -109,7 +111,8 @@ def google_callback():
         db.session.commit()
         session['user_id'] = getattr(new_user, f"{role}_id", None)
         session['role'] = role
-
+        if role == 'admin':
+                dashboard_url = f"http://localhost:5173/{role}"
         dashboard_url = f"http://localhost:5173/{role}-dashboard"
         return redirect(dashboard_url)
     except requests.exceptions.RequestException as e:
