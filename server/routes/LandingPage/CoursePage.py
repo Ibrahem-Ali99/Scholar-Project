@@ -17,7 +17,7 @@ def get_course(course_id):
         'teacher_id': course.teacher_id,
         'teacher_name': course.teacher.name,
         'teacher_profile_picture': course.teacher.profile_picture,   
-        'price': course.price,
+        'price': float(course.price),
         'image_url': course.image_url,
         'contents': [{'content_id': content.content_id, 'title': content.title, 'duration': '60 mins'} for content in contents], 
         'average_rating': sum(rating.rating for rating in ratings) / len(ratings) if ratings else 0,

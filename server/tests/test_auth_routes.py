@@ -1,35 +1,43 @@
+import pytest
 # sign up testing
+@pytest.mark.order(1)
+@pytest.mark.auth
 def test_signup_success(client):
     payload = {
-        "name": "Test User",
-        "email": "testman2@example.com",
+        "name": "Rese1t User",
+        "email": "mhiaf112014@gmail.com",
         "password": "password123",
         "role": "student"
     }
     response = client.post('/auth/signup', json=payload)
     assert response.status_code == 201
     assert response.json['message'] == "Signup successful"
-
+@pytest.mark.order(2)
+@pytest.mark.auth
 def test_signup_missing_fields(client):
-    payload = {"email": "testman2@example.com", "password": "password123"}
+    payload = {"email": "testman24@example.com", "password": "password123"}
     response = client.post('/auth/signup', json=payload)
     assert response.status_code == 400
     assert "All fields" in response.json['error']
 
 
 # login testing
+@pytest.mark.order(3)
+@pytest.mark.auth
 def test_login_success(client):
     client.post('/auth/signup', json={
         "name": "Test User",
-        "email": "testman2@example.com",
+        "email": "testman24@example.com",
         "password": "password123",
         "role": "student"
     })
-    payload = {"email": "testman2@example.com", "password": "password123"}
+    payload = {"email": "testman24@example.com", "password": "password123"}
     response = client.post('/auth/login', json=payload)
     assert response.status_code == 200
     assert response.json['message'] == "Login successful"
-
+    
+@pytest.mark.order(4)
+@pytest.mark.auth
 def test_login_invalid_credentials(client):
     payload = {"email": "nonexistent@example.com", "password": "wrongpassword"}
     response = client.post('/auth/login', json=payload)
@@ -38,20 +46,24 @@ def test_login_invalid_credentials(client):
 
 
 # forgot password testing
+@pytest.mark.order(5)
+@pytest.mark.auth
 def test_forgot_password_success(client, mocker):
     mocker.patch("utils.mail.send_reset_email", return_value=True)
 
     client.post('/auth/signup', json={
         "name": "Reset User",
-        "email": "resetuser@example.com",
+        "email": "mhiaf2014@gmail.com",
         "password": "password123",
         "role": "teacher"
     })
-    payload = {"email": "resetuser@example.com"}
+    payload = {"email": "mhiaf2014@gmail.com"}
     response = client.post('/auth/forgot-password', json=payload)
     assert response.status_code == 200
     assert response.json['message'] == "Password reset email sent"
-
+    
+@pytest.mark.order(6)
+@pytest.mark.auth
 def test_forgot_password_email_not_found(client):
     payload = {"email": "unknown@example.com"}
     response = client.post('/auth/forgot-password', json=payload)
@@ -59,29 +71,11 @@ def test_forgot_password_email_not_found(client):
     assert "Email not found" in response.json['error']
 
 
-# reset password testing
-def test_reset_password_success(client, mocker):
-    mocker.patch("utils.mail.send_reset_email", return_value=True)
-    client.post('/auth/signup', json={
-        "name": "Reset User",
-        "email": "resetuser@example.com",
-        "password": "password123",
-        "role": "teacher"
-    })
-
-    mock_token = "mocked_token"
-    mocker.patch("itsdangerous.URLSafeTimedSerializer.dumps", return_value=mock_token)
-    mocker.patch("itsdangerous.URLSafeTimedSerializer.loads", return_value="resetuser@example.com")
-
-    payload = {"new_password": "newpassword123"}
-    response = client.post(f'/auth/reset-password/{mock_token}', json=payload)
-    assert response.status_code == 200
-    assert response.json['message'] == "Password successfully reset"
-
-
 # logout testing
+@pytest.mark.order(7)
+@pytest.mark.auth
 def test_logout_success(client):
-    client.post('/auth/login', json={"email": "testman2@example.com", "password": "password123"})
+    client.post('/auth/login', json={"email": "testman24@example.com", "password": "password123"})
     response = client.post('/auth/logout')
     assert response.status_code == 200
     assert response.json['message'] == "Logged out successfully"

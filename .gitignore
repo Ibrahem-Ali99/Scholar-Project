@@ -34,3 +34,4 @@ env
 
 # pytest
 .pytest_cache
+.coverage
