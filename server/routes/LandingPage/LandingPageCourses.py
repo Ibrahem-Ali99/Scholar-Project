@@ -10,6 +10,6 @@ def get_courses():
         'course_id': c.course_id,
         'course_name': c.course_name,
         'description': c.course_description,
-        'price': c.price,
+        'price': float(c.price),
         'image_url': c.image_url
     } for c in courses])

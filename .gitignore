@@ -34,3 +34,5 @@ env
 
 # pytest
 .pytest_cache
+.coverage
+/server/flask_session
