@@ -10,23 +10,17 @@ class SingletonDB:
         return cls._instance
 
     def init_db(self, app):
-        """
-        Initialize the SQLAlchemy database with the Flask app.
-        This method should initialize the SQLAlchemy connection with the app.
-        """
         if not all(key in app.config for key in ['MYSQL_USER', 'MYSQL_PASSWORD', 'MYSQL_HOST', 'MYSQL_DB']):
             raise ValueError("Database configuration values are missing in app.config")
 
-        # Database URI configuration for MySQL using PyMySQL
         app.config['SQLALCHEMY_DATABASE_URI'] = (
             f"mysql+pymysql://{app.config['MYSQL_USER']}:{app.config['MYSQL_PASSWORD']}@"
             f"{app.config['MYSQL_HOST']}/{app.config['MYSQL_DB']}"
         )
-        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable tracking modifications for performance
-        app.config['SQLALCHEMY_ECHO'] = False  # Set to True if you want to see SQL queries in the terminal
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  
+        app.config['SQLALCHEMY_ECHO'] = False  
 
-        # Initialize the db object with the Flask app
-        SingletonDB.db.init_app(app)  # Corrected to use SingletonDB.db directly
+        SingletonDB.db.init_app(app)  
 
     @property
     def get_db(cls):
@@ -35,5 +29,4 @@ class SingletonDB:
         """
         return cls.db
 
-# Instantiate SingletonDB to use across the app
 singleton_db = SingletonDB()
